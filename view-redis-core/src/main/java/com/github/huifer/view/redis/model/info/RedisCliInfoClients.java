@@ -1,0 +1,61 @@
+/*
+ *
+ * Copyright 2020 HuiFer All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package com.github.huifer.view.redis.model.info;
+
+public class RedisCliInfoClients {
+	private String connectedClients;
+
+	private String clientLongestOutputList;
+
+	private String clientBiggestInputBuf;
+
+	private String blockedClients;
+
+	public String getConnectedClients() {
+		return connectedClients;
+	}
+
+	public void setConnectedClients(String connectedClients) {
+		this.connectedClients = connectedClients;
+	}
+
+	public String getClientLongestOutputList() {
+		return clientLongestOutputList;
+	}
+
+	public void setClientLongestOutputList(String clientLongestOutputList) {
+		this.clientLongestOutputList = clientLongestOutputList;
+	}
+
+	public String getClientBiggestInputBuf() {
+		return clientBiggestInputBuf;
+	}
+
+	public void setClientBiggestInputBuf(String clientBiggestInputBuf) {
+		this.clientBiggestInputBuf = clientBiggestInputBuf;
+	}
+
+	public String getBlockedClients() {
+		return blockedClients;
+	}
+
+	public void setBlockedClients(String blockedClients) {
+		this.blockedClients = blockedClients;
+	}
+}
