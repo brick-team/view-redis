@@ -19,11 +19,17 @@
                     <span>redis基本信息</span>
                 </div>
                 <div>
+                    <!--                    redis 版本-->
                     version:<span>{{easy_info.version}}</span><br/>
-                    useMemory:<span>{{easy_info.useMemory}}</span><br/>
+                    <!--                    已使用内存-->
+                    useMemory:<span>{{easy_info.useMemory}}</span>(byte)<br/>
+                    <!--                    客户端数量-->
                     client:<span>{{easy_info.client}}</span><br/>
+                    <!--                    已执行数量-->
                     execSize:<span>{{easy_info.execSize}}</span><br/>
-                    runTime:<span>{{easy_info.runTime}}</span><br/>
+                    <!--                    执行时间,单位秒-->
+                    runTime:<span>{{easy_info.runTime}}</span>(秒)<br/>
+                    <!--                    运行描述-->
                     runDesc:<span>{{easy_info.runDesc}}</span><br/>
                 </div>
             </el-card>
@@ -236,6 +242,7 @@
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     new Vue({
         el: '#app',
@@ -366,7 +373,230 @@
                 },
                 keyspace: {},
             }
+        },
+        methods: {
+
+            redisEasyInfo() {
+                axios
+                    .get('/redis/service/easy_info')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.easy_info.version = response.data.data.version;
+                        this.easy_info.useMemory = response.data.data.useMemory;
+                        this.easy_info.client = response.data.data.client;
+                        this.easy_info.execSize = response.data.data.execSize;
+                        this.easy_info.runTime = response.data.data.runTime;
+                        this.easy_info.runDesc = response.data.data.runDesc;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisServer() {
+                axios
+                    .get('/redis/service/server')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.server_info.redisVersion = response.data.data.redisVersion;
+                        this.server_info.redisGitSha1 = response.data.data.redisGitSha1;
+                        this.server_info.redisGitDirty = response.data.data.redisGitDirty;
+                        this.server_info.redisBuildId = response.data.data.redisBuildId;
+                        this.server_info.redisMode = response.data.data.redisMode;
+                        this.server_info.os = response.data.data.os;
+                        this.server_info.archBits = response.data.data.archBits;
+                        this.server_info.multiplexingApi = response.data.data.multiplexingApi;
+                        this.server_info.processId = response.data.data.processId;
+                        this.server_info.runId = response.data.data.runId;
+                        this.server_info.tcpPort = response.data.data.tcpPort;
+                        this.server_info.uptimeInSeconds = response.data.data.uptimeInSeconds;
+                        this.server_info.uptimeInDays = response.data.data.uptimeInDays;
+                        this.server_info.hz = response.data.data.hz;
+                        this.server_info.lruClock = response.data.data.lruClock;
+                        this.server_info.executable = response.data.data.executable;
+                        this.server_info.configFile = response.data.data.configFile;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisClients() {
+                axios
+                    .get('/redis/service/clients')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.clients.connectedClients = response.data.data.connectedClients;
+                        this.clients.clientLongestOutputList = response.data.data.clientLongestOutputList;
+                        this.clients.clientBiggestInputBuf = response.data.data.clientBiggestInputBuf;
+                        this.clients.blockedClients = response.data.data.blockedClients;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisMemory() {
+                axios
+                    .get('/redis/service/memory')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.memory.usedMemory = response.data.data.usedMemory;
+                        this.memory.usedMemoryHuman = response.data.data.usedMemoryHuman;
+                        this.memory.usedMemoryRss = response.data.data.usedMemoryRss;
+                        this.memory.usedMemoryRssHuman = response.data.data.usedMemoryRssHuman;
+                        this.memory.usedMemoryPeak = response.data.data.usedMemoryPeak;
+                        this.memory.usedMemoryPeakHuman = response.data.data.usedMemoryPeakHuman;
+                        this.memory.totalSystemMemory = response.data.data.totalSystemMemory;
+                        this.memory.totalSystemMemoryHuman = response.data.data.totalSystemMemoryHuman;
+                        this.memory.usedMemoryLua = response.data.data.usedMemoryLua;
+                        this.memory.usedMemoryLuaHuman = response.data.data.usedMemoryLuaHuman;
+                        this.memory.maxmemory = response.data.data.maxmemory;
+                        this.memory.maxmemoryHuman = response.data.data.maxmemoryHuman;
+                        this.memory.maxmemoryPolicy = response.data.data.maxmemoryPolicy;
+                        this.memory.memFragmentationRatio = response.data.data.memFragmentationRatio;
+                        this.memory.memAllocator = response.data.data.memAllocator;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisPersistence() {
+                axios
+                    .get('/redis/service/persistence')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.persistence.loading = response.data.data.loading;
+                        this.persistence.rdbChangesSinceLastSave = response.data.data.rdbChangesSinceLastSave;
+                        this.persistence.rdbBgsaveInProgress = response.data.data.rdbBgsaveInProgress;
+                        this.persistence.rdbLastSaveTime = response.data.data.rdbLastSaveTime;
+                        this.persistence.rdbLastBgsaveStatus = response.data.data.rdbLastBgsaveStatus;
+                        this.persistence.rdbLastBgsaveTimeSec = response.data.data.rdbLastBgsaveTimeSec;
+                        this.persistence.rdbCurrentBgsaveTimeSec = response.data.data.rdbCurrentBgsaveTimeSec;
+                        this.persistence.aofEnabled = response.data.data.aofEnabled;
+                        this.persistence.aofRewriteInProgress = response.data.data.aofRewriteInProgress;
+                        this.persistence.aofRewriteScheduled = response.data.data.aofRewriteScheduled;
+                        this.persistence.aofLastRewriteTimeSec = response.data.data.aofLastRewriteTimeSec;
+                        this.persistence.aofCurrentRewriteTimeSec = response.data.data.aofCurrentRewriteTimeSec;
+                        this.persistence.aofLastBgrewriteStatus = response.data.data.aofLastBgrewriteStatus;
+                        this.persistence.aofLastWriteStatus = response.data.data.aofLastWriteStatus;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisStats() {
+                axios
+                    .get('/redis/service/stats')
+                    .then(response => {
+
+                        this.stats.totalConnectionsReceived = response.data.data.totalConnectionsReceived;
+                        this.stats.totalCommandsProcessed = response.data.data.totalCommandsProcessed;
+                        this.stats.instantaneousOpsPerSec = response.data.data.instantaneousOpsPerSec;
+                        this.stats.totalNetInputBytes = response.data.data.totalNetInputBytes;
+                        this.stats.totalNetOutputBytes = response.data.data.totalNetOutputBytes;
+                        this.stats.instantaneousInputKbps = response.data.data.instantaneousInputKbps;
+                        this.stats.instantaneousOutputKbps = response.data.data.instantaneousOutputKbps;
+                        this.stats.rejectedConnections = response.data.data.rejectedConnections;
+                        this.stats.syncFull = response.data.data.syncFull;
+                        this.stats.syncPartialOk = response.data.data.syncPartialOk;
+                        this.stats.syncPartialErr = response.data.data.syncPartialErr;
+                        this.stats.expiredKeys = response.data.data.expiredKeys;
+                        this.stats.evictedKeys = response.data.data.evictedKeys;
+                        this.stats.keyspaceHits = response.data.data.keyspaceHits;
+                        this.stats.keyspaceMisses = response.data.data.keyspaceMisses;
+                        this.stats.pubsubChannels = response.data.data.pubsubChannels;
+                        this.stats.pubsubPatterns = response.data.data.pubsubPatterns;
+                        this.stats.latestForkUsec = response.data.data.latestForkUsec;
+                        this.stats.migrateCachedSockets = response.data.data.migrateCachedSockets;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisReplication() {
+                axios
+                    .get('/redis/service/replication')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.replication.role = response.data.data.role;
+                        this.replication.connectedSlaves = response.data.data.connectedSlaves;
+                        this.replication.masterReplOffset = response.data.data.masterReplOffset;
+                        this.replication.replBacklogActive = response.data.data.replBacklogActive;
+                        this.replication.replBacklogSize = response.data.data.replBacklogSize;
+                        this.replication.replBacklogFirstByteOffset = response.data.data.replBacklogFirstByteOffset;
+                        this.replication.replBacklogHistlen = response.data.data.replBacklogHistlen;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisCpu() {
+                axios
+                    .get('/redis/service/cpu')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.cpu.usedCpuSys = response.data.data.usedCpuSys;
+                        this.cpu.usedCpuUser = response.data.data.usedCpuUser;
+                        this.cpu.usedCpuSysChildren = response.data.data.usedCpuSysChildren;
+                        this.cpu.usedCpuUserChildren = response.data.data.usedCpuUserChildren;
+
+
+
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+            redisCluster() {
+                axios
+                    .get('/redis/service/cluster')
+                    .then(response => {
+
+                        // response.data.data;
+                        this.cluster.clusterEnabled = response.data.data.clusterEnabled;
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            }
+
+        },
+        created: function () {
+            this.redisEasyInfo();
+            this.redisServer();
+            this.redisClients();
+            this.redisMemory();
+            this.redisPersistence();
+            this.redisStats();
+            this.redisReplication();
+            this.redisCpu();
+            this.redisCluster();
+
         }
+
     })
 </script>
 </html>

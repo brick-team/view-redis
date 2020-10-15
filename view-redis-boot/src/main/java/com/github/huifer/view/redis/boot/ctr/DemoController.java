@@ -18,6 +18,8 @@
 
 package com.github.huifer.view.redis.boot.ctr;
 
+import com.github.huifer.view.redis.model.vo.ResultVO;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class DemoController {
 	@GetMapping("/demo")
-	public String demo() {
-		return "demo";
+	public ResultVO demo() {
+		return new ResultVO("OK", "demo", 200);
 	}
 }
