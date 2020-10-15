@@ -34,4 +34,6 @@ public interface RedisKeysOperation {
 	 * @return redis key 信息
 	 */
 	List<RedisKeyInfo> keys(RedisConnectionConfig config, String keyRegion);
+
+	Boolean del(RedisConnectionConfig config,String key);
 }

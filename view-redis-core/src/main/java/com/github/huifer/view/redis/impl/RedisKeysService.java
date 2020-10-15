@@ -73,4 +73,10 @@ public class RedisKeysService implements RedisKeysOperation {
 						})
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public Boolean del(RedisConnectionConfig config, String key) {
+		RedisTemplate redisTemplate = this.factory.factory(config);
+		return redisTemplate.delete(key);
+	}
 }

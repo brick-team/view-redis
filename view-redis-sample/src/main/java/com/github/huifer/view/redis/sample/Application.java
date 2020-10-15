@@ -33,9 +33,6 @@ public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(Application.class, args);
 
-		RvRedisConnectionFactory redisConnectionFactory = new RvRedisConnectionFactoryImpl();
-		RedisTemplate redisTemplate = redisConnectionFactory.factory(null);
-		redisTemplate.opsForValue().set("111", "222");
 
 	}
 

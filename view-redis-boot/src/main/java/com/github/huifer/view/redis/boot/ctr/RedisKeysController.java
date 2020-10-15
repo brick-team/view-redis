@@ -24,6 +24,7 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +40,13 @@ public class RedisKeysController {
 	@GetMapping("/info/{key_region}")
 	public ResultVO info(@PathVariable("key_region") String keyRegion) {
 		return new ResultVO("ok", keysOperation.keys(config, keyRegion), 200);
+	}
+
+	@DeleteMapping("/del/{key}")
+	public ResultVO del(
+			@PathVariable("key") String key
+	) {
+		Boolean del = keysOperation.del(config, key);
+		return new ResultVO("ok", del, 200);
 	}
 }

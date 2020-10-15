@@ -18,7 +18,6 @@
 
 package com.github.huifer.view.redis.boot.ctr.key;
 
-import java.util.List;
 import java.util.Set;
 
 import com.github.huifer.view.redis.api.RedisZSetOperation;
@@ -30,6 +29,7 @@ import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,8 +64,8 @@ public class RedisZsetController {
 		}
 	}
 
-	@PostMapping("/get")
-	public ResultVO get(String key) {
+	@GetMapping("/get/{key}")
+	public ResultVO get(@PathVariable("key") String key) {
 		try {
 			return new ResultVO("ok", zSetOperation.get(config, key), 200);
 		}
@@ -87,8 +87,8 @@ public class RedisZsetController {
 
 
 	@GetMapping("/page")
-public ResultVO page(			String k, long num, long size
-	){
+	public ResultVO page(String k, long num, long size
+	) {
 		Long dataSize = zSetOperation.size(config, k);
 		PageParam pageParam = new PageParam(num, size, dataSize);
 		Set list =

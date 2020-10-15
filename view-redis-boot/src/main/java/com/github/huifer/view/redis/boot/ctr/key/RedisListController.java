@@ -29,6 +29,7 @@ import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,8 +62,8 @@ public class RedisListController {
 		}
 	}
 
-	@PostMapping("/get")
-	public ResultVO get(String k) {
+	@GetMapping("/get/{key}")
+	public ResultVO get(@PathVariable("key") String k) {
 		try {
 			return new ResultVO("ok", redisListOperation.get(config, k), 200);
 		}
