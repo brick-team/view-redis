@@ -23,7 +23,7 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 public class SingletData {
 	public static SpringRedisProperties springRedisProperties;
@@ -87,11 +87,11 @@ public class SingletData {
 
 	private static RedisTemplate<Object, Object> initRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		RedisTemplate<Object, Object> template = new RedisTemplate();
-		template.setKeySerializer(RedisSerializer.string());
-		template.setValueSerializer(RedisSerializer.string());
-		template.setHashKeySerializer(RedisSerializer.string());
-		template.setHashValueSerializer(RedisSerializer.string());
-		template.setDefaultSerializer(RedisSerializer.string());
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new StringRedisSerializer());
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new StringRedisSerializer());
+		template.setDefaultSerializer(new StringRedisSerializer());
 		template.setConnectionFactory(redisConnectionFactory);
 		template.afterPropertiesSet();
 		return template;
