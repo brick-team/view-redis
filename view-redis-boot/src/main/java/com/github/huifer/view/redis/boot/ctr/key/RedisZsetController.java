@@ -18,12 +18,18 @@
 
 package com.github.huifer.view.redis.boot.ctr.key;
 
+import java.util.List;
+import java.util.Set;
+
 import com.github.huifer.view.redis.api.RedisZSetOperation;
 import com.github.huifer.view.redis.impl.RedisZSetOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
+import com.github.huifer.view.redis.model.param.PageParam;
+import com.github.huifer.view.redis.model.vo.PageData;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,5 +83,22 @@ public class RedisZsetController {
 		catch (Exception e) {
 			return new ResultVO("error", e.getMessage(), 400);
 		}
+	}
+
+
+	@GetMapping("/page")
+public ResultVO page(			String k, long num, long size
+	){
+		Long dataSize = zSetOperation.size(config, k);
+		PageParam pageParam = new PageParam(num, size, dataSize);
+		Set list =
+				zSetOperation.get(config, k, pageParam.getFirstItem() - 1, pageParam.getLastItem() - 1);
+		PageData pageData = new PageData();
+		pageData.setPageNumber(pageParam.getNum());
+		pageData.setPageSize(pageParam.getSize());
+		pageData.setTotal(pageParam.getDataSize());
+		pageData.setDataList(list);
+
+		return new ResultVO("ok", pageData, 200);
 	}
 }

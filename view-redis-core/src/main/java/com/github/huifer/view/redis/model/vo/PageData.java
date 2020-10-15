@@ -18,6 +18,7 @@
 
 package com.github.huifer.view.redis.model.vo;
 
+import java.util.Collection;
 import java.util.List;
 
 public class PageData {
@@ -39,7 +40,7 @@ public class PageData {
 	/**
 	 * 数量
 	 */
-	private List dataList;
+	private Collection dataList;
 
 	public Long getPageNumber() {
 		return pageNumber;
@@ -65,11 +66,11 @@ public class PageData {
 		this.total = total;
 	}
 
-	public List getDataList() {
+	public Collection getDataList() {
 		return dataList;
 	}
 
-	public void setDataList(List dataList) {
+	public void setDataList(Collection dataList) {
 		this.dataList = dataList;
 	}
 }

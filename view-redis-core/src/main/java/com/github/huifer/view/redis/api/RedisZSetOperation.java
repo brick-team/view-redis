@@ -62,4 +62,8 @@ public interface RedisZSetOperation extends IRedisOperationLabel {
 	 * @param member 值
 	 */
 	void update(RedisConnectionConfig config, String k, double score, String member);
+
+  Long size(RedisConnectionConfig config, String k);
+
+	Set get(RedisConnectionConfig config, String k, long start, long end);
 }
