@@ -1,13 +1,372 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Document</title>
+    <title>view-redis</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
+<div id="app">
+    <el-tabs type="border-card">
+        <el-tab-pane label="redis 基础信息">
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>redis基本信息</span>
+                </div>
+                <div>
+                    version:<span>{{easy_info.version}}</span><br/>
+                    useMemory:<span>{{easy_info.useMemory}}</span><br/>
+                    client:<span>{{easy_info.client}}</span><br/>
+                    execSize:<span>{{easy_info.execSize}}</span><br/>
+                    runTime:<span>{{easy_info.runTime}}</span><br/>
+                    runDesc:<span>{{easy_info.runDesc}}</span><br/>
+                </div>
+            </el-card>
+
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>server_info_info</span>
+                </div>
+                <div>
+                    redisVersion: <span>{{server_info.redisVersion}}</span><br/>
+                    redisGitSha1: <span>{{server_info.redisGitSha1}}</span><br/>
+                    redisGitDirty: <span>{{server_info.redisGitDirty}}</span><br/>
+                    redisBuildId: <span>{{server_info.redisBuildId}}</span><br/>
+                    redisMode: <span>{{server_info.redisMode}}</span><br/>
+                    os: <span>{{server_info.os}}</span><br/>
+                    archBits: <span>{{server_info.archBits}}</span><br/>
+                    multiplexingApi: <span>{{server_info.multiplexingApi}}</span><br/>
+                    processId: <span>{{server_info.processId}}</span><br/>
+                    runId: <span>{{server_info.runId}}</span><br/>
+                    tcpPort: <span>{{server_info.tcpPort}}</span><br/>
+                    uptimeInSeconds: <span>{{server_info.uptimeInSeconds}}</span><br/>
+                    uptimeInDays: <span>{{server_info.uptimeInDays}}</span><br/>
+                    hz: <span>{{server_info.hz}}</span><br/>
+                    lruClock: <span>{{server_info.lruClock}}</span><br/>
+                    executable: <span>{{server_info.executable}}</span><br/>
+                    configFile: <span>{{server_info.configFile}}</span><br/>
+                </div>
+            </el-card>
+
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>clients</span>
+                </div>
+                <div>
+                    connectedClients: <span>{{clients.connectedClients}}</span><br/>
+                    clientLongestOutputList: <span>{{clients.clientLongestOutputList}}</span><br/>
+                    clientBiggestInputBuf: <span>{{clients.clientBiggestInputBuf}}</span><br/>
+                    blockedClients: <span>{{clients.blockedClients}}</span><br/>
+
+                </div>
+            </el-card>
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>memory</span>
+                </div>
+                <div>
+                    usedMemory: <span>{{memory.usedMemory}}</span><br/>
+                    usedMemoryHuman: <span>{{memory.usedMemoryHuman}}</span><br/>
+                    usedMemoryRss: <span>{{memory.usedMemoryRss}}</span><br/>
+                    usedMemoryRssHuman: <span>{{memory.usedMemoryRssHuman}}</span><br/>
+                    usedMemoryPeak: <span>{{memory.usedMemoryPeak}}</span><br/>
+                    usedMemoryPeakHuman: <span>{{memory.usedMemoryPeakHuman}}</span><br/>
+                    totalSystemMemory: <span>{{memory.totalSystemMemory}}</span><br/>
+                    totalSystemMemoryHuman: <span>{{memory.totalSystemMemoryHuman}}</span><br/>
+                    usedMemoryLua: <span>{{memory.usedMemoryLua}}</span><br/>
+                    usedMemoryLuaHuman: <span>{{memory.usedMemoryLuaHuman}}</span><br/>
+                    maxmemory: <span>{{memory.maxmemory}}</span><br/>
+                    maxmemoryHuman: <span>{{memory.maxmemoryHuman}}</span><br/>
+                    maxmemoryPolicy: <span>{{memory.maxmemoryPolicy}}</span><br/>
+                    memFragmentationRatio: <span>{{memory.memFragmentationRatio}}</span><br/>
+                    memAllocator: <span>{{memory.memAllocator}}</span><br/>
+
+                </div>
+            </el-card>
+
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>persistence</span>
+                </div>
+                <div>
+                    loading: <span>{{persistence.loading}}</span><br/>
+                    rdbChangesSinceLastSave: <span>{{persistence.rdbChangesSinceLastSave}}</span><br/>
+                    rdbBgsaveInProgress: <span>{{persistence.rdbBgsaveInProgress}}</span><br/>
+                    rdbLastSaveTime: <span>{{persistence.rdbLastSaveTime}}</span><br/>
+                    rdbLastBgsaveStatus: <span>{{persistence.rdbLastBgsaveStatus}}</span><br/>
+                    rdbLastBgsaveTimeSec: <span>{{persistence.rdbLastBgsaveTimeSec}}</span><br/>
+                    rdbCurrentBgsaveTimeSec: <span>{{persistence.rdbCurrentBgsaveTimeSec}}</span><br/>
+                    aofEnabled: <span>{{persistence.aofEnabled}}</span><br/>
+                    aofRewriteInProgress: <span>{{persistence.aofRewriteInProgress}}</span><br/>
+                    aofRewriteScheduled: <span>{{persistence.aofRewriteScheduled}}</span><br/>
+                    aofLastRewriteTimeSec: <span>{{persistence.aofLastRewriteTimeSec}}</span><br/>
+                    aofCurrentRewriteTimeSec: <span>{{persistence.aofCurrentRewriteTimeSec}}</span><br/>
+                    aofLastBgrewriteStatus: <span>{{persistence.aofLastBgrewriteStatus}}</span><br/>
+                    aofLastWriteStatus: <span>{{persistence.aofLastWriteStatus}}</span><br/>
+
+                </div>
+            </el-card>
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>stats</span>
+                </div>
+                <div>
+                    totalConnectionsReceived: <span>{{stats.totalConnectionsReceived}}</span><br/>
+                    totalCommandsProcessed: <span>{{stats.totalCommandsProcessed}}</span><br/>
+                    instantaneousOpsPerSec: <span>{{stats.instantaneousOpsPerSec}}</span><br/>
+                    totalNetInputBytes: <span>{{stats.totalNetInputBytes}}</span><br/>
+                    totalNetOutputBytes: <span>{{stats.totalNetOutputBytes}}</span><br/>
+                    instantaneousInputKbps: <span>{{stats.instantaneousInputKbps}}</span><br/>
+                    instantaneousOutputKbps: <span>{{stats.instantaneousOutputKbps}}</span><br/>
+                    rejectedConnections: <span>{{stats.rejectedConnections}}</span><br/>
+                    syncFull: <span>{{stats.syncFull}}</span><br/>
+                    syncPartialOk: <span>{{stats.syncPartialOk}}</span><br/>
+                    syncPartialErr: <span>{{stats.syncPartialErr}}</span><br/>
+                    expiredKeys: <span>{{stats.expiredKeys}}</span><br/>
+                    evictedKeys: <span>{{stats.evictedKeys}}</span><br/>
+                    keyspaceHits: <span>{{stats.keyspaceHits}}</span><br/>
+                    keyspaceMisses: <span>{{stats.keyspaceMisses}}</span><br/>
+                    pubsubChannels: <span>{{stats.pubsubChannels}}</span><br/>
+                    pubsubPatterns: <span>{{stats.pubsubPatterns}}</span><br/>
+                    latestForkUsec: <span>{{stats.latestForkUsec}}</span><br/>
+                    migrateCachedSockets: <span>{{stats.migrateCachedSockets}}</span><br/>
+
+                </div>
+            </el-card>
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>replication</span>
+                </div>
+                <div>
+                    role: <span>{{replication.role}}</span><br/>
+                    connectedSlaves: <span>{{replication.connectedSlaves}}</span><br/>
+                    masterReplOffset: <span>{{replication.masterReplOffset}}</span><br/>
+                    replBacklogActive: <span>{{replication.replBacklogActive}}</span><br/>
+                    replBacklogSize: <span>{{replication.replBacklogSize}}</span><br/>
+                    replBacklogFirstByteOffset: <span>{{replication.replBacklogFirstByteOffset}}</span><br/>
+                    replBacklogHistlen: <span>{{replication.replBacklogHistlen}}</span><br/>
+
+                </div>
+            </el-card>
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>cpu</span>
+                </div>
+                <div>
+                    usedCpuSys: <span>{{cpu.usedCpuSys}}</span><br/>
+                    usedCpuUser: <span>{{cpu.usedCpuUser}}</span><br/>
+                    usedCpuSysChildren: <span>{{cpu.usedCpuSysChildren}}</span><br/>
+                    usedCpuUserChildren: <span>{{cpu.usedCpuUserChildren}}</span><br/>
+
+                </div>
+            </el-card>
+
+            <el-card :span="8" class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>cluster</span>
+                </div>
+                <div>
+                    clusterEnabled: <span>{{cluster.clusterEnabled}}</span><br/>
+
+                </div>
+            </el-card>
+
+
+        </el-tab-pane>
+        <el-tab-pane label="key 操作">
+
+
+            <el-container>
+                <el-container>
+                    <el-container>
+
+                        <el-main>
+                            <div>
+                                <el-row>
+
+                                    <el-input :span="8" v-model="input" placeholder="请输入内容"></el-input>
+                                    <el-button :span="8" type="primary">添加key</el-button>
+                                </el-row>
+                            </div>
+                            <div>
+                                <el-table
+                                        :data="tableData"
+                                        style="width: 100%">
+                                    <el-table-column
+                                            prop="date"
+                                            label="日期"
+                                            width="180">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="name"
+                                            label="姓名"
+                                            width="180">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="address"
+                                            label="地址">
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                        </el-main>
+                    </el-container>
+                </el-container>
+            </el-container>
+
+        </el-tab-pane>
+    </el-tabs>
+
+
+</div>
 </body>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }],
+                easy_info: {
+                    version: "1",
+                    useMemory: "1",
+                    client: "1",
+                    execSize: "1",
+                    runTime: "1",
+                    runDesc: "1",
+                },
+                server_info: {
+                    redisVersion: "",
+                    redisGitSha1: "",
+                    redisGitDirty: "",
+                    redisBuildId: "",
+                    redisMode: "",
+                    os: "",
+                    archBits: "",
+                    multiplexingApi: "",
+                    processId: "",
+                    runId: "",
+                    tcpPort: "",
+                    uptimeInSeconds: "",
+                    uptimeInDays: "",
+                    hz: "",
+                    lruClock: "",
+                    executable: "",
+                    configFile: ""
+                },
+                clients: {
+                    connectedClients: "",
+                    clientLongestOutputList: "",
+                    clientBiggestInputBuf: "",
+                    blockedClients: ""
+                },
+                memory: {
+                    usedMemory: "",
+                    usedMemoryHuman: "",
+                    usedMemoryRss: "",
+                    usedMemoryRssHuman: "",
+                    usedMemoryPeak: "",
+                    usedMemoryPeakHuman: "",
+                    totalSystemMemory: "",
+                    totalSystemMemoryHuman: "",
+                    usedMemoryLua: "",
+                    usedMemoryLuaHuman: "",
+                    maxmemory: "",
+                    maxmemoryHuman: "",
+                    maxmemoryPolicy: "",
+                    memFragmentationRatio: "",
+                    memAllocator: ""
+                },
+                persistence: {
+                    loading: "",
+                    rdbChangesSinceLastSave: "",
+                    rdbBgsaveInProgress: "",
+                    rdbLastSaveTime: "",
+                    rdbLastBgsaveStatus: "",
+                    rdbLastBgsaveTimeSec: "",
+                    rdbCurrentBgsaveTimeSec: "",
+                    aofEnabled: "",
+                    aofRewriteInProgress: "",
+                    aofRewriteScheduled: "",
+                    aofLastRewriteTimeSec: "",
+                    aofCurrentRewriteTimeSec: "",
+                    aofLastBgrewriteStatus: "",
+                    aofLastWriteStatus: ""
+                },
+                stats: {
+                    totalConnectionsReceived: "",
+                    totalCommandsProcessed: "",
+                    instantaneousOpsPerSec: "",
+                    totalNetInputBytes: "",
+                    totalNetOutputBytes: "",
+                    instantaneousInputKbps: "",
+                    instantaneousOutputKbps: "",
+                    rejectedConnections: "",
+                    syncFull: "",
+                    syncPartialOk: "",
+                    syncPartialErr: "",
+                    expiredKeys: "",
+                    evictedKeys: "",
+                    keyspaceHits: "",
+                    keyspaceMisses: "",
+                    pubsubChannels: "",
+                    pubsubPatterns: "",
+                    latestForkUsec: "",
+                    migrateCachedSockets: ""
+                },
+                replication: {
+                    role: "",
+                    connectedSlaves: "",
+                    masterReplOffset: "",
+                    replBacklogActive: "",
+                    replBacklogSize: "",
+                    replBacklogFirstByteOffset: "",
+                    replBacklogHistlen: ""
+
+                },
+                cpu: {
+                    usedCpuSys: "",
+                    usedCpuUser: "",
+                    usedCpuSysChildren: "",
+                    usedCpuUserChildren: ""
+                },
+                cluster: {
+                    clusterEnabled: ""
+                },
+                keyspace: {},
+            }
+        }
+    })
+</script>
 </html>
