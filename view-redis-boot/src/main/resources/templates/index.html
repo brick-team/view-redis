@@ -408,7 +408,7 @@
                 zset_dialog_show: false,
                 list: {
                     key: "list_key",
-                    value: []
+                    value: ["1","2"]
                 },
                 string_s: {
                     key: "string_key",
@@ -433,10 +433,12 @@
 
 
                 },
-                tableData: [{
-                    key: "123",
-                    dataType: "123"
-                }],
+                tableData: [
+                //     {
+                //     key: "123",
+                //     dataType: "123"
+                // }
+                ],
                 easy_info: {
                     version: "1",
                     useMemory: "1",
@@ -548,11 +550,23 @@
         },
         methods: {
             handleClick(row) {
-                // this.show_list("222", 1, 10);
-                this.zset_dialog_show = true;
-                this.show_zset("zset");
-                console.log(row['key']);
-                console.log(row['dataType']);
+
+                if (row['dataType'] == 'STRING') {
+                    this.string_dialog_show = true;
+                    this.show_string(row['key']);
+                } else if (row['dataType'] == 'HASH') {
+                    this.hash_dialog_show = true;
+                    this.show_hash(row['key']);
+                } else if (row['dataType'] == 'ZSET') {
+                    this.zset_dialog_show = true;
+                    this.show_zset(row['key']);
+                } else if (row['dataType'] == 'LIST') {
+                    this.list_dialog_show = true;
+                    this.show_list(row['key']);
+                } else if (row['dataType'] == 'SET') {
+                    this.zset_dialog_show = true;
+                    this.show_zset(row['key']);
+                }
             },
             showdata(row) {
                 console.log(row);
@@ -582,21 +596,13 @@
 
 
             },
-            show_list(key, num, size) {
-                num = 1;
-                size = 10;
+            show_list(key) {
                 this.list.key = key;
                 axios
-                    .get("/redis/list/page", {
-                        params: {
-                            k: key,
-                            num: num,
-                            size: size
-                        }
-                    })
+                    .get("/redis/list/get/" + key)
                     .then(response => {
                         console.log(response.data.data);
-                        this.list.value = response.data.data.dataList;
+                        this.list.value = response.data.data;
                     }).catch(function (error) {
                     console.log(error);
                 });
@@ -623,7 +629,7 @@
             show_zset(key) {
                 this.zset_s.key = key;
                 axios
-                    .get("/redis/zset/get/"+key)
+                    .get("/redis/zset/get/" + key)
                     .then(response => {
                         console.log(response.data.data);
                         this.zset_s.value = response.data.data;
