@@ -42,6 +42,11 @@ public class RedisListOperationImpl implements RedisListOperation {
 	}
 
 	@Override
+	public List get(RedisConnectionConfig conf, String k, long start, long end) {
+		return factory.factory(conf).opsForList().range(k, start, end);
+	}
+
+	@Override
 	public void update(RedisConnectionConfig conf, String k, String ov, String nv) {
 		List list = get(conf, k);
 		factory.factory(conf).opsForList().remove(k, list.size(), ov);

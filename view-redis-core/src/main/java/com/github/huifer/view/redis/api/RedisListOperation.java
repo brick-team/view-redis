@@ -34,6 +34,8 @@ public interface RedisListOperation extends IRedisOperationLabel {
 
 	List get(RedisConnectionConfig conf, String k);
 
+	List get(RedisConnectionConfig conf, String k, long start, long end);
+
 	/**
 	 * 更新数据
 	 *

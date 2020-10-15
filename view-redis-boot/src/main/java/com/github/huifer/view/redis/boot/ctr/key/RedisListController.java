@@ -18,12 +18,17 @@
 
 package com.github.huifer.view.redis.boot.ctr.key;
 
+import java.util.List;
+
 import com.github.huifer.view.redis.api.RedisListOperation;
 import com.github.huifer.view.redis.impl.RedisListOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
+import com.github.huifer.view.redis.model.param.PageParam;
+import com.github.huifer.view.redis.model.vo.PageData;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +40,15 @@ public class RedisListController {
 	RedisListOperation redisListOperation = new RedisListOperationImpl();
 
 	RedisConnectionConfig config = SingletData.getCurrConfig();
+
+	public static void main(String[] args) {
+		PageParam pageParam = new PageParam(1L, 10L, 11L);
+
+
+		System.out.println(pageParam.getFirstItem());
+		System.out.println(pageParam.getLastItem());
+		System.out.println(pageParam.getPageTotal());
+	}
 
 	@PostMapping("/add")
 	public ResultVO add(String k, String v) {
@@ -88,5 +102,24 @@ public class RedisListController {
 		catch (Exception e) {
 			return new ResultVO("error", e.getMessage(), 400);
 		}
+	}
+
+	@GetMapping("/page")
+	public ResultVO page(
+			String k, long num, long size
+	) {
+
+
+		Long dataSize = redisListOperation.size(config, k);
+		PageParam pageParam = new PageParam(num, size, dataSize);
+		List list =
+				redisListOperation.get(config, k, pageParam.getFirstItem() - 1, pageParam.getLastItem() - 1);
+		PageData pageData = new PageData();
+		pageData.setPageNumber(pageParam.getNum());
+		pageData.setPageSize(pageParam.getSize());
+		pageData.setTotal(pageParam.getDataSize());
+		pageData.setDataList(list);
+
+		return new ResultVO("ok", pageData, 200);
 	}
 }
