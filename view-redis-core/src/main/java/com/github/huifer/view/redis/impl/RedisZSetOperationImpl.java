@@ -89,6 +89,6 @@ public class RedisZSetOperationImpl implements RedisZSetOperation {
 
 	@Override
 	public Set get(RedisConnectionConfig config, String k, long start, long end) {
-		return factory.factory(config).opsForZSet().range(k, start, end);
+		return factory.factory(config).opsForZSet().rangeWithScores(k, start, end);
 	}
 }

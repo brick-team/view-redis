@@ -24,6 +24,8 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,8 +48,8 @@ public class RedisStringController {
 		}
 	}
 
-	@PostMapping("/get")
-	public ResultVO get(String k) {
+	@GetMapping("/get/{key}")
+	public ResultVO get(@PathVariable("key") String k) {
 		try {
 			Object o = stringOperation.get(config, k);
 			return new ResultVO("ok", o, 200);

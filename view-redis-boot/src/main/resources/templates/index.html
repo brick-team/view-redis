@@ -14,183 +14,208 @@
 <div id="app">
     <el-tabs type="border-card">
         <el-tab-pane label="redis 基础信息">
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>redis基本信息</span>
-                </div>
-                <div>
-                    <!--                    redis 版本-->
-                    version:<span>{{easy_info.version}}</span><br/>
-                    <!--                    已使用内存-->
-                    useMemory:<span>{{easy_info.useMemory}}</span>(byte)<br/>
-                    <!--                    客户端数量-->
-                    client:<span>{{easy_info.client}}</span><br/>
-                    <!--                    已执行数量-->
-                    execSize:<span>{{easy_info.execSize}}</span><br/>
-                    <!--                    执行时间,单位秒-->
-                    runTime:<span>{{easy_info.runTime}}</span>(秒)<br/>
-                    <!--                    运行描述-->
-                    runDesc:<span>{{easy_info.runDesc}}</span><br/>
-                </div>
-            </el-card>
+
+            <el-row>
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>redis基本信息</span>
+                        </div>
+                        <div>
+                            <!--                    redis 版本-->
+                            version:<span>{{easy_info.version}}</span><br/>
+                            <!--                    已使用内存-->
+                            useMemory:<span>{{easy_info.useMemory}}</span>(byte)<br/>
+                            <!--                    客户端数量-->
+                            client:<span>{{easy_info.client}}</span><br/>
+                            <!--                    已执行数量-->
+                            execSize:<span>{{easy_info.execSize}}</span><br/>
+                            <!--                    执行时间,单位秒-->
+                            runTime:<span>{{easy_info.runTime}}</span>(秒)<br/>
+                            <!--                    运行描述-->
+                            runDesc:<span>{{easy_info.runDesc}}</span><br/>
+                        </div>
+                    </el-card>
+
+                </el-col>
+
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>server_info_info</span>
+                        </div>
+                        <div>
+                            redisVersion: <span>{{server_info.redisVersion}}</span><br/>
+                            redisGitSha1: <span>{{server_info.redisGitSha1}}</span><br/>
+                            redisGitDirty: <span>{{server_info.redisGitDirty}}</span><br/>
+                            redisBuildId: <span>{{server_info.redisBuildId}}</span><br/>
+                            redisMode: <span>{{server_info.redisMode}}</span><br/>
+                            os: <span>{{server_info.os}}</span><br/>
+                            archBits: <span>{{server_info.archBits}}</span><br/>
+                            multiplexingApi: <span>{{server_info.multiplexingApi}}</span><br/>
+                            processId: <span>{{server_info.processId}}</span><br/>
+                            runId: <span>{{server_info.runId}}</span><br/>
+                            tcpPort: <span>{{server_info.tcpPort}}</span><br/>
+                            uptimeInSeconds: <span>{{server_info.uptimeInSeconds}}</span><br/>
+                            uptimeInDays: <span>{{server_info.uptimeInDays}}</span><br/>
+                            hz: <span>{{server_info.hz}}</span><br/>
+                            lruClock: <span>{{server_info.lruClock}}</span><br/>
+                            executable: <span>{{server_info.executable}}</span><br/>
+                            configFile: <span>{{server_info.configFile}}</span><br/>
+                        </div>
+                    </el-card>
+                </el-col>
 
 
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>server_info_info</span>
-                </div>
-                <div>
-                    redisVersion: <span>{{server_info.redisVersion}}</span><br/>
-                    redisGitSha1: <span>{{server_info.redisGitSha1}}</span><br/>
-                    redisGitDirty: <span>{{server_info.redisGitDirty}}</span><br/>
-                    redisBuildId: <span>{{server_info.redisBuildId}}</span><br/>
-                    redisMode: <span>{{server_info.redisMode}}</span><br/>
-                    os: <span>{{server_info.os}}</span><br/>
-                    archBits: <span>{{server_info.archBits}}</span><br/>
-                    multiplexingApi: <span>{{server_info.multiplexingApi}}</span><br/>
-                    processId: <span>{{server_info.processId}}</span><br/>
-                    runId: <span>{{server_info.runId}}</span><br/>
-                    tcpPort: <span>{{server_info.tcpPort}}</span><br/>
-                    uptimeInSeconds: <span>{{server_info.uptimeInSeconds}}</span><br/>
-                    uptimeInDays: <span>{{server_info.uptimeInDays}}</span><br/>
-                    hz: <span>{{server_info.hz}}</span><br/>
-                    lruClock: <span>{{server_info.lruClock}}</span><br/>
-                    executable: <span>{{server_info.executable}}</span><br/>
-                    configFile: <span>{{server_info.configFile}}</span><br/>
-                </div>
-            </el-card>
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>clients</span>
+                        </div>
+                        <div>
+                            connectedClients: <span>{{clients.connectedClients}}</span><br/>
+                            clientLongestOutputList: <span>{{clients.clientLongestOutputList}}</span><br/>
+                            clientBiggestInputBuf: <span>{{clients.clientBiggestInputBuf}}</span><br/>
+                            blockedClients: <span>{{clients.blockedClients}}</span><br/>
+
+                        </div>
+                    </el-card>
+                </el-col>
+
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>memory</span>
+                        </div>
+                        <div>
+                            usedMemory: <span>{{memory.usedMemory}}</span><br/>
+                            usedMemoryHuman: <span>{{memory.usedMemoryHuman}}</span><br/>
+                            usedMemoryRss: <span>{{memory.usedMemoryRss}}</span><br/>
+                            usedMemoryRssHuman: <span>{{memory.usedMemoryRssHuman}}</span><br/>
+                            usedMemoryPeak: <span>{{memory.usedMemoryPeak}}</span><br/>
+                            usedMemoryPeakHuman: <span>{{memory.usedMemoryPeakHuman}}</span><br/>
+                            totalSystemMemory: <span>{{memory.totalSystemMemory}}</span><br/>
+                            totalSystemMemoryHuman: <span>{{memory.totalSystemMemoryHuman}}</span><br/>
+                            usedMemoryLua: <span>{{memory.usedMemoryLua}}</span><br/>
+                            usedMemoryLuaHuman: <span>{{memory.usedMemoryLuaHuman}}</span><br/>
+                            maxmemory: <span>{{memory.maxmemory}}</span><br/>
+                            maxmemoryHuman: <span>{{memory.maxmemoryHuman}}</span><br/>
+                            maxmemoryPolicy: <span>{{memory.maxmemoryPolicy}}</span><br/>
+                            memFragmentationRatio: <span>{{memory.memFragmentationRatio}}</span><br/>
+                            memAllocator: <span>{{memory.memAllocator}}</span><br/>
+
+                        </div>
+                    </el-card>
+                </el-col>
 
 
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>clients</span>
-                </div>
-                <div>
-                    connectedClients: <span>{{clients.connectedClients}}</span><br/>
-                    clientLongestOutputList: <span>{{clients.clientLongestOutputList}}</span><br/>
-                    clientBiggestInputBuf: <span>{{clients.clientBiggestInputBuf}}</span><br/>
-                    blockedClients: <span>{{clients.blockedClients}}</span><br/>
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>persistence</span>
+                        </div>
+                        <div>
+                            loading: <span>{{persistence.loading}}</span><br/>
+                            rdbChangesSinceLastSave: <span>{{persistence.rdbChangesSinceLastSave}}</span><br/>
+                            rdbBgsaveInProgress: <span>{{persistence.rdbBgsaveInProgress}}</span><br/>
+                            rdbLastSaveTime: <span>{{persistence.rdbLastSaveTime}}</span><br/>
+                            rdbLastBgsaveStatus: <span>{{persistence.rdbLastBgsaveStatus}}</span><br/>
+                            rdbLastBgsaveTimeSec: <span>{{persistence.rdbLastBgsaveTimeSec}}</span><br/>
+                            rdbCurrentBgsaveTimeSec: <span>{{persistence.rdbCurrentBgsaveTimeSec}}</span><br/>
+                            aofEnabled: <span>{{persistence.aofEnabled}}</span><br/>
+                            aofRewriteInProgress: <span>{{persistence.aofRewriteInProgress}}</span><br/>
+                            aofRewriteScheduled: <span>{{persistence.aofRewriteScheduled}}</span><br/>
+                            aofLastRewriteTimeSec: <span>{{persistence.aofLastRewriteTimeSec}}</span><br/>
+                            aofCurrentRewriteTimeSec: <span>{{persistence.aofCurrentRewriteTimeSec}}</span><br/>
+                            aofLastBgrewriteStatus: <span>{{persistence.aofLastBgrewriteStatus}}</span><br/>
+                            aofLastWriteStatus: <span>{{persistence.aofLastWriteStatus}}</span><br/>
 
-                </div>
-            </el-card>
+                        </div>
+                    </el-card>
+                </el-col>
 
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>memory</span>
-                </div>
-                <div>
-                    usedMemory: <span>{{memory.usedMemory}}</span><br/>
-                    usedMemoryHuman: <span>{{memory.usedMemoryHuman}}</span><br/>
-                    usedMemoryRss: <span>{{memory.usedMemoryRss}}</span><br/>
-                    usedMemoryRssHuman: <span>{{memory.usedMemoryRssHuman}}</span><br/>
-                    usedMemoryPeak: <span>{{memory.usedMemoryPeak}}</span><br/>
-                    usedMemoryPeakHuman: <span>{{memory.usedMemoryPeakHuman}}</span><br/>
-                    totalSystemMemory: <span>{{memory.totalSystemMemory}}</span><br/>
-                    totalSystemMemoryHuman: <span>{{memory.totalSystemMemoryHuman}}</span><br/>
-                    usedMemoryLua: <span>{{memory.usedMemoryLua}}</span><br/>
-                    usedMemoryLuaHuman: <span>{{memory.usedMemoryLuaHuman}}</span><br/>
-                    maxmemory: <span>{{memory.maxmemory}}</span><br/>
-                    maxmemoryHuman: <span>{{memory.maxmemoryHuman}}</span><br/>
-                    maxmemoryPolicy: <span>{{memory.maxmemoryPolicy}}</span><br/>
-                    memFragmentationRatio: <span>{{memory.memFragmentationRatio}}</span><br/>
-                    memAllocator: <span>{{memory.memAllocator}}</span><br/>
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>stats</span>
+                        </div>
+                        <div>
+                            totalConnectionsReceived: <span>{{stats.totalConnectionsReceived}}</span><br/>
+                            totalCommandsProcessed: <span>{{stats.totalCommandsProcessed}}</span><br/>
+                            instantaneousOpsPerSec: <span>{{stats.instantaneousOpsPerSec}}</span><br/>
+                            totalNetInputBytes: <span>{{stats.totalNetInputBytes}}</span><br/>
+                            totalNetOutputBytes: <span>{{stats.totalNetOutputBytes}}</span><br/>
+                            instantaneousInputKbps: <span>{{stats.instantaneousInputKbps}}</span><br/>
+                            instantaneousOutputKbps: <span>{{stats.instantaneousOutputKbps}}</span><br/>
+                            rejectedConnections: <span>{{stats.rejectedConnections}}</span><br/>
+                            syncFull: <span>{{stats.syncFull}}</span><br/>
+                            syncPartialOk: <span>{{stats.syncPartialOk}}</span><br/>
+                            syncPartialErr: <span>{{stats.syncPartialErr}}</span><br/>
+                            expiredKeys: <span>{{stats.expiredKeys}}</span><br/>
+                            evictedKeys: <span>{{stats.evictedKeys}}</span><br/>
+                            keyspaceHits: <span>{{stats.keyspaceHits}}</span><br/>
+                            keyspaceMisses: <span>{{stats.keyspaceMisses}}</span><br/>
+                            pubsubChannels: <span>{{stats.pubsubChannels}}</span><br/>
+                            pubsubPatterns: <span>{{stats.pubsubPatterns}}</span><br/>
+                            latestForkUsec: <span>{{stats.latestForkUsec}}</span><br/>
+                            migrateCachedSockets: <span>{{stats.migrateCachedSockets}}</span><br/>
 
-                </div>
-            </el-card>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
 
 
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>persistence</span>
-                </div>
-                <div>
-                    loading: <span>{{persistence.loading}}</span><br/>
-                    rdbChangesSinceLastSave: <span>{{persistence.rdbChangesSinceLastSave}}</span><br/>
-                    rdbBgsaveInProgress: <span>{{persistence.rdbBgsaveInProgress}}</span><br/>
-                    rdbLastSaveTime: <span>{{persistence.rdbLastSaveTime}}</span><br/>
-                    rdbLastBgsaveStatus: <span>{{persistence.rdbLastBgsaveStatus}}</span><br/>
-                    rdbLastBgsaveTimeSec: <span>{{persistence.rdbLastBgsaveTimeSec}}</span><br/>
-                    rdbCurrentBgsaveTimeSec: <span>{{persistence.rdbCurrentBgsaveTimeSec}}</span><br/>
-                    aofEnabled: <span>{{persistence.aofEnabled}}</span><br/>
-                    aofRewriteInProgress: <span>{{persistence.aofRewriteInProgress}}</span><br/>
-                    aofRewriteScheduled: <span>{{persistence.aofRewriteScheduled}}</span><br/>
-                    aofLastRewriteTimeSec: <span>{{persistence.aofLastRewriteTimeSec}}</span><br/>
-                    aofCurrentRewriteTimeSec: <span>{{persistence.aofCurrentRewriteTimeSec}}</span><br/>
-                    aofLastBgrewriteStatus: <span>{{persistence.aofLastBgrewriteStatus}}</span><br/>
-                    aofLastWriteStatus: <span>{{persistence.aofLastWriteStatus}}</span><br/>
+            <el-row>
 
-                </div>
-            </el-card>
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>replication</span>
+                        </div>
+                        <div>
+                            role: <span>{{replication.role}}</span><br/>
+                            connectedSlaves: <span>{{replication.connectedSlaves}}</span><br/>
+                            masterReplOffset: <span>{{replication.masterReplOffset}}</span><br/>
+                            replBacklogActive: <span>{{replication.replBacklogActive}}</span><br/>
+                            replBacklogSize: <span>{{replication.replBacklogSize}}</span><br/>
+                            replBacklogFirstByteOffset: <span>{{replication.replBacklogFirstByteOffset}}</span><br/>
+                            replBacklogHistlen: <span>{{replication.replBacklogHistlen}}</span><br/>
 
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>stats</span>
-                </div>
-                <div>
-                    totalConnectionsReceived: <span>{{stats.totalConnectionsReceived}}</span><br/>
-                    totalCommandsProcessed: <span>{{stats.totalCommandsProcessed}}</span><br/>
-                    instantaneousOpsPerSec: <span>{{stats.instantaneousOpsPerSec}}</span><br/>
-                    totalNetInputBytes: <span>{{stats.totalNetInputBytes}}</span><br/>
-                    totalNetOutputBytes: <span>{{stats.totalNetOutputBytes}}</span><br/>
-                    instantaneousInputKbps: <span>{{stats.instantaneousInputKbps}}</span><br/>
-                    instantaneousOutputKbps: <span>{{stats.instantaneousOutputKbps}}</span><br/>
-                    rejectedConnections: <span>{{stats.rejectedConnections}}</span><br/>
-                    syncFull: <span>{{stats.syncFull}}</span><br/>
-                    syncPartialOk: <span>{{stats.syncPartialOk}}</span><br/>
-                    syncPartialErr: <span>{{stats.syncPartialErr}}</span><br/>
-                    expiredKeys: <span>{{stats.expiredKeys}}</span><br/>
-                    evictedKeys: <span>{{stats.evictedKeys}}</span><br/>
-                    keyspaceHits: <span>{{stats.keyspaceHits}}</span><br/>
-                    keyspaceMisses: <span>{{stats.keyspaceMisses}}</span><br/>
-                    pubsubChannels: <span>{{stats.pubsubChannels}}</span><br/>
-                    pubsubPatterns: <span>{{stats.pubsubPatterns}}</span><br/>
-                    latestForkUsec: <span>{{stats.latestForkUsec}}</span><br/>
-                    migrateCachedSockets: <span>{{stats.migrateCachedSockets}}</span><br/>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="4">
 
-                </div>
-            </el-card>
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>cpu</span>
+                        </div>
+                        <div>
+                            usedCpuSys: <span>{{cpu.usedCpuSys}}</span><br/>
+                            usedCpuUser: <span>{{cpu.usedCpuUser}}</span><br/>
+                            usedCpuSysChildren: <span>{{cpu.usedCpuSysChildren}}</span><br/>
+                            usedCpuUserChildren: <span>{{cpu.usedCpuUserChildren}}</span><br/>
 
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>replication</span>
-                </div>
-                <div>
-                    role: <span>{{replication.role}}</span><br/>
-                    connectedSlaves: <span>{{replication.connectedSlaves}}</span><br/>
-                    masterReplOffset: <span>{{replication.masterReplOffset}}</span><br/>
-                    replBacklogActive: <span>{{replication.replBacklogActive}}</span><br/>
-                    replBacklogSize: <span>{{replication.replBacklogSize}}</span><br/>
-                    replBacklogFirstByteOffset: <span>{{replication.replBacklogFirstByteOffset}}</span><br/>
-                    replBacklogHistlen: <span>{{replication.replBacklogHistlen}}</span><br/>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="4">
+                    <el-card :span="4" class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>cluster</span>
+                        </div>
+                        <div>
+                            clusterEnabled: <span>{{cluster.clusterEnabled}}</span><br/>
 
-                </div>
-            </el-card>
-
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>cpu</span>
-                </div>
-                <div>
-                    usedCpuSys: <span>{{cpu.usedCpuSys}}</span><br/>
-                    usedCpuUser: <span>{{cpu.usedCpuUser}}</span><br/>
-                    usedCpuSysChildren: <span>{{cpu.usedCpuSysChildren}}</span><br/>
-                    usedCpuUserChildren: <span>{{cpu.usedCpuUserChildren}}</span><br/>
-
-                </div>
-            </el-card>
-
-            <el-card :span="8" class="box-card">
-                <div slot="header" class="clearfix">
-                    <span>cluster</span>
-                </div>
-                <div>
-                    clusterEnabled: <span>{{cluster.clusterEnabled}}</span><br/>
-
-                </div>
-            </el-card>
-
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
 
         </el-tab-pane>
+
+
         <el-tab-pane label="key 操作">
 
 
@@ -201,29 +226,41 @@
                         <el-main>
                             <div>
                                 <el-row>
-
-                                    <el-input :span="8" v-model="input" placeholder="请输入内容"></el-input>
-                                    <el-button :span="8" type="primary">添加key</el-button>
+                                    <el-col :span="8">
+                                        <el-input v-model="input" placeholder="请输入内容"></el-input>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <el-button type="primary" @click.native="search_key(input)">搜索</el-button>
+                                    </el-col>
                                 </el-row>
                             </div>
                             <div>
                                 <el-table
                                         :data="tableData"
                                         style="width: 100%">
+
                                     <el-table-column
-                                            prop="date"
-                                            label="日期"
+                                            prop="key"
+                                            label="key"
                                             width="180">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="name"
-                                            label="姓名"
-                                            width="180">
+                                            prop="dataType"
+                                            label="type">
                                     </el-table-column>
+
                                     <el-table-column
-                                            prop="address"
-                                            label="地址">
+                                            fixed="right"
+                                            label="操作"
+                                            width="100">
+                                        <template slot-scope="scope">
+                                            <el-button @click="handleClick(scope.row)" type="text" size="small">查看
+                                            </el-button>
+                                            <el-button @click="delKey(scope.row)" type="danger" size="small">删除
+                                            </el-button>
+                                        </template>
                                     </el-table-column>
+
                                 </el-table>
                             </div>
                         </el-main>
@@ -234,6 +271,121 @@
         </el-tab-pane>
     </el-tabs>
 
+
+    <el-dialog title="LIST" :visible.sync="list_dialog_show">
+        <div>
+            key: <span>{{list.key}}</span>
+        </div>
+        <div>
+            <el-table
+                    :data="list.value"
+                    style="width: 100%"
+                    max-height="250">
+
+                <el-table-column label="value">
+                    <template slot-scope="scope">
+                        <span>{{scope.row}}</span>
+                    </template>
+                </el-table-column>
+
+                <!--                <el-table-column-->
+                <!--                        fixed="right"-->
+                <!--                        label="操作"-->
+                <!--                        width="100">-->
+                <!--                    <template slot-scope="scope">-->
+                <!--                        <el-button @click="showdata(scope.row)" type="text" size="small">查看-->
+                <!--                        </el-button>-->
+                <!--                    </template>-->
+                <!--                </el-table-column>-->
+
+                <!--                分页-->
+
+
+            </el-table>
+        </div>
+    </el-dialog>
+
+    <el-dialog title="SET" :visible.sync="set_dialog_show">
+        <div>
+            key: <span>{{set_s.key}}</span>
+        </div>
+        <div>
+            <el-table
+                    :data="set_s.value"
+                    style="width: 100%"
+                    max-height="250">
+
+                <el-table-column label="value">
+                    <template slot-scope="scope">
+                        <span>{{scope.row}}</span>
+                    </template>
+                </el-table-column>
+
+
+            </el-table>
+        </div>
+    </el-dialog>
+
+    <el-dialog title="STRING" :visible.sync="string_dialog_show">
+        <div>
+            <div>
+                key: <span>{{string_s.key}}</span>
+            </div>
+            <div>
+                value: <span>{{string_s.value}}</span>
+            </div>
+        </div>
+    </el-dialog>
+
+    <el-dialog title="ZSET" :visible.sync="zset_dialog_show">
+
+        <div>
+            key: <span>{{zset_s.key}}</span>
+        </div>
+        <div>
+            <el-table
+                    :data="zset_s.value"
+                    style="width: 100%"
+                    max-height="250">
+
+                <el-table-column label="score" prop="score">
+
+                </el-table-column>
+
+                <el-table-column label="value" prop="value">
+
+                </el-table-column>
+                <!--                分页-->
+
+
+            </el-table>
+        </div>
+
+    </el-dialog>
+
+    <el-dialog title="HASH" :visible.sync="hash_dialog_show">
+        <div>
+            key: <span>{{hash_s.key}}</span>
+        </div>
+        <div>
+            <el-table
+                    :data="hash_s.value"
+                    style="width: 100%"
+                    max-height="250">
+
+                <el-table-column label="key" prop="key">
+
+                </el-table-column>
+
+                <el-table-column label="value" prop="value">
+
+                </el-table-column>
+                <!--                分页-->
+
+
+            </el-table>
+        </div>
+    </el-dialog>
 
 </div>
 </body>
@@ -248,22 +400,42 @@
         el: '#app',
         data: function () {
             return {
+                input: "",
+                hash_dialog_show: false,
+                list_dialog_show: false,
+                set_dialog_show: false,
+                string_dialog_show: false,
+                zset_dialog_show: false,
+                list: {
+                    key: "list_key",
+                    value: []
+                },
+                string_s: {
+                    key: "string_key",
+                    value: "string_value"
+                },
+                set_s: {
+                    key: "set_key",
+                    value: [1, 2, 3, 4, 7, 6]
+                },
+                zset_s: {
+                    key: "zset_k",
+                    value: [
+                        {
+                            "score": 2.0,
+                            "value": "3"
+                        }
+                    ]
+                },
+                hash_s: {
+                    key: "hash_key",
+                    value: []
+
+
+                },
                 tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
+                    key: "123",
+                    dataType: "123"
                 }],
                 easy_info: {
                     version: "1",
@@ -375,19 +547,136 @@
             }
         },
         methods: {
+            handleClick(row) {
+                // this.show_list("222", 1, 10);
+                this.zset_dialog_show = true;
+                this.show_zset("zset");
+                console.log(row['key']);
+                console.log(row['dataType']);
+            },
+            showdata(row) {
+                console.log(row);
+            },
+            show_hash(key) {
+                this.hash_s.key = key;
+                axios.get("/redis/hash/get/" + key)
+                    .then(response => {
+                        console.log(response.data.data);
+                        var dt = response.data.data;
+                        console.log(dt);
+                        const valus = []
 
+                        for (let item in dt) {
+                            valus.push({
+                                    "key": item,
+                                    "value": dt[item]
+                                }
+                            )
+                        }
+                        this.hash_s.value = valus;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+
+            },
+            show_list(key, num, size) {
+                num = 1;
+                size = 10;
+                this.list.key = key;
+                axios
+                    .get("/redis/list/page", {
+                        params: {
+                            k: key,
+                            num: num,
+                            size: size
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data.data);
+                        this.list.value = response.data.data.dataList;
+                    }).catch(function (error) {
+                    console.log(error);
+                });
+
+            },
+            show_string(key) {
+                this.string_s.key = key;
+                axios.get("/redis/string/get/" + key)
+                    .then(response => {
+                        this.string_s.value = response.data.data;
+                    }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            show_set(key) {
+                this.set_s.key = key;
+                axios.get("/redis/set/get/" + key)
+                    .then(response => {
+                        this.set_s.value = response.data.data;
+                    }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            show_zset(key) {
+                this.zset_s.key = key;
+                axios
+                    .get("/redis/zset/get/"+key)
+                    .then(response => {
+                        console.log(response.data.data);
+                        this.zset_s.value = response.data.data;
+                    }).catch(function (error) {
+                    console.log(error);
+                });
+
+            },
+            delKey(row) {
+                axios
+                    .delete("/redis/key/del/" + row['key'])
+                    .then(
+                        response => {
+                            console.log(response.data.data);
+                            this.search_key(this.input);
+                        }
+                    )
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            },
+            search_key(key_region) {
+                // console.log(key_region);
+                this.input = key_region;
+                ///redis/key/info/{{key_region}}
+                axios
+                    .get('/redis/key/info/' + key_region)
+                    .then(response => {
+
+                        let da = response.data.data;
+                        this.tableData = da;
+                        // for (let i = 0; i < da.length; i++) {
+                        //     this.tableData.push({
+                        //         id:i,
+                        //         key:da[i]['key'],
+                        //         type:da[i]['dataType']
+                        //     })
+                        // }
+                        console.log();
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+
+            },
             redisEasyInfo() {
                 axios
                     .get('/redis/service/easy_info')
                     .then(response => {
 
                         // response.data.data;
-                        this.easy_info.version = response.data.data.version;
-                        this.easy_info.useMemory = response.data.data.useMemory;
-                        this.easy_info.client = response.data.data.client;
-                        this.easy_info.execSize = response.data.data.execSize;
-                        this.easy_info.runTime = response.data.data.runTime;
-                        this.easy_info.runDesc = response.data.data.runDesc;
+                        this.easy_info = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -401,23 +690,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.server_info.redisVersion = response.data.data.redisVersion;
-                        this.server_info.redisGitSha1 = response.data.data.redisGitSha1;
-                        this.server_info.redisGitDirty = response.data.data.redisGitDirty;
-                        this.server_info.redisBuildId = response.data.data.redisBuildId;
-                        this.server_info.redisMode = response.data.data.redisMode;
-                        this.server_info.os = response.data.data.os;
-                        this.server_info.archBits = response.data.data.archBits;
-                        this.server_info.multiplexingApi = response.data.data.multiplexingApi;
-                        this.server_info.processId = response.data.data.processId;
-                        this.server_info.runId = response.data.data.runId;
-                        this.server_info.tcpPort = response.data.data.tcpPort;
-                        this.server_info.uptimeInSeconds = response.data.data.uptimeInSeconds;
-                        this.server_info.uptimeInDays = response.data.data.uptimeInDays;
-                        this.server_info.hz = response.data.data.hz;
-                        this.server_info.lruClock = response.data.data.lruClock;
-                        this.server_info.executable = response.data.data.executable;
-                        this.server_info.configFile = response.data.data.configFile;
+                        this.server_info = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -431,10 +704,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.clients.connectedClients = response.data.data.connectedClients;
-                        this.clients.clientLongestOutputList = response.data.data.clientLongestOutputList;
-                        this.clients.clientBiggestInputBuf = response.data.data.clientBiggestInputBuf;
-                        this.clients.blockedClients = response.data.data.blockedClients;
+                        this.clients = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -448,21 +718,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.memory.usedMemory = response.data.data.usedMemory;
-                        this.memory.usedMemoryHuman = response.data.data.usedMemoryHuman;
-                        this.memory.usedMemoryRss = response.data.data.usedMemoryRss;
-                        this.memory.usedMemoryRssHuman = response.data.data.usedMemoryRssHuman;
-                        this.memory.usedMemoryPeak = response.data.data.usedMemoryPeak;
-                        this.memory.usedMemoryPeakHuman = response.data.data.usedMemoryPeakHuman;
-                        this.memory.totalSystemMemory = response.data.data.totalSystemMemory;
-                        this.memory.totalSystemMemoryHuman = response.data.data.totalSystemMemoryHuman;
-                        this.memory.usedMemoryLua = response.data.data.usedMemoryLua;
-                        this.memory.usedMemoryLuaHuman = response.data.data.usedMemoryLuaHuman;
-                        this.memory.maxmemory = response.data.data.maxmemory;
-                        this.memory.maxmemoryHuman = response.data.data.maxmemoryHuman;
-                        this.memory.maxmemoryPolicy = response.data.data.maxmemoryPolicy;
-                        this.memory.memFragmentationRatio = response.data.data.memFragmentationRatio;
-                        this.memory.memAllocator = response.data.data.memAllocator;
+                        this.memory = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -476,20 +732,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.persistence.loading = response.data.data.loading;
-                        this.persistence.rdbChangesSinceLastSave = response.data.data.rdbChangesSinceLastSave;
-                        this.persistence.rdbBgsaveInProgress = response.data.data.rdbBgsaveInProgress;
-                        this.persistence.rdbLastSaveTime = response.data.data.rdbLastSaveTime;
-                        this.persistence.rdbLastBgsaveStatus = response.data.data.rdbLastBgsaveStatus;
-                        this.persistence.rdbLastBgsaveTimeSec = response.data.data.rdbLastBgsaveTimeSec;
-                        this.persistence.rdbCurrentBgsaveTimeSec = response.data.data.rdbCurrentBgsaveTimeSec;
-                        this.persistence.aofEnabled = response.data.data.aofEnabled;
-                        this.persistence.aofRewriteInProgress = response.data.data.aofRewriteInProgress;
-                        this.persistence.aofRewriteScheduled = response.data.data.aofRewriteScheduled;
-                        this.persistence.aofLastRewriteTimeSec = response.data.data.aofLastRewriteTimeSec;
-                        this.persistence.aofCurrentRewriteTimeSec = response.data.data.aofCurrentRewriteTimeSec;
-                        this.persistence.aofLastBgrewriteStatus = response.data.data.aofLastBgrewriteStatus;
-                        this.persistence.aofLastWriteStatus = response.data.data.aofLastWriteStatus;
+                        this.persistence = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -502,25 +745,7 @@
                     .get('/redis/service/stats')
                     .then(response => {
 
-                        this.stats.totalConnectionsReceived = response.data.data.totalConnectionsReceived;
-                        this.stats.totalCommandsProcessed = response.data.data.totalCommandsProcessed;
-                        this.stats.instantaneousOpsPerSec = response.data.data.instantaneousOpsPerSec;
-                        this.stats.totalNetInputBytes = response.data.data.totalNetInputBytes;
-                        this.stats.totalNetOutputBytes = response.data.data.totalNetOutputBytes;
-                        this.stats.instantaneousInputKbps = response.data.data.instantaneousInputKbps;
-                        this.stats.instantaneousOutputKbps = response.data.data.instantaneousOutputKbps;
-                        this.stats.rejectedConnections = response.data.data.rejectedConnections;
-                        this.stats.syncFull = response.data.data.syncFull;
-                        this.stats.syncPartialOk = response.data.data.syncPartialOk;
-                        this.stats.syncPartialErr = response.data.data.syncPartialErr;
-                        this.stats.expiredKeys = response.data.data.expiredKeys;
-                        this.stats.evictedKeys = response.data.data.evictedKeys;
-                        this.stats.keyspaceHits = response.data.data.keyspaceHits;
-                        this.stats.keyspaceMisses = response.data.data.keyspaceMisses;
-                        this.stats.pubsubChannels = response.data.data.pubsubChannels;
-                        this.stats.pubsubPatterns = response.data.data.pubsubPatterns;
-                        this.stats.latestForkUsec = response.data.data.latestForkUsec;
-                        this.stats.migrateCachedSockets = response.data.data.migrateCachedSockets;
+                        this.stats = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -534,13 +759,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.replication.role = response.data.data.role;
-                        this.replication.connectedSlaves = response.data.data.connectedSlaves;
-                        this.replication.masterReplOffset = response.data.data.masterReplOffset;
-                        this.replication.replBacklogActive = response.data.data.replBacklogActive;
-                        this.replication.replBacklogSize = response.data.data.replBacklogSize;
-                        this.replication.replBacklogFirstByteOffset = response.data.data.replBacklogFirstByteOffset;
-                        this.replication.replBacklogHistlen = response.data.data.replBacklogHistlen;
+                        this.replication = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理
@@ -554,14 +773,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.cpu.usedCpuSys = response.data.data.usedCpuSys;
-                        this.cpu.usedCpuUser = response.data.data.usedCpuUser;
-                        this.cpu.usedCpuSysChildren = response.data.data.usedCpuSysChildren;
-                        this.cpu.usedCpuUserChildren = response.data.data.usedCpuUserChildren;
-
-
-
-
+                        this.cpu = response.data.data;
                     })
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
@@ -574,7 +786,7 @@
                     .then(response => {
 
                         // response.data.data;
-                        this.cluster.clusterEnabled = response.data.data.clusterEnabled;
+                        this.cluster = response.data.data;
 
                     })
                     .catch(function (error) { // 请求失败处理

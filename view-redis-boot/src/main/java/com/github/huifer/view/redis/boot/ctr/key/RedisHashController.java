@@ -18,12 +18,16 @@
 
 package com.github.huifer.view.redis.boot.ctr.key;
 
+import java.util.Map;
+
 import com.github.huifer.view.redis.api.RedisHashOperation;
 import com.github.huifer.view.redis.impl.RedisHashOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,11 +51,11 @@ public class RedisHashController {
 		}
 	}
 
-	@PostMapping("/get")
-	public ResultVO get(String k) {
+	@GetMapping("/get/{k}")
+	public ResultVO get(@PathVariable("k") String k) {
 		try {
-			hashOperation.get(config, k);
-			return new ResultVO("ok", true, 200);
+			Map map = hashOperation.get(config, k);
+			return new ResultVO("ok", map, 200);
 		}
 		catch (Exception e) {
 			return new ResultVO("error", e.getMessage(), 400);
