@@ -28,6 +28,7 @@ import com.github.huifer.view.redis.model.vo.PageData;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,8 +57,11 @@ public class RedisZsetController {
 		}
 	}
 
-	@PostMapping("/del")
-	public ResultVO del(String key, String member) {
+	@DeleteMapping("/delete/{key}/{value}")
+	public ResultVO del(
+			@PathVariable("key") String key,
+			@PathVariable("value") String member
+	) {
 		try {
 			zSetOperation.del(config, key, member);
 			return new ResultVO("ok", true, 200);

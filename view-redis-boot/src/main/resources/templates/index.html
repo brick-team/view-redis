@@ -291,21 +291,24 @@
                     style="width: 100%"
                     max-height="250">
 
-                <el-table-column label="value">
-                    <template slot-scope="scope">
-                        <span>{{scope.row}}</span>
-                    </template>
+                <el-table-column
+                        prop="indexId"
+                        label="indexId">
+                </el-table-column>
+                <el-table-column
+                        prop="data"
+                        label="data">
                 </el-table-column>
 
-                <!--                <el-table-column-->
-                <!--                        fixed="right"-->
-                <!--                        label="操作"-->
-                <!--                        width="100">-->
-                <!--                    <template slot-scope="scope">-->
-                <!--                        <el-button @click="showdata(scope.row)" type="text" size="small">查看-->
-                <!--                        </el-button>-->
-                <!--                    </template>-->
-                <!--                </el-table-column>-->
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="deleteRowForList(scope.row)" type="text" size="small">删除
+                        </el-button>
+                    </template>
+                </el-table-column>
 
                 <!--                分页-->
 
@@ -329,7 +332,15 @@
                         <span>{{scope.row}}</span>
                     </template>
                 </el-table-column>
-
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="deleteForSet(scope.row)" type="text" size="small">删除
+                        </el-button>
+                    </template>
+                </el-table-column>
 
             </el-table>
         </div>
@@ -343,6 +354,8 @@
             <div>
                 value: <span>{{string_s.value}}</span>
             </div>
+
+            <el-button @click="deleteForString" type="text" size="small">删除</el-button>
         </div>
     </el-dialog>
 
@@ -363,6 +376,16 @@
 
                 <el-table-column label="value" prop="value">
 
+                </el-table-column>
+
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="deleteForZSet(scope.row)" type="text" size="small">删除
+                        </el-button>
+                    </template>
                 </el-table-column>
                 <!--                分页-->
 
@@ -389,6 +412,17 @@
                 <el-table-column label="value" prop="value">
 
                 </el-table-column>
+
+                <el-table-column
+                        fixed="right"
+                        label="操作"
+                        width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="deleteForHash(scope.row)" type="text" size="small">删除
+                        </el-button>
+                    </template>
+                </el-table-column>
+
                 <!--                分页-->
 
 
@@ -397,10 +431,8 @@
     </el-dialog>
 
 
-
-
     <el-dialog title="添加键值对" :visible.sync="ddd">
-        <el-tabs v-model="add_default" >
+        <el-tabs v-model="add_default">
             <el-tab-pane label="string" name="string">
                 <div>
                     key: <span><el-input v-model="add_str.key" placeholder="输入key"></el-input></span>
@@ -447,7 +479,6 @@
     </el-dialog>
 
 
-
 </div>
 </body>
 
@@ -473,7 +504,7 @@
                 add_set_dialog_show: false,
                 add_string_dialog_show: false,
                 add_zset_dialog_show: false,
-                ddd:false,
+                ddd: false,
                 add_str: {
                     key: "",
                     value: "",
@@ -498,7 +529,10 @@
                 },
                 list: {
                     key: "list_key",
-                    value: ["1", "2"]
+                    value: [{
+                        "indexId": 1,
+                        "data": "2"
+                    }]
                 },
                 string_s: {
                     key: "string_key",
@@ -652,7 +686,7 @@
                                 type: 'success',
                                 message: '添加 string 成功!'
                             });
-                        }else if (res.data.code == 400) {
+                        } else if (res.data.code == 400) {
                             this.$message({
                                 type: 'error',
                                 message: res.data.data
@@ -673,7 +707,7 @@
                                 type: 'success',
                                 message: '添加 list 成功!'
                             });
-                        }else if (res.data.code == 400) {
+                        } else if (res.data.code == 400) {
                             this.$message({
                                 type: 'error',
                                 message: res.data.data
@@ -695,7 +729,7 @@
                                 type: 'success',
                                 message: '添加 set 成功!'
                             });
-                        }else if (res.data.code == 400) {
+                        } else if (res.data.code == 400) {
                             this.$message({
                                 type: 'error',
                                 message: res.data.data
@@ -717,7 +751,7 @@
                                 type: 'success',
                                 message: '添加 zset 成功!'
                             });
-                        }else if (res.data.code == 400) {
+                        } else if (res.data.code == 400) {
                             this.$message({
                                 type: 'error',
                                 message: res.data.data
@@ -739,7 +773,7 @@
                                 type: 'success',
                                 message: '添加 hash 成功!'
                             });
-                        }else if (res.data.code == 400) {
+                        } else if (res.data.code == 400) {
                             this.$message({
                                 type: 'error',
                                 message: res.data.data
@@ -767,13 +801,106 @@
                     this.list_dialog_show = true;
                     this.show_list(row['key']);
                 } else if (row['dataType'] == 'SET') {
-                    this.zset_dialog_show = true;
-                    this.show_zset(row['key']);
+                    this.set_dialog_show = true;
+                    this.show_set(row['key']);
                 }
             },
-            showdata(row) {
-                console.log(row);
+            deleteRowForList(row) {
+                let indexId = row.indexId;
+
+                axios.delete("/redis/list/removeByRow/" + this.list.key + "/" + indexId)
+                    .then(res => {
+
+                        if (res.data.code == 200) {
+                            this.show_list(this.list.key)
+                        } else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
             },
+            deleteForString() {
+                axios.delete("/redis/string/delete/" + this.string_s.key)
+                    .then(res => {
+
+                        if (res.data.code == 200) {
+
+                            this.show_string(this.string_s.key);
+                            // this.string_s.key = this.string_s.key + "已删除";
+                        } else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            },
+            deleteForSet(row) {
+                console.log(row);
+                axios.delete("redis/set/delete/" + this.set_s.key + "/" + row)
+                    .then(res => {
+
+                        if (res.data.code == 200) {
+
+                            this.show_set(this.set_s.key);
+                        } else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            deleteForHash(row) {
+                let field = row.key;
+
+                axios.delete("redis/hash/delete/" + this.hash_s.key + "/" + field)
+                    .then(res => {
+
+                        if (res.data.code == 200) {
+
+                            this.show_hash(this.hash_s.key);
+                        } else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            deleteForZSet(row) {
+                axios.delete("/redis/zset/delete/" + this.zset_s.key + "/" + row.value)
+                    .then(res => {
+
+                        if (res.data.code == 200) {
+
+                            this.show_zset(this.zset_s.key);
+                        } else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
             show_hash(key) {
                 this.hash_s.key = key;
                 axios.get("/redis/hash/get/" + key)

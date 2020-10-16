@@ -26,6 +26,7 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,8 +66,11 @@ public class RedisHashController {
 		}
 	}
 
-	@PostMapping("/del")
-	public ResultVO del(String k, String field) {
+	@DeleteMapping("/delete/{key}/{field}")
+	public ResultVO del(
+			@PathVariable("key") String k,
+			@PathVariable("field") String field
+	) {
 		try {
 			hashOperation.del(config, k, field);
 			return new ResultVO("ok", true, 200);

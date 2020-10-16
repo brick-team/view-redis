@@ -18,16 +18,19 @@
 
 package com.github.huifer.view.redis.boot.ctr.key;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.huifer.view.redis.api.RedisListOperation;
 import com.github.huifer.view.redis.impl.RedisListOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.param.PageParam;
+import com.github.huifer.view.redis.model.vo.IndexAndData;
 import com.github.huifer.view.redis.model.vo.PageData;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.utils.SingletData;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,7 +68,16 @@ public class RedisListController {
 	@GetMapping("/get/{key}")
 	public ResultVO get(@PathVariable("key") String k) {
 		try {
-			return new ResultVO("ok", redisListOperation.get(config, k), 200);
+			List list = redisListOperation.get(config, k);
+			List<IndexAndData> res = new ArrayList<>(list.size());
+
+			for (int i = 0; i < list.size(); i++) {
+				IndexAndData indexAndData = new IndexAndData();
+				indexAndData.setIndexId(i);
+				indexAndData.setData(list.get(i));
+				res.add(indexAndData);
+			}
+			return new ResultVO("ok", res, 200);
 		}
 		catch (Exception e) {
 			return new ResultVO("error", e.getMessage(), 400);
@@ -83,8 +95,8 @@ public class RedisListController {
 		}
 	}
 
-	@PostMapping("/removeByRow")
-	public ResultVO removeByRow(String k, int row) {
+	@DeleteMapping("/removeByRow/{key}/{row}")
+	public ResultVO removeByRow(@PathVariable("key") String k,@PathVariable("row") int row) {
 		try {
 			redisListOperation.removeByRow(config, k, row);
 			return new ResultVO("ok", true, 200);
