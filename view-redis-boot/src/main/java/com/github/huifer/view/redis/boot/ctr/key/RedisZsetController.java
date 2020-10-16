@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -81,8 +82,11 @@ public class RedisZsetController {
 		}
 	}
 
-	@PostMapping("/update")
-	public ResultVO update(String k, double score, String member) {
+	@PutMapping("/update/{k}/{score}/{member}")
+	public ResultVO update(
+			@PathVariable("k") String k,
+			@PathVariable("score") double score,
+			@PathVariable("member") String member) {
 		try {
 			zSetOperation.update(config, k, score, member);
 			return new ResultVO("ok", true, 200);

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -80,8 +81,11 @@ public class RedisHashController {
 		}
 	}
 
-	@PostMapping("/update")
-	public ResultVO update(String k, String field, String v) {
+	@PutMapping("/update/{k}/{field}/{v}")
+	public ResultVO update(
+		@PathVariable("k")	String k,
+		@PathVariable("field")	String field,
+		@PathVariable("v")	String v) {
 		try {
 			hashOperation.update(config, k, field, v);
 			return new ResultVO("ok", true, 200);

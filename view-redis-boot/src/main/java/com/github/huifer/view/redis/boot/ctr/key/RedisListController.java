@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -84,8 +85,12 @@ public class RedisListController {
 		}
 	}
 
-	@PostMapping("/update")
-	public ResultVO update(String k, String ov, String nv) {
+	@PutMapping("/update/{k}/{ov}/{nv}")
+	public ResultVO update(
+			@PathVariable("k") String k,
+			@PathVariable("ov") String ov,
+			@PathVariable("nv") String nv
+	) {
 		try {
 			redisListOperation.update(config, k, ov, nv);
 			return new ResultVO("ok", true, 200);
@@ -96,7 +101,7 @@ public class RedisListController {
 	}
 
 	@DeleteMapping("/removeByRow/{key}/{row}")
-	public ResultVO removeByRow(@PathVariable("key") String k,@PathVariable("row") int row) {
+	public ResultVO removeByRow(@PathVariable("key") String k, @PathVariable("row") int row) {
 		try {
 			redisListOperation.removeByRow(config, k, row);
 			return new ResultVO("ok", true, 200);
