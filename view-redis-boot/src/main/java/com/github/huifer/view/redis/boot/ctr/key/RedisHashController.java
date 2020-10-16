@@ -40,8 +40,11 @@ public class RedisHashController {
 
 	RedisConnectionConfig config = SingletData.getCurrConfig();
 
-	@PostMapping("/add")
-	public ResultVO add(String k, String field, String v) {
+	@PostMapping("/add/{key}/{field}/{value}")
+	public ResultVO add(
+			@PathVariable("key") String k,
+			@PathVariable("field") String field,
+			@PathVariable("value") String v) {
 		try {
 			hashOperation.add(config, k, field, v);
 			return new ResultVO("ok", true, 200);

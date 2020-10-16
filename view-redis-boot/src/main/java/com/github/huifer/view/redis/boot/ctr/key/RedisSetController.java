@@ -37,8 +37,8 @@ public class RedisSetController {
 
 	RedisSetOperation setOperation = new RedisSetOperationImpl();
 
-	@PostMapping("/add")
-	public ResultVO add(RedisConnectionConfig config, String k, String v) {
+	@PostMapping("/add/{key}/{value}")
+	public ResultVO add(@PathVariable("key") String k, @PathVariable("value") String v) {
 		try {
 			setOperation.add(config, k, v);
 			return new ResultVO("ok", true, 200);

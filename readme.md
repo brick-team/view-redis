@@ -29,7 +29,7 @@ mvn clean install
 
 - 在启动类上增加注解`@EnableViewRedis`
 - 如果有拦截器请将`/redis/**/`作为忽略,不执行拦截器逻辑
-
+- 访问 `/redis/index` 进入管理页面
 
 
 ## 系统截图

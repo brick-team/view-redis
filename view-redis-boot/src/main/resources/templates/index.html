@@ -232,6 +232,11 @@
                                     <el-col :span="8">
                                         <el-button type="primary" @click.native="search_key(input)">搜索</el-button>
                                     </el-col>
+
+                                    <el-col :span="8">
+                                        <el-button type="primary" @click.native="addRedis">添加redis键值</el-button>
+                                    </el-col>
+
                                 </el-row>
                             </div>
                             <div>
@@ -247,6 +252,10 @@
                                     <el-table-column
                                             prop="dataType"
                                             label="type">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="expire"
+                                            label="expire(秒)">
                                     </el-table-column>
 
                                     <el-table-column
@@ -387,6 +396,58 @@
         </div>
     </el-dialog>
 
+
+
+
+    <el-dialog title="添加键值对" :visible.sync="ddd">
+        <el-tabs v-model="add_default" >
+            <el-tab-pane label="string" name="string">
+                <div>
+                    key: <span><el-input v-model="add_str.key" placeholder="输入key"></el-input></span>
+                    value: <span><el-input v-model="add_str.value" placeholder="输入value"></el-input></span>
+
+                    <el-button type="primary" @click="add_str_api">保存</el-button>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="list" name="list">
+                <div>
+                    key: <span><el-input v-model="add_list.key" placeholder="输入key"></el-input></span>
+                    value: <span><el-input v-model="add_list.value" placeholder="输入value"></el-input></span>
+
+                    <el-button type="primary" @click="add_list_api">保存</el-button>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="set" name="set">
+                <div>
+                    key: <span><el-input v-model="add_set.key" placeholder="输入key"></el-input></span>
+                    value: <span><el-input v-model="add_set.value" placeholder="输入value"></el-input></span>
+
+                    <el-button type="primary" @click="add_set_api">保存</el-button>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="zset" name="zset">
+                <div>
+                    key: <span><el-input v-model="add_zset.key" placeholder="输入key"></el-input></span>
+                    value: <span><el-input v-model="add_zset.value" placeholder="输入value"></el-input></span>
+                    score: <span><el-input v-model="add_zset.score" placeholder="输入score"></el-input></span>
+
+                    <el-button type="primary" @click="add_z_set_api">保存</el-button>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="hash" name="hash">
+                <div>
+                    key: <span><el-input v-model="add_hash.key" placeholder="输入key"></el-input></span>
+                    field: <span><el-input v-model="add_hash.field" placeholder="输入field"></el-input></span>
+                    value: <span><el-input v-model="add_hash.value" placeholder="输入value"></el-input></span>
+
+                    <el-button type="primary" @click="add_hash_api">保存</el-button>
+                </div>
+            </el-tab-pane>
+        </el-tabs>
+    </el-dialog>
+
+
+
 </div>
 </body>
 
@@ -400,15 +461,44 @@
         el: '#app',
         data: function () {
             return {
+                add_default: "string",
                 input: "",
                 hash_dialog_show: false,
                 list_dialog_show: false,
                 set_dialog_show: false,
                 string_dialog_show: false,
                 zset_dialog_show: false,
+                add_hash_dialog_show: false,
+                add_list_dialog_show: false,
+                add_set_dialog_show: false,
+                add_string_dialog_show: false,
+                add_zset_dialog_show: false,
+                ddd:false,
+                add_str: {
+                    key: "",
+                    value: "",
+                },
+                add_list: {
+                    key: "",
+                    value: "",
+                },
+                add_set: {
+                    key: "",
+                    value: "",
+                },
+                add_zset: {
+                    key: "",
+                    value: "",
+                    score: null,
+                },
+                add_hash: {
+                    key: "",
+                    field: "",
+                    value: "",
+                },
                 list: {
                     key: "list_key",
-                    value: ["1","2"]
+                    value: ["1", "2"]
                 },
                 string_s: {
                     key: "string_key",
@@ -434,10 +524,10 @@
 
                 },
                 tableData: [
-                //     {
-                //     key: "123",
-                //     dataType: "123"
-                // }
+                    //     {
+                    //     key: "123",
+                    //     dataType: "123"
+                    // }
                 ],
                 easy_info: {
                     version: "1",
@@ -549,6 +639,119 @@
             }
         },
         methods: {
+            addRedis() {
+                this.ddd = true;
+            },
+            add_str_api() {
+                console.log(this.add_str);
+                axios.post("/redis/string/add/" + this.add_str.key + "/" + this.add_str.value)
+                    .then(res => {
+
+                        if (res.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '添加 string 成功!'
+                            });
+                        }else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            },
+            add_list_api() {
+                axios.post("/redis/list/add/" + this.add_list.key + "/" + this.add_list.value)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '添加 list 成功!'
+                            });
+                        }else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            },
+            add_set_api() {
+                axios.post("/redis/set/add/" + this.add_set.key + "/" + this.add_set.value)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '添加 set 成功!'
+                            });
+                        }else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            },
+            add_z_set_api() {
+                axios.post("/redis/zset/add/" + this.add_zset.key + "/" + this.add_zset.value + "/" + this.add_zset.score)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '添加 zset 成功!'
+                            });
+                        }else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            },
+            add_hash_api() {
+                axios.post("/redis/hash/add/" + this.add_hash.key + "/" + this.add_hash.field + "/" + this.add_hash.value)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '添加 hash 成功!'
+                            });
+                        }else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            },
             handleClick(row) {
 
                 if (row['dataType'] == 'STRING') {

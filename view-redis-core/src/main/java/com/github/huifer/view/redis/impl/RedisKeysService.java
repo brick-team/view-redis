@@ -52,9 +52,12 @@ public class RedisKeysService implements RedisKeysOperation {
 
 		for (byte[] key : keys) {
 			String keyName = stringSerializer.deserialize(key);
+
+			Long expire = redisTemplate.getExpire(keyName);
+
 			DataType type = connection.type(key);
 			RedisDataType redisDataType = RedisDataType.valueOf(type.name());
-			RedisKeyInfo row = new RedisKeyInfo(keyName, redisDataType);
+			RedisKeyInfo row = new RedisKeyInfo(keyName, redisDataType, expire);
 			// 从缓存中拿出key的value
 			result.add(row);
 		}

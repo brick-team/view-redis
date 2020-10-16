@@ -42,8 +42,11 @@ public class RedisZsetController {
 
 	RedisConnectionConfig config = SingletData.getCurrConfig();
 
-	@PostMapping("/add")
-	public ResultVO add(String k, double score, String member) {
+	@PostMapping("/add/{key}/{value}/{score}")
+	public ResultVO add(
+			@PathVariable("key") String k,
+			@PathVariable("score") double score,
+			@PathVariable("value") String member) {
 		try {
 			zSetOperation.add(config, k, score, member);
 			return new ResultVO("ok", true, 200);

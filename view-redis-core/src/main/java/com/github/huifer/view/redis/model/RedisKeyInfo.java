@@ -29,9 +29,25 @@ public class RedisKeyInfo {
 	/** 数据类型 */
 	private RedisDataType dataType;
 
+	private long expire;
+
+	public RedisKeyInfo(String key, RedisDataType dataType, long expire) {
+		this.key = key;
+		this.dataType = dataType;
+		this.expire = expire;
+	}
+
 	public RedisKeyInfo(String key, RedisDataType dataType) {
 		this.key = key;
 		this.dataType = dataType;
+	}
+
+	public long getExpire() {
+		return expire;
+	}
+
+	public void setExpire(long expire) {
+		this.expire = expire;
 	}
 
 	@Override
