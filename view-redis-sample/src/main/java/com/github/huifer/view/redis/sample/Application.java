@@ -22,18 +22,31 @@ import com.github.huifer.view.redis.api.RvRedisConnectionFactory;
 import com.github.huifer.view.redis.boot.ann.EnableViewRedis;
 import com.github.huifer.view.redis.impl.RvRedisConnectionFactoryImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @SpringBootApplication
 @EnableViewRedis
 public class Application {
+
+	@Autowired
+	private RedisTemplate<String, String> redisTemplate;
+
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(Application.class, args);
+	}
 
+	@Bean
+	public ApplicationRunner rc(){
+		return args -> {
+			redisTemplate.opsForValue().set("1", "2");
 
+		};
 	}
 
 }
