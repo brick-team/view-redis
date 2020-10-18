@@ -16,11 +16,9 @@
  *
  */
 
-package com.github.huifer.view.redis.sample;
+package com.github.huifer.view.redis.sample.servlet;
 
-import com.github.huifer.view.redis.api.RvRedisConnectionFactory;
 import com.github.huifer.view.redis.boot.ann.EnableViewRedis;
-import com.github.huifer.view.redis.impl.RvRedisConnectionFactoryImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
@@ -42,7 +40,7 @@ public class Application {
 	}
 
 	@Bean
-	public ApplicationRunner rc(){
+	public ApplicationRunner rc() {
 		return args -> {
 			redisTemplate.opsForValue().set("1", "2");
 

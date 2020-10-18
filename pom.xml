@@ -29,6 +29,7 @@
 	<modules>
 		<module>view-redis-core</module>
 		<module>view-redis-boot</module>
+		<module>view-redis-servlet</module>
 	</modules>
 
 	<properties>
@@ -85,6 +86,27 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
+
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

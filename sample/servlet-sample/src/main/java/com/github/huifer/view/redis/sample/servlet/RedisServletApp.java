@@ -1,4 +1,4 @@
-package com.github.huifer.view.redis.servlet;
+package com.github.huifer.view.redis.sample.servlet;
 
 import com.github.huifer.view.redis.http.ViewRedisServlet;
 
