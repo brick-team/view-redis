@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.huifer.view.redis.servlet.service.HandlerRedisService;
+import com.github.huifer.view.redis.servlet.service.KeySearchService;
 import com.github.huifer.view.redis.servlet.service.impl.HandlerRedisServiceImpl;
+import com.github.huifer.view.redis.servlet.service.impl.KeySearchServiceImpl;
 import com.github.huifer.view.redis.servlet.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,8 @@ public class ViewRedisServlet extends HttpServlet {
 	protected final String resourcePath;
 
 	HandlerRedisService handlerRedisService = new HandlerRedisServiceImpl();
+
+	KeySearchService keySearchService = new KeySearchServiceImpl();
 
 	private String loginName;
 
@@ -132,6 +136,10 @@ public class ViewRedisServlet extends HttpServlet {
 
 		if (path.startsWith("/service")) {
 			this.handlerRedisService.handler(path, req, resp);
+		}
+
+		if (path.startsWith("/key")) {
+			this.keySearchService.handler(path, req, resp);
 		}
 
 	}

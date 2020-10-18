@@ -83,6 +83,8 @@ public class SingletData {
 		redisConnectionConfig.setPort(param.getProperties().getPort());
 		redisConnectionConfig.setPwd(param.getProperties().getPassword());
 		SingletData.currConfig = redisConnectionConfig;
+		SingletData.setCurrConfig(redisConnectionConfig);
+
 	}
 
 	private static RedisTemplate<Object, Object> initRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
