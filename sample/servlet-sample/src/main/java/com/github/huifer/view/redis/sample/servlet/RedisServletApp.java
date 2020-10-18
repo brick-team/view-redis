@@ -1,21 +1,16 @@
 package com.github.huifer.view.redis.sample.servlet;
 
-import com.github.huifer.view.redis.http.ViewRedisServlet;
+
+import com.github.huifer.view.redis.servlet.enable.EnableViewRedisServlet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableViewRedisServlet
 public class RedisServletApp {
 	public static void main(String[] args) {
 		SpringApplication.run(RedisServletApp.class, args);
 	}
-	@Bean
-	public ServletRegistrationBean statViewServletRegistrationBean() {
-		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new ViewRedisServlet("/support/"),
-				"/ddd/*");
-		return registrationBean;
-	}
+
 }

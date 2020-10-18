@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <el-input v-model="login.username" placeholder="请输入内容"></el-input>
+    <el-input v-model="login.password" placeholder="请输入内容"></el-input>
+    <el-button type="primary" @click="loginApi">login</el-button>
+</div>
+</body>
+
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                login: {
+                    username: "",
+                    password: ""
+                }
+            }
+        },
+        methods: {
+            loginApi() {
+                axios.get("/redis/login", {
+                    params: {
+                        'login_name': this.login.username,
+                        'password': this.login.password
+                    }
+                }).then(resp => {
+                    if (resp.data == "success") {
+                        location.href = "/redis/index.html";
+                    } else if (resp.data == "error") {
+                        this.$message({
+                            type: 'error',
+                            message: "账号或者密码错误"
+                        });
+                    }
+                    console.log(resp);
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            }
+        },
+
+    })
+
+</script>
+</html>
