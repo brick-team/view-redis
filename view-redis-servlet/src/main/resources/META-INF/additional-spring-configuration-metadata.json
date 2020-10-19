@@ -3,11 +3,15 @@
     {
       "name": "view.redis.login_name",
       "type": "java.lang.String",
+      "description": "登录的账号",
+      "defaultValue": "redis-admin",
       "sourceType": "com.github.huifer.view.redis.servlet.ViewRedisConfig"
     },
     {
       "name": "view.redis.password",
       "type": "java.lang.String",
+      "defaultValue": "redis-admin",
+      "description": "登录的密码",
       "sourceType": "com.github.huifer.view.redis.servlet.ViewRedisConfig"
     }
   ]

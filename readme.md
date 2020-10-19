@@ -47,7 +47,8 @@ mvn clean install
 ```
 
 - 在启动类上添加`@EnableViewRedisServlet`
-- 设置账号密码, 默认账号密码: **redis-admin\redis-admin**
+- 设置账号密码, 默认账号密码: **redis-admin\redis-admin**,配置信息如下
+
 ```
 view:
   redis:

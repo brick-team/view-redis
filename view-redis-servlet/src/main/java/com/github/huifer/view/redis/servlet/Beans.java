@@ -26,14 +26,14 @@ public class Beans {
 	private ApplicationContext context;
 
 	@Bean
-	public ServletRegistrationBean statViewServletRegistrationBean() {
+	public ServletRegistrationBean viewRedisServlet() {
 		ServletRegistrationBean<Servlet> servletServletRegistrationBean = new ServletRegistrationBean<>();
 		servletServletRegistrationBean.setServlet(new ViewRedisServlet("/support/"));
 		Map<String, String> initParams = new HashMap<>(10);
 		ViewRedisConfig bean = context.getBean(ViewRedisConfig.class);
 
 
-		if (bean != null) {
+		if (bean != null && !bean.equals(new ViewRedisConfig())) {
 
 			initParams.put(LOGIN_NAME_PARAM, bean.getLoginName());
 			initParams.put(PASSWORD_PARAM, bean.getPassword());

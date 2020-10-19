@@ -18,6 +18,8 @@
 
 package com.github.huifer.view.redis.servlet;
 
+import java.util.Objects;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "view.redis")
@@ -32,6 +34,24 @@ public class ViewRedisConfig {
 
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ViewRedisConfig that = (ViewRedisConfig) o;
+		return Objects.equals(loginName, that.loginName) &&
+				Objects.equals(password, that.password);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(loginName, password);
 	}
 
 	public String getPassword() {

@@ -10,7 +10,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 
-public class Utils {
+public class MyUtils {
 
 	public final static int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
@@ -59,14 +59,14 @@ public class Utils {
 		try {
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
 			if (in == null) {
-				in = Utils.class.getResourceAsStream(resource);
+				in = MyUtils.class.getResourceAsStream(resource);
 			}
 
 			if (in == null) {
 				return null;
 			}
 
-			String text = Utils.read(in);
+			String text = MyUtils.read(in);
 			return text;
 		}
 		finally {

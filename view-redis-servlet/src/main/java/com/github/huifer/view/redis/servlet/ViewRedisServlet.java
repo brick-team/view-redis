@@ -21,7 +21,7 @@ import com.github.huifer.view.redis.servlet.service.impl.ListKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.SetKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.StringKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.ZSetKeyServiceImpl;
-import com.github.huifer.view.redis.servlet.utils.Utils;
+import com.github.huifer.view.redis.servlet.utils.MyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +102,7 @@ public class ViewRedisServlet extends HttpServlet {
 
 		}
 
-		String text = Utils.readFromResource(filePath);
+		String text = MyUtils.readFromResource(filePath);
 		assert text != null;
 		resp.getWriter().write(text);
 
@@ -141,12 +141,12 @@ public class ViewRedisServlet extends HttpServlet {
 
 		// 进入登录页面
 		if ("".equals(path) || "login".equals(path) || "/".equals(path)) {
-			returnResourceFile("/login.html", "", resp);
+			returnResourceFile("login.html", "", resp);
 		}
 		// 进入 view redis 管理页面
 		if ("/index.html".equals(path)) {
 			if (checkSession(req, resp)) {
-				returnResourceFile("/index.html", "", resp);
+				returnResourceFile("index.html", "", resp);
 			}
 			else {
 				return;
