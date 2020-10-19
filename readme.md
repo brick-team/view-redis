@@ -16,20 +16,45 @@ cd view-redis
 mvn clean install 
 ```
 
-```xml
-		<dependency>
-			<groupId>com.github.huifer</groupId>
-			<artifactId>view-redis-boot</artifactId>
-			<version>last-version</version>
-		</dependency>
 
-```
 
 ## Using
+### 第一种
+- 引入依赖
+
+```xml
+<dependency>
+    <groupId>com.github.huifer</groupId>
+    <artifactId>view-redis-boot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
 
 - 在启动类上增加注解`@EnableViewRedis`
 - 如果有拦截器请将`/redis/**/`作为忽略,不执行拦截器逻辑
 - 访问 `/redis/index` 进入管理页面
+
+### 第二种
+- 引入依赖
+
+```xml
+<dependency>
+    <groupId>com.github.huifer</groupId>
+    <artifactId>view-redis-servlet</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+
+```
+
+- 在启动类上添加`@EnableViewRedisServlet`
+- 设置账号密码, 默认账号密码: **redis-admin\redis-admin**
+```
+view:
+  redis:
+    login_name: admin
+    password: admin
+```
+
 
 
 ## 系统截图

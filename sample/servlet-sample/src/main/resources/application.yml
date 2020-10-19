@@ -8,6 +8,14 @@ spring:
     host: 127.0.0.1
     port: 6379
 
+
+
 logging:
   level:
     com.github.huifer.view.redis: debug
+
+
+view:
+  redis:
+    login_name: admin
+    password: admin

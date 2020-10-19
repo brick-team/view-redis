@@ -1,0 +1,15 @@
+{
+  "properties": [
+    {
+      "name": "view.redis.login_name",
+      "type": "java.lang.String",
+      "sourceType": "com.github.huifer.view.redis.servlet.ViewRedisConfig"
+    },
+    {
+      "name": "view.redis.password",
+      "type": "java.lang.String",
+      "sourceType": "com.github.huifer.view.redis.servlet.ViewRedisConfig"
+    }
+  ]
+
+}
