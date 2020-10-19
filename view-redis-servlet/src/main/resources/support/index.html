@@ -801,7 +801,10 @@
             },
             add_str_api() {
                 console.log(this.add_str);
-                axios.post("/redis/string/add/" + this.add_str.key + "/" + this.add_str.value)
+                axios.post("/redis/string/add/", {
+                    key: this.add_str.key,
+                    value: this.add_str.value
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -844,7 +847,11 @@
 
             },
             add_set_api() {
-                axios.post("/redis/set/add/" + this.add_set.key + "/" + this.add_set.value)
+                axios.post("/redis/set/add/", {
+                        key: this.add_set.key,
+                        value: this.add_set.value
+                    }
+                )
                     .then(res => {
                         console.log(res);
                         if (res.data.code == 200) {
@@ -953,7 +960,10 @@
                 this.up_str.value = this.string_s.value;
             },
             update_str() {
-                axios.post("/redis/string/add/" + this.up_str.key + "/" + this.up_str.value)
+                axios.post("/redis/string/add/", {
+                    key: this.up_str.key,
+                    value: this.up_str.value
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -984,7 +994,12 @@
             },
 
             update_set() {
-                axios.put("/redis/set/update/" + this.up_set.k + "/" + this.up_set.ov + "/" + this.up_set.nv)
+                axios.post("/redis/set/update/"
+                    , {
+                        key: this.up_set.k,
+                        nv: this.up_set.nv,
+                        ov: this.up_set.ov
+                    })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1099,27 +1114,31 @@
             },
 
             deleteForString() {
-                axios.delete("/redis/string/delete/" + this.string_s.key)
-                    .then(res => {
+                axios.post("/redis/string/delete/", {
+                    key: this.string_s.key
+                }).then(res => {
 
-                        if (res.data.code == 200) {
+                    if (res.data.code == 200) {
 
-                            this.show_string(this.string_s.key);
-                            // this.string_s.key = this.string_s.key + "已删除";
-                        } else if (res.data.code == 400) {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.data
-                            });
-                        }
-                    })
+                        this.show_string(this.string_s.key);
+                        // this.string_s.key = this.string_s.key + "已删除";
+                    } else if (res.data.code == 400) {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.data
+                        });
+                    }
+                })
                     .catch(function (error) {
                         console.log(error);
                     })
             },
             deleteForSet(row) {
                 console.log(row);
-                axios.delete("/redis/set/delete/" + this.set_s.key + "/" + row)
+                axios.post("/redis/set/delete/", {
+                    key: this.set_s.key,
+                    value: row
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1139,7 +1158,7 @@
             deleteForHash(row) {
                 let field = row.key;
 
-                axios.delete("/redis/hash/delete/" + this.hash_s.key + "/" + field)
+                axios.post("/redis/hash/delete/" + this.hash_s.key + "/" + field)
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1157,7 +1176,7 @@
                     });
             },
             deleteForZSet(row) {
-                axios.delete("/redis/zset/delete/" + this.zset_s.key + "/" + row.value)
+                axios.post("/redis/zset/delete/" + this.zset_s.key + "/" + row.value)
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1177,7 +1196,7 @@
 
             show_hash(key) {
                 this.hash_s.key = key;
-                axios.get("/redis/hash/get/" + key)
+                axios.post("/redis/hash/get/" + key)
                     .then(response => {
                         console.log(response.data.data);
                         var dt = response.data.data;
@@ -1203,7 +1222,7 @@
             show_list(key) {
                 this.list.key = key;
                 axios
-                    .get("/redis/list/get/" + key)
+                    .post("/redis/list/get/" + key)
                     .then(response => {
                         console.log(response.data.data);
                         this.list.value = response.data.data;
@@ -1214,7 +1233,9 @@
             },
             show_string(key) {
                 this.string_s.key = key;
-                axios.get("/redis/string/get/" + key)
+                axios.post("/redis/string/get/", {
+                    key: key
+                })
                     .then(response => {
                         this.string_s.value = response.data.data;
                     }).catch(function (error) {
@@ -1223,7 +1244,9 @@
             },
             show_set(key) {
                 this.set_s.key = key;
-                axios.get("/redis/set/get/" + key)
+                axios.post("/redis/set/get/", {
+                    key: key
+                })
                     .then(response => {
                         this.set_s.value = response.data.data;
                     }).catch(function (error) {
@@ -1233,7 +1256,7 @@
             show_zset(key) {
                 this.zset_s.key = key;
                 axios
-                    .get("/redis/zset/get/" + key)
+                    .post("/redis/zset/get/" + key)
                     .then(response => {
                         console.log(response.data.data);
                         this.zset_s.value = response.data.data;
@@ -1244,7 +1267,9 @@
             },
             delKey(row) {
                 axios
-                    .delete("/redis/key/del/" + row['key'])
+                    .post("/redis/key/del/", {
+                        key: row['key']
+                    })
                     .then(
                         response => {
                             console.log(response.data.data);
@@ -1260,19 +1285,12 @@
                 this.input = key_region;
                 ///redis/key/info/{{key_region}}
                 axios
-                    .get('/redis/key/info/' + key_region)
+                    .post('/redis/key/info/', {
+                        key: key_region,
+                    })
                     .then(response => {
-
                         let da = response.data.data;
                         this.tableData = da;
-                        // for (let i = 0; i < da.length; i++) {
-                        //     this.tableData.push({
-                        //         id:i,
-                        //         key:da[i]['key'],
-                        //         type:da[i]['dataType']
-                        //     })
-                        // }
-                        console.log();
                     })
                     .catch(function (error) { // 请求失败处理
                         console.log(error);

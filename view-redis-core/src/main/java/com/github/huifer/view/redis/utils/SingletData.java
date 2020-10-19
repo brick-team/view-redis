@@ -64,8 +64,15 @@ public class SingletData {
 
 			RedisConnectionFactory redisConnectionFactory = param.getRedisConnectionFactory();
 
-			RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
-			SingletData.clusterConnection = clusterConnection;
+
+//			try {
+//				RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
+//				SingletData.clusterConnection = clusterConnection;
+//			}
+//			catch (Exception e) {
+//				e.printStackTrace();
+//			}
+
 			if (redisConnectionFactory == null) {
 				throw new RuntimeException("RedisConnectionFactory is null");
 			}

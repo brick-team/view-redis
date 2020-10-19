@@ -18,6 +18,8 @@
 
 package com.github.huifer.view.redis.sample.boot;
 
+import java.util.List;
+
 import com.github.huifer.view.redis.boot.ann.EnableViewRedis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.geo.Point;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @SpringBootApplication
@@ -43,7 +46,9 @@ public class Application {
 	public ApplicationRunner rc() {
 		return args -> {
 			redisTemplate.opsForValue().set("1", "2");
-
+//			redisTemplate.opsForGeo().add("ppp", new Point(1.0, 10.0), "aaa");
+			List<Point> ppp = redisTemplate.opsForGeo().position("ppp", "aaa");
+			System.out.println();
 		};
 	}
 

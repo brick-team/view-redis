@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import com.github.huifer.view.redis.impl.RedisSetOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.servlet.service.SetKeyService;
+import com.github.huifer.view.redis.servlet.utils.HttpServletUtils;
 import com.github.huifer.view.redis.utils.SingletData;
 import com.google.gson.Gson;
 
@@ -39,37 +41,51 @@ public class SetKeyServiceImpl implements SetKeyService {
 	@Override
 	public void handler(String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if (url.startsWith("/set/add")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String key = split[split.length - 2];
-			this.add(key, value);
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String paramKey = map.get("key");
+			String paramValue = map.get("value");
+
+			this.add(paramKey, paramValue);
 
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 
 		}
 		else if (url.startsWith("/set/get")) {
-			String[] split = url.split("/");
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
-			String key = split[split.length - 1];
-			Object o = this.get(key);
+			String paramKey = map.get("key");
+
+			Object o = this.get(paramKey);
 			ResultVO ok = new ResultVO("ok", o, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/set/update")) {
-			String[] split = url.split("/");
-			String nv = split[split.length - 1];
-			String ov = split[split.length - 2];
-			String k = split[split.length - 3];
-			this.update(k, ov, nv);
+
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String keyParam = map.get("key");
+			String nvParam = map.get("nv");
+			String ovParam = map.get("ov");
+
+			this.update(keyParam, ovParam, nvParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/set/delete")) {
-			String[] split = url.split("/");
-			String v = split[split.length - 1];
-			String k = split[split.length - 2];
-			this.delete(k, v);
+
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String paramKey = map.get("key");
+			String paramValue = map.get("value");
+
+
+			this.delete(paramKey, paramValue);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}

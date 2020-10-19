@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import com.github.huifer.view.redis.impl.RedisStringOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.servlet.service.StringKeyService;
+import com.github.huifer.view.redis.servlet.utils.HttpServletUtils;
 import com.github.huifer.view.redis.utils.SingletData;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -45,24 +47,27 @@ public class StringKeyServiceImpl implements StringKeyService {
 	public void handler(String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		if (url.startsWith("/string/add")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String key = split[split.length - 2];
-			this.add(key, value);
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+			String paramKey = map.get("key");
+			String paramValue = map.get("value");
+			this.add(paramKey, paramValue);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/string/get")) {
-			String[] split = url.split("/");
-			String key = split[split.length - 1];
-			Object o = this.get(key);
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+			String paramKey = map.get("key");
+			Object o = this.get(paramKey);
 			ResultVO ok = new ResultVO("ok", o, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/string/delete")) {
-			String[] split = url.split("/");
-			String key = split[split.length - 1];
-			this.delete(key);
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+			String paramKey = map.get("key");
+			this.delete(paramKey);
 			ResultVO ok = new ResultVO("ok", true, 200);
 
 			response.getWriter().write(gson.toJson(ok));
