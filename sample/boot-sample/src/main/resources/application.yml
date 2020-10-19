@@ -6,7 +6,7 @@ spring:
   redis:
     database: 1
     host: 127.0.0.1
-    port: 32768
+    port: 6379
 
 logging:
   level:

@@ -30,6 +30,12 @@ public class KeySearchServiceImpl implements KeySearchService {
 			ResultVO ok = new ResultVO("ok", keysOperation.keys(config, keyRegion), 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
-
+		else if (url.startsWith("/key/del")) {
+			String[] split = url.split("/");
+			String key = split[split.length - 1];
+			Boolean del = keysOperation.del(config, key);
+			ResultVO ok = new ResultVO("ok", del, 200);
+			response.getWriter().write(gson.toJson(ok));
+		}
 	}
 }

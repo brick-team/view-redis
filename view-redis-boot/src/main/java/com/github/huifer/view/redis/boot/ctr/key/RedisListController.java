@@ -111,6 +111,7 @@ public class RedisListController {
 		}
 	}
 
+	@Deprecated
 	@PostMapping("/del")
 	public ResultVO del(String k) {
 		try {

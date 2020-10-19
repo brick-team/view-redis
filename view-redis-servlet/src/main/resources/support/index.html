@@ -1119,7 +1119,7 @@
             },
             deleteForSet(row) {
                 console.log(row);
-                axios.delete("redis/set/delete/" + this.set_s.key + "/" + row)
+                axios.delete("/redis/set/delete/" + this.set_s.key + "/" + row)
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1139,7 +1139,7 @@
             deleteForHash(row) {
                 let field = row.key;
 
-                axios.delete("redis/hash/delete/" + this.hash_s.key + "/" + field)
+                axios.delete("/redis/hash/delete/" + this.hash_s.key + "/" + field)
                     .then(res => {
 
                         if (res.data.code == 200) {

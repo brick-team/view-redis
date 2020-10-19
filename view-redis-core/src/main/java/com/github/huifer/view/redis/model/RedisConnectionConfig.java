@@ -46,6 +46,16 @@ public class RedisConnectionConfig {
 	}
 
 	@Override
+	public String toString() {
+		return "RedisConnectionConfig{" +
+				"host='" + host + '\'' +
+				", port=" + port +
+				", pwd='" + pwd + '\'' +
+				", dbIndex=" + dbIndex +
+				'}';
+	}
+
+	@Override
 	public int hashCode() {
 		return Objects.hash(host, port, pwd, dbIndex);
 	}

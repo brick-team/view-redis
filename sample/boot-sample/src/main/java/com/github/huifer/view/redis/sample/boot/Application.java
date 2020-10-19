@@ -16,7 +16,7 @@
  *
  */
 
-package com.github.huifer.view.redis.sample.servlet;
+package com.github.huifer.view.redis.sample.boot;
 
 import com.github.huifer.view.redis.boot.ann.EnableViewRedis;
 

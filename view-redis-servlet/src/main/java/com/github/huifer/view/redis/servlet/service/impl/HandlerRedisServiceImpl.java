@@ -31,7 +31,6 @@ public class HandlerRedisServiceImpl implements HandlerRedisService {
 
 	IRedisServerInfo redisServerInfo = new IRedisServiceInfoImpl();
 
-	RedisConnectionConfig config = SingletData.getCurrConfig();
 
 	Gson gson = new Gson();
 
@@ -97,6 +96,7 @@ public class HandlerRedisServiceImpl implements HandlerRedisService {
 
 	@Override
 	public EasyRedisInfo handlerEasyInfo() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 
 		EasyRedisInfo easyRedisInfo = new EasyRedisInfo();
 		easyRedisInfo.setVersion(redisServerInfo.version(config));
@@ -110,42 +110,50 @@ public class HandlerRedisServiceImpl implements HandlerRedisService {
 
 	@Override
 	public RedisCliInfoServer handlerServe() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.server(config);
 
 	}
 
 	@Override
 	public RedisCliInfoClients handlerClients() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.clients(config);
 	}
 
 	@Override
 	public RedisCliInfoMemory handlerMemory() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.memory(config);
 	}
 
 	@Override
 	public RedisCliInfoPersistence handlerPersistence() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.persistence(config);
 	}
 
 	@Override
 	public RedisCliInfoStats handlerStats() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.stats(config);
 	}
 
 	@Override
 	public RedisCliInfoReplication handlerReplication() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.replication(config);
 	}
 
 	@Override
 	public RedisCliInfoCpu handlerCpu() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.cpu(config);
 	}
 
 	@Override
 	public RedisCliInfoCluster handlerCluster() {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return redisServerInfo.cluster(config);
 	}
 }
