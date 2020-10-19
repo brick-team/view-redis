@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import com.github.huifer.view.redis.impl.RedisZSetOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.servlet.service.ZSetKeyService;
+import com.github.huifer.view.redis.servlet.utils.HttpServletUtils;
 import com.github.huifer.view.redis.utils.SingletData;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -44,37 +46,52 @@ public class ZSetKeyServiceImpl implements ZSetKeyService {
 	@Override
 	public void handler(String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if (url.startsWith("/zset/add")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String score = split[split.length - 2];
-			String key = split[split.length - 3];
-			this.add(key, Double.parseDouble(score), value);
+			String postBody = HttpServletUtils.getPostBody(request);
+
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String valueParam = map.get("value");
+			String scoreParam = map.get("score");
+			String keyParam = map.get("key");
+			this.add(keyParam, Double.valueOf(scoreParam), valueParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/zset/delete")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String key = split[split.length - 2];
-			this.delete(key, value);
+
+			String postBody = HttpServletUtils.getPostBody(request);
+
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String valueParam = map.get("value");
+			String keyParam = map.get("key");
+
+			this.delete(keyParam, valueParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/zset/get")) {
-			String[] split = url.split("/");
-			String key = split[split.length - 1];
+			String postBody = HttpServletUtils.getPostBody(request);
 
-			Object o = this.get(key);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String keyParam = map.get("key");
+
+
+			Object o = this.get(keyParam);
 			ResultVO ok = new ResultVO("ok", o, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/zset/update")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String score = split[split.length - 2];
-			String key = split[split.length - 3];
+			String postBody = HttpServletUtils.getPostBody(request);
 
-			this.update(key, Double.parseDouble(score), value);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String valueParam = map.get("value");
+			String scoreParam = map.get("score");
+			String keyParam = map.get("key");
+
+			this.update(keyParam, Double.parseDouble(scoreParam), valueParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}

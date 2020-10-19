@@ -136,3 +136,171 @@
 ```
 
 - 返回值:
+
+
+## Hash 类型操作
+
+### 添加 hash key
+- 请求方式: post
+- 请求地址: `/hash/add`
+- 请求参数:
+```json
+{
+    "key": "",
+    "field": "",
+    "value": ""
+}
+```
+
+### 获取 hash key
+- 请求方式: post
+- 请求地址: `/hash/get`
+- 请求参数:
+
+```json
+{
+  "key": ""
+}
+```
+
+
+### 删除 hash key
+- 请求方式: post
+- 请求地址: `/hash/delete`
+- 请求参数:
+
+```json
+{
+    "key": "",
+    "field": ""
+}
+```
+
+
+
+### 修改 hash key
+- 请求方式: post
+- 请求地址: `/hash/update`
+- 请求参数:
+
+```json
+{
+    "key": "",
+    "field": "",
+    "value": ""
+}
+```
+
+
+## ZSet 类型操作
+
+### 添加 zset key
+
+- 请求方式: post
+- 请求地址: `/zset/add`
+- 请求参数:
+
+```json
+{
+    "value": "",
+    "score": "",
+    "key": ""
+}
+```
+
+
+### 删除 zset key
+
+- 请求方式: post
+- 请求地址: `/zset/delete`
+- 请求参数:
+
+```json
+{
+    "value": "",
+    "key": ""
+}
+```
+
+
+### 获取 zset key
+
+- 请求方式: post
+- 请求地址: `/zset/delete`
+- 请求参数:
+
+```json
+{
+    "key": ""
+}
+```
+
+
+### 更新 zset key
+
+- 请求方式: post
+- 请求地址: `/zset/update`
+- 请求参数:
+
+```json
+{
+"value": "",
+"score":"",
+"key": ""
+}
+```
+
+
+## List 类型操作
+
+### 新增 list key
+- 请求方式: post
+- 请求地址: `/list/add`
+- 请求参数:
+
+```json
+{
+"value": "",
+"key": ""
+}
+```
+
+
+### 获取 list key
+- 请求方式: post
+- 请求地址: `/list/get`
+- 请求参数:
+
+```json
+{
+"key": ""
+}
+```
+
+
+### 更新 list key
+- 请求方式: post
+- 请求地址: `/list/update`
+- 请求参数:
+
+```json
+{
+"nv": "",
+"ov":"",
+"k": ""
+}
+```
+
+### 删除 list 的某一行
+
+
+- 请求方式: post
+- 请求地址: `/list/removeByRow`
+- 请求参数:
+
+```json
+{
+"row": "",
+"k": ""
+}
+```

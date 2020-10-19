@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import com.github.huifer.view.redis.impl.RedisHashOperationImpl;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.servlet.service.HashKeyService;
+import com.github.huifer.view.redis.servlet.utils.HttpServletUtils;
 import com.github.huifer.view.redis.utils.SingletData;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -44,39 +46,50 @@ public class HashKeyServiceImpl implements HashKeyService {
 	public void handler(String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if (url.startsWith("/hash/add")) {
 
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String field = split[split.length - 2];
-			String k = split[split.length - 3];
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
-			this.add(k, field, value);
+			String keyParam = map.get("key");
+			String fieldParam = map.get("field");
+			String valueParam = map.get("value");
+
+			this.add(keyParam, fieldParam, valueParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 
 		}
 		else if (url.startsWith("/hash/get")) {
-			String[] split = url.split("/");
-			String k = split[split.length - 1];
-			Object o = this.get(k);
+
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String keyParam = map.get("key");
+			Object o = this.get(keyParam);
+
 			ResultVO ok = new ResultVO("ok", o, 200);
 			response.getWriter().write(gson.toJson(ok));
 
 		}
 		else if (url.startsWith("/hash/delete")) {
-			String[] split = url.split("/");
-			String field = split[split.length - 1];
-			String key = split[split.length - 2];
-			this.delete(key, field);
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+
+			String keyParam = map.get("key");
+			String fieldParam = map.get("field");
+			this.delete(keyParam, fieldParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 
 		}
 		else if (url.startsWith("/hash/update")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String field = split[split.length - 2];
-			String k = split[split.length - 3];
-			this.update(k, field, value);
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String keyParam = map.get("key");
+			String fieldParam = map.get("field");
+			String valueParam = map.get("value");
+			this.update(keyParam, fieldParam, valueParam);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}

@@ -825,7 +825,10 @@
 
             },
             add_list_api() {
-                axios.post("/redis/list/add/" + this.add_list.key + "/" + this.add_list.value)
+                axios.post("/redis/list/add/", {
+                    key: this.add_list.key,
+                    value: this.add_list.value
+                })
                     .then(res => {
                         console.log(res);
                         if (res.data.code == 200) {
@@ -873,7 +876,13 @@
 
             },
             add_z_set_api() {
-                axios.post("/redis/zset/add/" + this.add_zset.key + "/" + this.add_zset.value + "/" + this.add_zset.score)
+                axios.post("/redis/zset/add/", {
+
+                    value: this.add_zset.value,
+                    score: this.add_zset.score,
+                    key: this.add_zset.key
+
+                })
                     .then(res => {
                         console.log(res);
                         if (res.data.code == 200) {
@@ -895,7 +904,11 @@
 
             },
             add_hash_api() {
-                axios.post("/redis/hash/add/" + this.add_hash.key + "/" + this.add_hash.field + "/" + this.add_hash.value)
+                axios.post("/redis/hash/add/", {
+                    key: this.add_hash.key,
+                    field: this.add_hash.field,
+                    value: this.add_hash.value
+                })
                     .then(res => {
                         console.log(res);
                         if (res.data.code == 200) {
@@ -938,7 +951,10 @@
             deleteRowForList(row) {
                 let indexId = row.indexId;
 
-                axios.delete("/redis/list/removeByRow/" + this.list.key + "/" + indexId)
+                axios.post("/redis/list/removeByRow/", {
+                    k: this.list.key,
+                    row: indexId
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1031,7 +1047,11 @@
             },
 
             update_list() {
-                axios.put("/redis/list/update/" + this.up_list.k + "/" + this.up_list.ov + "/" + this.up_list.nv)
+                axios.post("/redis/list/update/", {
+                    k: this.up_list.k,
+                    ov: this.up_list.ov,
+                    nv: this.up_list.nv
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1060,7 +1080,11 @@
                 this.up_hash.v = row.value;
             },
             update_hash() {
-                axios.put("/redis/hash/update/" + this.up_hash.k + "/" + this.up_hash.field + "/" + this.up_hash.v)
+                axios.post("/redis/hash/update/", {
+                    key: this.up_hash.k,
+                    field: this.up_hash.field,
+                    value: this.up_hash.v
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1091,7 +1115,11 @@
 
             },
             update_zset() {
-                axios.put("/redis/zset/update/" + this.up_zst.k + "/" + this.up_zst.score + "/" + this.up_zst.member)
+                axios.post("/redis/zset/update/", {
+                    value: this.up_zst.member,
+                    score: this.up_zst.score,
+                    key: this.up_zst.k
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1158,7 +1186,10 @@
             deleteForHash(row) {
                 let field = row.key;
 
-                axios.post("/redis/hash/delete/" + this.hash_s.key + "/" + field)
+                axios.post("/redis/hash/delete/", {
+                    key: this.hash_s.key,
+                    field: field
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1176,7 +1207,10 @@
                     });
             },
             deleteForZSet(row) {
-                axios.post("/redis/zset/delete/" + this.zset_s.key + "/" + row.value)
+                axios.post("/redis/zset/delete/", {
+                    value: row.value,
+                    key: this.zset_s.key
+                })
                     .then(res => {
 
                         if (res.data.code == 200) {
@@ -1196,7 +1230,9 @@
 
             show_hash(key) {
                 this.hash_s.key = key;
-                axios.post("/redis/hash/get/" + key)
+                axios.post("/redis/hash/get/", {
+                    key: key
+                })
                     .then(response => {
                         console.log(response.data.data);
                         var dt = response.data.data;
@@ -1222,7 +1258,9 @@
             show_list(key) {
                 this.list.key = key;
                 axios
-                    .post("/redis/list/get/" + key)
+                    .post("/redis/list/get/", {
+                        key: key
+                    })
                     .then(response => {
                         console.log(response.data.data);
                         this.list.value = response.data.data;
@@ -1256,7 +1294,9 @@
             show_zset(key) {
                 this.zset_s.key = key;
                 axios
-                    .post("/redis/zset/get/" + key)
+                    .post("/redis/zset/get/", {
+                        key: key
+                    })
                     .then(response => {
                         console.log(response.data.data);
                         this.zset_s.value = response.data.data;

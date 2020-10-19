@@ -21,6 +21,7 @@ package com.github.huifer.view.redis.servlet.service.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.vo.IndexAndData;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.servlet.service.ListKeyService;
+import com.github.huifer.view.redis.servlet.utils.HttpServletUtils;
 import com.github.huifer.view.redis.utils.SingletData;
 import com.google.gson.Gson;
 
@@ -43,38 +45,49 @@ public class ListKeyServiceImpl implements ListKeyService {
 	@Override
 	public void handler(String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if (url.startsWith("/list/add")) {
-			String[] split = url.split("/");
-			String value = split[split.length - 1];
-			String key = split[split.length - 2];
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String key = map.get("key");
+			String value = map.get("value");
+
 			this.add(key, value);
 
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/list/get")) {
-			String[] split = url.split("/");
-			String key = split[split.length - 1];
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String key = map.get("key");
+
 			Object o = this.get(key);
 			ResultVO ok = new ResultVO("ok", o, 200);
 			response.getWriter().write(gson.toJson(ok));
 
 		}
 		else if (url.startsWith("/list/update")) {
-			String[] split = url.split("/");
-			String nv = split[split.length - 1];
-			String ov = split[split.length - 2];
-			String k = split[split.length - 3];
+
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String k = map.get("k");
+			String ov = map.get("ov");
+			String nv = map.get("nv");
+
 			this.update(k, ov, nv);
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/list/removeByRow")) {
-			String[] split = url.split("/");
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
-			String row = split[split.length - 1];
-			String key = split[split.length - 2];
+			String k = map.get("k");
+			String row = map.get("row");
 
-			this.removeRow(key, Integer.parseInt(row));
+			this.removeRow(k, Integer.parseInt(row));
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}

@@ -2,12 +2,12 @@ server:
   port: 8123
 
 
-#spring:
-#  redis:
-#    database: 9
-#    host: 127.0.0.1
-#    port: 6379
-#
+spring:
+  redis:
+    database: 9
+    host: 127.0.0.1
+    port: 6379
+
 #
 
 logging:
