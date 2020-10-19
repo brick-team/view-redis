@@ -21,6 +21,7 @@ package com.github.huifer.view.redis.utils;
 import com.github.huifer.view.redis.cache.SpringRedisProperties;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
+import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -32,6 +33,8 @@ public class SingletData {
 	public static RedisConnectionConfig currConfig;
 
 	public static RedisTemplate redisTemplate;
+
+	public static RedisClusterConnection clusterConnection;
 
 	public static RedisConnectionConfig getCurrConfig() {
 		return currConfig;
@@ -61,6 +64,8 @@ public class SingletData {
 
 			RedisConnectionFactory redisConnectionFactory = param.getRedisConnectionFactory();
 
+			RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
+			SingletData.clusterConnection = clusterConnection;
 			if (redisConnectionFactory == null) {
 				throw new RuntimeException("RedisConnectionFactory is null");
 			}
