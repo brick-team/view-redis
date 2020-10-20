@@ -93,6 +93,20 @@ public class HashKeyServiceImpl implements HashKeyService {
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
+		else if (url.startsWith("/hash/nup")) {
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String keyParam = map.get("key");
+			String oldFieldParam = map.get("oldField");
+			String newFieldParam = map.get("newField");
+			String valueParam = map.get("value");
+
+			this.nup(keyParam, oldFieldParam, newFieldParam, valueParam);
+
+			ResultVO ok = new ResultVO("ok", true, 200);
+			response.getWriter().write(gson.toJson(ok));
+		}
 	}
 
 	@Override
@@ -119,5 +133,11 @@ public class HashKeyServiceImpl implements HashKeyService {
 	public void update(String k, String field, String v) {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
 		hashOperation.update(config, k, field, v);
+	}
+
+	@Override
+	public void nup(String k, String oldField, String newField, String v) {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
+		hashOperation.upAndSave(config, k, oldField, newField, v);
 	}
 }

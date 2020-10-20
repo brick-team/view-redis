@@ -95,6 +95,21 @@ public class ZSetKeyServiceImpl implements ZSetKeyService {
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
+		else if (url.startsWith("/zset/nup")) {
+			String postBody = HttpServletUtils.getPostBody(request);
+
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String keyParam = map.get("key");
+			String oldMemberParam = map.get("oldMember");
+			String newMemberParam = map.get("newMember");
+			String scoreParam = map.get("score");
+
+			this.nup(keyParam, oldMemberParam, newMemberParam, Double.valueOf(scoreParam));
+
+			ResultVO ok = new ResultVO("ok", true, 200);
+			response.getWriter().write(gson.toJson(ok));
+		}
 	}
 
 	@Override
@@ -122,5 +137,11 @@ public class ZSetKeyServiceImpl implements ZSetKeyService {
 	public Object get(String key) {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
 		return zSetOperation.get(config, key);
+	}
+
+	@Override
+	public void nup(String key, String oldMember, String newMember, double score) {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
+		zSetOperation.removeOldSaveNew(config, key, oldMember, newMember, score);
 	}
 }

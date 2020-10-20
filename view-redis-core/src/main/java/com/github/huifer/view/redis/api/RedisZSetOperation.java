@@ -55,7 +55,7 @@ public interface RedisZSetOperation extends IRedisOperationLabel {
 
 	/**
 	 * 更新一个元素
-	 *
+	 *	覆盖memer的score值
 	 * @param config
 	 * @param k 键
 	 * @param score 分数
@@ -63,7 +63,9 @@ public interface RedisZSetOperation extends IRedisOperationLabel {
 	 */
 	void update(RedisConnectionConfig config, String k, double score, String member);
 
-  Long size(RedisConnectionConfig config, String k);
+	Long size(RedisConnectionConfig config, String k);
 
 	Set get(RedisConnectionConfig config, String k, long start, long end);
+
+	void removeOldSaveNew(RedisConnectionConfig config, String k, String oldMember, String newMember, double score);
 }

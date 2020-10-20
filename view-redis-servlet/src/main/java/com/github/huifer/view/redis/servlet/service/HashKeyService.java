@@ -34,4 +34,7 @@ public interface HashKeyService {
 
 
 	void update(String k, String field, String v);
+
+
+	void nup(String k, String oldField, String newField, String v);
 }

@@ -91,4 +91,12 @@ public class RedisZSetOperationImpl implements RedisZSetOperation {
 	public Set get(RedisConnectionConfig config, String k, long start, long end) {
 		return factory.factory(config).opsForZSet().rangeWithScores(k, start, end);
 	}
+
+	@Override
+	public void removeOldSaveNew(RedisConnectionConfig config, String k, String oldMember, String newMember, double score) {
+		// 删除历史
+		del(config, k, oldMember);
+		// 创建新的
+		add(config, k, score, newMember);
+	}
 }

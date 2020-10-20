@@ -214,6 +214,21 @@
 ```
 
 
+### 修改 hash key 
+- 请求方式: post
+- 请求地址: `/hash/nup`
+- 请求参数:
+
+```json
+{
+    "key": "",
+    "oldField": "",
+    "newField": "",
+    "value": ""
+}
+```
+
+
 ## ZSet 类型操作
 
 ### 添加 zset key
@@ -269,6 +284,19 @@
 "value": "",
 "score":"",
 "key": ""
+}
+```
+
+### 修改 zset key 
+- 请求方式: post
+- 请求地址: `/zset/nup`
+- 请求参数
+```json
+{
+"key": "",
+"oldMember": "",
+"newMember":"",
+"score": ""
 }
 ```
 

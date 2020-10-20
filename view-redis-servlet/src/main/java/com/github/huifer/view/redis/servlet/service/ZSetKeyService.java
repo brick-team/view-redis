@@ -33,4 +33,6 @@ public interface ZSetKeyService {
 	void update(String k, double score, String member);
 
 	Object get(String key);
+
+	void nup(String key, String oldMember, String newMember, double score);
 }

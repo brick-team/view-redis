@@ -270,7 +270,8 @@
 
                                             <el-button @click="setExpire(scope.row)" type="primary" size="small">设置过期时间
                                             </el-button>
-                                            <el-button @click="changeKeyName(scope.row)" type="primary" size="small">修改key名称
+                                            <el-button @click="changeKeyName(scope.row)" type="primary" size="small">
+                                                修改key名称
                                             </el-button>
 
                                         </template>
@@ -544,7 +545,7 @@
             key: <span>{{up_hash.k}}</span>
         </div>
         <div>
-            field: <span>{{up_hash.field}}</span>
+            field: <span><el-input v-model="up_hash.newField" placeholder="请输入内容"></el-input></span>
         </div>
         <div>
             value: <span><el-input v-model="up_hash.v" placeholder="请输入内容"></el-input></span>
@@ -563,7 +564,7 @@
             key: <span>{{up_zst.k}}</span>
         </div>
         <div>
-            member: <span>{{up_zst.member}}</span>
+            member: <span><el-input v-model="up_zst.newMember" placeholder="请输入内容"></el-input></span>
         </div>
         <div>
             score: <span><el-input v-model="up_zst.score" placeholder="请输入内容"></el-input></span>
@@ -613,8 +614,8 @@
         el: '#app',
         data: function () {
             return {
-                changeKeyNameDialogVisible:false,
-                changeKey:{
+                changeKeyNameDialogVisible: false,
+                changeKey: {
                     oldKey: "",
                     newKey: ""
                 },
@@ -660,12 +661,14 @@
                 up_hash: {
                     k: "",
                     field: "",
-                    v: ""
+                    v: "",
+                    newField: ""
                 },
                 up_zst: {
                     k: "",
                     score: "",
-                    member: ""
+                    member: "",
+                    newMember: ""
                 },
 
                 ddd: false,
@@ -837,7 +840,7 @@
             }
         },
         methods: {
-            changeKeyName(row){
+            changeKeyName(row) {
                 this.changeKeyNameDialogVisible = true;
                 let k = row['key'];
                 this.changeKey.oldKey = k;
@@ -849,7 +852,7 @@
                 this.expire.key = k;
                 this.expire.expire = exp;
             },
-            api_rename(){
+            api_rename() {
                 axios.post("/redis/key/rename", {
                     oldKey: this.changeKey.oldKey,
                     newKey: this.changeKey.newKey
@@ -1175,14 +1178,17 @@
                 this.up_hash_dialog_show = true;
                 let field = row.key;
                 this.up_hash.field = field;
+                this.up_hash.newField = field;
                 this.up_hash.k = this.hash_s.key;
                 this.up_hash.v = row.value;
             },
             update_hash() {
-                axios.post("/redis/hash/update/", {
+                axios.post("/redis/hash/nup", {
                     key: this.up_hash.k,
-                    field: this.up_hash.field,
-                    value: this.up_hash.v
+                    oldField: this.up_hash.field,
+                    value: this.up_hash.v,
+                    newField: this.up_hash.newField
+
                 })
                     .then(res => {
 
@@ -1211,13 +1217,14 @@
                 this.up_zst.k = this.zset_s.key;
                 this.up_zst.score = row.score;
                 this.up_zst.member = row.value;
-
+                this.up_zst.newMember = row.value;
             },
             update_zset() {
-                axios.post("/redis/zset/update/", {
-                    value: this.up_zst.member,
-                    score: this.up_zst.score,
-                    key: this.up_zst.k
+                axios.post("/redis/zset/nup", {
+                    oldMember: this.up_zst.member,
+                    score: this.up_zst.score.toString(),
+                    key: this.up_zst.k,
+                    newMember: this.up_zst.newMember
                 })
                     .then(res => {
 
@@ -1241,7 +1248,7 @@
             },
 
             deleteForString() {
-                axios.post("/redis/string/delete/", {
+                axios.post("/redis/string/delete", {
                     key: this.string_s.key
                 }).then(res => {
 
@@ -1262,7 +1269,7 @@
             },
             deleteForSet(row) {
                 console.log(row);
-                axios.post("/redis/set/delete/", {
+                axios.post("/redis/set/delete", {
                     key: this.set_s.key,
                     value: row
                 })

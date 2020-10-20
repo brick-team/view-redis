@@ -52,10 +52,14 @@ public interface RedisHashOperation extends IRedisOperationLabel {
 	void del(RedisConnectionConfig config, String k, String field);
 
 	/**
+	 * 修改
+	 * 	k下field中的value值
 	 * @param config redis 连接配置
 	 * @param k 键
 	 * @param field 小键
 	 * @param v 值
 	 */
 	void update(RedisConnectionConfig config, String k, String field, String v);
+
+	void upAndSave(RedisConnectionConfig config, String k, String oldField, String newField, String v);
 }

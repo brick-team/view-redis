@@ -47,4 +47,11 @@ public class RedisHashOperationImpl implements RedisHashOperation {
 	public void update(RedisConnectionConfig config, String k, String field, String v) {
 		factory.factory(config).opsForHash().put(k, field, v);
 	}
+
+
+	@Override
+	public void upAndSave(RedisConnectionConfig config, String k, String oldField, String newField, String v) {
+		this.del(config, k, oldField);
+		this.add(config, k, newField, v);
+	}
 }
