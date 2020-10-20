@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.github.huifer.view.redis.api.RedisKeysOperation;
@@ -41,6 +42,7 @@ public class RedisKeysService implements RedisKeysOperation {
 
 	RvRedisConnectionFactory factory = new RvRedisConnectionFactoryImpl();
 
+	@Override
 	public List<RedisKeyInfo> keys(RedisConnectionConfig config, String keyRegion) {
 		RedisTemplate redisTemplate = this.factory.factory(config);
 		RedisConnection connection =
@@ -81,5 +83,17 @@ public class RedisKeysService implements RedisKeysOperation {
 	public Boolean del(RedisConnectionConfig config, String key) {
 		RedisTemplate redisTemplate = this.factory.factory(config);
 		return redisTemplate.delete(key);
+	}
+
+	@Override
+	public Boolean expire(RedisConnectionConfig config, String key, long expire) {
+		RedisTemplate redisTemplate = this.factory.factory(config);
+		return redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+	}
+
+	@Override
+	public void rename(RedisConnectionConfig config, String on, String nn) {
+		RedisTemplate redisTemplate = this.factory.factory(config);
+		redisTemplate.rename(on, nn);
 	}
 }

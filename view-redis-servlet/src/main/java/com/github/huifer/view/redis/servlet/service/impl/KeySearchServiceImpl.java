@@ -44,6 +44,27 @@ public class KeySearchServiceImpl implements KeySearchService {
 			ResultVO ok = new ResultVO("ok", del, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
+		else if (url.startsWith("/key/expire")) {
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+			String paramKey = map.get("key");
+			String paramExpire = map.get("expire");
+			Boolean expire = keysOperation.expire(config, paramKey, Long.valueOf(paramExpire));
+			ResultVO ok = new ResultVO("ok", expire, 200);
+			response.getWriter().write(gson.toJson(ok));
+		}
+		else if (url.startsWith("/key/rename")) {
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+
+			String oldKey = map.get("oldKey");
+			String newKey = map.get("newKey");
+
+			keysOperation.rename(config, oldKey, newKey);
+
+			ResultVO ok = new ResultVO("ok", true, 200);
+			response.getWriter().write(gson.toJson(ok));
+		}
 	}
 
 }

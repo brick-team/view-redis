@@ -35,5 +35,9 @@ public interface RedisKeysOperation {
 	 */
 	List<RedisKeyInfo> keys(RedisConnectionConfig config, String keyRegion);
 
-	Boolean del(RedisConnectionConfig config,String key);
+	Boolean del(RedisConnectionConfig config, String key);
+
+	Boolean expire(RedisConnectionConfig config, String key, long expire);
+
+	void rename(RedisConnectionConfig config, String on, String nn);
 }

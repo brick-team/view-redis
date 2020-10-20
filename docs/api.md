@@ -38,6 +38,28 @@
 {"msg":"ok","data":true,"code":200}
 ```
 
+### key 设置过期时间
+- 请求方式: post
+- 请求地址: `/key/expire`
+- 请求参数
+```json
+{
+  "key": "",
+  "expire":""
+}
+```
+
+### key 修改名称
+- 请求方式: post
+- 请求地址: `/key/rename`
+- 请求参数
+```json
+{
+  "oldKey": "",
+  "newKey":""
+}
+```
+
 
 
 ## String 类型操作

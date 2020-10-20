@@ -263,10 +263,16 @@
                                             label="操作"
                                             width="100">
                                         <template slot-scope="scope">
-                                            <el-button @click="handleClick(scope.row)" type="text" size="small">查看
+                                            <el-button @click="handleClick(scope.row)" type="primary" size="small">查看
                                             </el-button>
                                             <el-button @click="delKey(scope.row)" type="danger" size="small">删除
                                             </el-button>
+
+                                            <el-button @click="setExpire(scope.row)" type="primary" size="small">设置过期时间
+                                            </el-button>
+                                            <el-button @click="changeKeyName(scope.row)" type="primary" size="small">修改key名称
+                                            </el-button>
+
                                         </template>
                                     </el-table-column>
 
@@ -570,6 +576,30 @@
 
     </el-dialog>
 
+
+    <el-dialog
+            title="设置过期时间"
+            :visible.sync="expireDialogVisible"
+            width="30%">
+        key: <span>{{expire.key}}</span><br/>
+
+        expire:
+        <el-input v-model="expire.expire" placeholder="请输入内容"></el-input>
+        <el-button @click="api_expire" type="warning">设置过期时间</el-button>
+    </el-dialog>
+
+    <el-dialog
+            title="修改key name"
+            :visible.sync="changeKeyNameDialogVisible"
+            width="30%">
+        key: <span>{{changeKey.oldKey}}</span><br/>
+
+        修改的Key:
+        <el-input v-model="changeKey.newKey" placeholder="请输入内容"></el-input>
+        <el-button @click="api_rename" type="warning">设置key名称</el-button>
+    </el-dialog>
+
+
 </div>
 </body>
 
@@ -583,6 +613,17 @@
         el: '#app',
         data: function () {
             return {
+                changeKeyNameDialogVisible:false,
+                changeKey:{
+                    oldKey: "",
+                    newKey: ""
+                },
+                expireDialogVisible: false,
+                expire: {
+                    key: "",
+                    expire: -1
+                },
+
                 add_default: "string",
                 input: "",
                 hash_dialog_show: false,
@@ -796,6 +837,64 @@
             }
         },
         methods: {
+            changeKeyName(row){
+                this.changeKeyNameDialogVisible = true;
+                let k = row['key'];
+                this.changeKey.oldKey = k;
+            },
+            setExpire(row) {
+                this.expireDialogVisible = true;
+                let k = row['key'];
+                let exp = row['expire'];
+                this.expire.key = k;
+                this.expire.expire = exp;
+            },
+            api_rename(){
+                axios.post("/redis/key/rename", {
+                    oldKey: this.changeKey.oldKey,
+                    newKey: this.changeKey.newKey
+                }).then(res => {
+
+                    if (res.data.code == 200) {
+                        this.$message({
+                            type: 'success',
+                            message: '修改 key 名称成功'
+
+                        });
+                    } else if (res.data.code == 400) {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.data
+                        });
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            api_expire() {
+                axios.post("/redis/key/expire", {
+                    key: this.expire.key,
+                    expire: this.expire.expire
+                }).then(res => {
+
+                    if (res.data.code == 200) {
+                        this.$message({
+                            type: 'success',
+                            message: '设置过期时间成功'
+
+                        });
+                    } else if (res.data.code == 400) {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.data
+                        });
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             addRedis() {
                 this.ddd = true;
             },
