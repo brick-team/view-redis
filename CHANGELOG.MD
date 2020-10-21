@@ -11,7 +11,9 @@
     - member 设置 和 score 设置接口合并
 - redis hash 元素修改
     - 支持 field 修改
-    
+- 支持 spring boot starter 
+  
+  
     
 ### Fixed
 - [issues:1](https://github.com/huifer/view-redis/issues/1) 修复请求参数传递方式
