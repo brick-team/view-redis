@@ -56,6 +56,7 @@ view:
     password: admin
 ```
 
+- 访问: `/redis/` 
 
 
 ## 系统截图

@@ -20,7 +20,10 @@ package com.github.huifer.view.redis.servlet.service;
 
 import java.awt.*;
 import java.util.List;
-
+/**
+ * 处理 geo 的请求
+ * @author huifer
+ */
 public interface GeoKeyService {
 	void add(String key, String value, double x, double y);
 

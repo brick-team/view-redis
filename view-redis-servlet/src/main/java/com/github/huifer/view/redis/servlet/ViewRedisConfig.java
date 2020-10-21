@@ -22,6 +22,10 @@ import java.util.Objects;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * view redis 的账号密码配置信息对象
+ * @author huifer
+ */
 @ConfigurationProperties(prefix = "view.redis")
 public class ViewRedisConfig {
 	private String loginName;

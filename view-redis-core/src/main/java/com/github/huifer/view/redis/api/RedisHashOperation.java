@@ -22,7 +22,10 @@ import java.util.Map;
 
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
-/** redis 的 hash 数据类型操作 */
+/**
+ * redis 的 hash 数据类型操作
+ * @author huifer
+ * */
 public interface RedisHashOperation extends IRedisOperationLabel {
 
 	/**
@@ -61,5 +64,13 @@ public interface RedisHashOperation extends IRedisOperationLabel {
 	 */
 	void update(RedisConnectionConfig config, String k, String field, String v);
 
+	/**
+	 * 修改 field 的名称
+	 * @param config   redis 连接配置
+	 * @param k 键
+	 * @param oldField 旧的小键
+	 * @param newField 新的小键
+	 * @param v 值
+	 */
 	void upAndSave(RedisConnectionConfig config, String k, String oldField, String newField, String v);
 }

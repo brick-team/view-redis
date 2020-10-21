@@ -26,6 +26,10 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * 启动时存储需要的配置信息
+ * @author huifer
+ */
 public class SingletData {
 	public static SpringRedisProperties springRedisProperties;
 

@@ -33,67 +33,120 @@ import com.github.huifer.view.redis.model.info.RedisCliInfoReplication;
 import com.github.huifer.view.redis.model.info.RedisCliInfoServer;
 import com.github.huifer.view.redis.model.info.RedisCliInfoStats;
 
-/** redis 服务相关信息 */
+/**
+ * redis 服务相关信息
+ * @author huifer
+ * */
 public interface IRedisServerInfo {
 	/**
 	 * 版本
 	 *
-	 * @return
+	 * @return 版本
 	 */
 	String version(RedisConnectionConfig config);
 
 	/**
 	 * 已使用内存
 	 *
-	 * @return
+	 * @return 已使用内存
 	 */
 	long useMemory(RedisConnectionConfig config);
 
 	/**
 	 * 客户端数量
 	 *
-	 * @return
+	 * @return 客户端数量
 	 */
 	int client(RedisConnectionConfig config);
 
 	/**
 	 * 已执行的命令
 	 *
-	 * @return
+	 * @return 已执行的命令
 	 */
 	long execSize(RedisConnectionConfig config);
 
 	/**
 	 * 运行时间
 	 *
-	 * @return
+	 * @return 运行时间
 	 */
 	long runTime(RedisConnectionConfig config);
 
 	/**
 	 * 服务器信息
 	 *
-	 * @return
+	 * @return 服务器信息
 	 */
 	Properties conf(RedisConnectionConfig config);
 
+	/**
+	 * 获取 server 命令返回结果
+	 * @param config redis 连接配置
+	 * @return server 命令返回结果
+	 */
 	RedisCliInfoServer server(RedisConnectionConfig config);
 
+	/**
+	 * 获取 clients 命令返回结果
+	 * @param config redis 连接配置
+	 * @return clients 命令返回结果
+	 */
 	RedisCliInfoClients clients(RedisConnectionConfig config);
 
+	/**
+	 * 获取 memory 命令返回结果
+	 * @param config redis 连接配置
+	 * @return memory 命令返回结果
+	 */
 	RedisCliInfoMemory memory(RedisConnectionConfig config);
 
+	/**
+	 * 获取 persistence 命令返回结果
+	 * @param config redis 连接配置
+	 * @return persistence 命令返回结果
+	 */
 	RedisCliInfoPersistence persistence(RedisConnectionConfig config);
 
+	/**
+	 * 获取 stats 命令返回结果
+	 * @param config redis 连接配置
+	 * @return stats 命令返回结果
+	 */
 	RedisCliInfoStats stats(RedisConnectionConfig config);
 
+	/**
+	 * 获取 replication 命令返回结果
+	 * @param config redis 连接配置
+	 * @return replication 命令返回结果
+	 */
 	RedisCliInfoReplication replication(RedisConnectionConfig config);
 
+	/**
+	 * 获取 cpu 命令返回结果
+	 * @param config redis 连接配置
+	 * @return cpu 命令返回结果
+	 */
 	RedisCliInfoCpu cpu(RedisConnectionConfig config);
 
+	/**
+	 * 获取 cluster 命令返回结果
+	 * @param config redis 连接配置
+	 * @return cluster 命令返回结果
+	 */
 	RedisCliInfoCluster cluster(RedisConnectionConfig config);
 
+	/**
+	 * 获取 keyspace 命令返回结果
+	 * @param config redis 连接配置
+	 * @return keyspace 命令返回结果
+	 */
 	List<RedisCliInfoKeyspace> keyspace(RedisConnectionConfig config);
 
+	/**
+	 * 获取 info 命令返回结果
+	 * @param config redis 连接配置
+	 * @return info 命令返回结果
+	 */
 	RedisInfo info(RedisConnectionConfig config);
 }

@@ -32,6 +32,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * servlet 启动时运行类
+ *
+ * @author huifer
+ */
 @Component
 public class ViewRedisServletRunner {
 
@@ -40,13 +45,17 @@ public class ViewRedisServletRunner {
 	@Autowired
 	private ApplicationContext context;
 
+	/**
+	 * 启动时设置  RedisProperties 和  RedisConnectionFactory
+	 * @return runner
+	 */
 	@Bean
 	@ConditionalOnMissingBean({RedisProperties.class, RedisConnectionFactory.class})
 	public ApplicationRunner runner() {
 		return args -> {
 			RedisProperties redisProperties = context.getBean(RedisProperties.class);
 
- 			if (log.isDebugEnabled()) {
+			if (log.isDebugEnabled()) {
 				log.debug("开始设置 RedisProperties");
 
 			}

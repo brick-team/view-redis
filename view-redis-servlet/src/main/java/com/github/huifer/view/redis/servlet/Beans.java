@@ -35,6 +35,10 @@ import org.springframework.stereotype.Component;
 import static com.github.huifer.view.redis.servlet.ViewRedisServlet.LOGIN_NAME_PARAM;
 import static com.github.huifer.view.redis.servlet.ViewRedisServlet.PASSWORD_PARAM;
 
+/**
+ * 需要的bean和bean扫描路径
+ * @author huifer
+ */
 @Component
 @ComponentScan("com.github.huifer.view.redis.*")
 @EnableConfigurationProperties(ViewRedisConfig.class)

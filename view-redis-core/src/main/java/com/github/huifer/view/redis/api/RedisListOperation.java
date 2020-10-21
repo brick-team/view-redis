@@ -25,15 +25,33 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 /**
  *  redis 的 list 数据类型操作
  *
- * todo: list limit
- *
+ * @author huifer
  * */
 public interface RedisListOperation extends IRedisOperationLabel {
-
+	/**
+	 * 添加list键值
+	 * @param conf redis 连接配置
+	 * @param k 键
+	 * @param v 值
+	 */
 	void add(RedisConnectionConfig conf, String k, String v);
 
+	/**
+	 * redis 中 list 的数据值
+	 * @param conf redis 连接配置
+	 * @param k 键
+	 * @return redis 中 list 的数据值
+	 */
 	List get(RedisConnectionConfig conf, String k);
 
+	/**
+	 *
+	 * @param conf redis 连接配置
+	 * @param k 键
+	 * @param start 开始标记
+	 * @param end 结束标记
+	 * @return redis 中 list 的数据值
+	 */
 	List get(RedisConnectionConfig conf, String k, long start, long end);
 
 	/**
@@ -63,5 +81,11 @@ public interface RedisListOperation extends IRedisOperationLabel {
 	 */
 	void del(RedisConnectionConfig conf, String k);
 
+	/**
+	 * 获取 list 的大小
+	 * @param conf redis 连接配置
+	 * @param k 键
+	 * @return 获取 list 的大小
+	 */
 	Long size(RedisConnectionConfig conf, String k);
 }

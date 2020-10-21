@@ -21,6 +21,10 @@ package com.github.huifer.view.redis.cache;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
+/**
+ * spring 中的 redis 配置
+ * @author huifer
+ */
 public class SpringRedisProperties {
 	RedisProperties properties;
 

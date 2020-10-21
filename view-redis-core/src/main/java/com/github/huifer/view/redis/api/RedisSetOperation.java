@@ -22,7 +22,10 @@ import java.util.Collection;
 
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
-/** redis 的 set 数据类型操作 */
+/**
+ *  redis 的 set 数据类型操作
+ * @author huifer
+ * */
 public interface RedisSetOperation extends IRedisOperationLabel {
 
 	/**

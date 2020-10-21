@@ -24,6 +24,10 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
 import org.springframework.data.geo.Point;
 
+/**
+ * redis geo 类型的键操作
+ * @author huifer
+ */
 public interface IRedisGeoOperation {
 	void add(RedisConnectionConfig config, String key, String value, double x, double y);
 

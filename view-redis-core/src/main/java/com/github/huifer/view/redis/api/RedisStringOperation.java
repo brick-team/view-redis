@@ -21,13 +21,39 @@ package com.github.huifer.view.redis.api;
 
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
-/** redis 的 string 数据类型操作 */
+/**
+ *  redis 的 string 数据类型操作
+ * @author huifer
+ * */
 public interface RedisStringOperation extends IRedisOperationLabel {
+	/**
+	 * 添加 键值
+	 * @param config redis 连接配置
+	 * @param k 键
+	 * @param v 值
+	 */
 	void add(RedisConnectionConfig config, String k, String v);
 
+	/**
+	 * 获取 key 的 value
+	 * @param config redis 连接配置
+	 * @param k 键
+	 * @return 值
+	 */
 	Object get(RedisConnectionConfig config, String k);
 
+	/**
+	 * 删除 key
+	 * @param config redis 连接配置
+	 * @param k 键
+	 */
 	void delete(RedisConnectionConfig config, String k);
 
+	/**
+	 * 修改 key 的 value 值
+	 * @param config redis 连接配置
+	 * @param k 键
+	 * @param v 值
+	 */
 	void update(RedisConnectionConfig config, String k, String v);
 }

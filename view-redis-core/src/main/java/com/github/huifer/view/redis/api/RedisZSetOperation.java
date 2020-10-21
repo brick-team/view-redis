@@ -22,7 +22,10 @@ import java.util.Set;
 
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
-/** redis 的 zset 数据类型操作 */
+/**
+ *  redis 的 zset 数据类型操作
+ * @author huifer
+ * */
 public interface RedisZSetOperation extends IRedisOperationLabel {
 
 	/**
@@ -38,7 +41,7 @@ public interface RedisZSetOperation extends IRedisOperationLabel {
 	/**
 	 * 删除一个元素
 	 *
-	 * @param config
+	 * @param config redis 连接配置
 	 * @param key 键
 	 * @param member 值
 	 */
@@ -47,7 +50,7 @@ public interface RedisZSetOperation extends IRedisOperationLabel {
 	/**
 	 * 获取zset
 	 *
-	 * @param config
+	 * @param config redis 连接配置
 	 * @param key 键
 	 * @return 数据
 	 */
@@ -56,16 +59,38 @@ public interface RedisZSetOperation extends IRedisOperationLabel {
 	/**
 	 * 更新一个元素
 	 *	覆盖memer的score值
-	 * @param config
+	 * @param config redis 连接配置
 	 * @param k 键
 	 * @param score 分数
 	 * @param member 值
 	 */
 	void update(RedisConnectionConfig config, String k, double score, String member);
 
+	/**
+	 * zset 的元素数量
+	 * @param config redis 连接配置
+	 * @param k 键
+	 * @return zset 的元素数量
+	 */
 	Long size(RedisConnectionConfig config, String k);
 
+	/**
+	 * 获取 zset 的值
+	 * @param config redis 连接配置
+	 * @param k 键
+	 * @param start 开始索引
+	 * @param end 结束索引
+	 * @return zset 的值
+	 */
 	Set get(RedisConnectionConfig config, String k, long start, long end);
 
+	/**
+	 * 修改 member
+	 * @param config redis 连接配置
+	 * @param k 键
+	 * @param oldMember 历史 member 值
+	 * @param newMember 新 member 值
+	 * @param score 分数
+	 */
 	void removeOldSaveNew(RedisConnectionConfig config, String k, String oldMember, String newMember, double score);
 }

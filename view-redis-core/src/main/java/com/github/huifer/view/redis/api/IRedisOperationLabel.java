@@ -18,6 +18,9 @@
 
 package com.github.huifer.view.redis.api;
 
-/** redis 操作的标记接口 */
+/**
+ * redis 操作的标记接口
+ * @author huifer
+ * */
 public interface IRedisOperationLabel {
 }

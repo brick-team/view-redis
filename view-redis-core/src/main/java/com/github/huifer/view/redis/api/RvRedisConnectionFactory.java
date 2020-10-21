@@ -22,7 +22,16 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
 import org.springframework.data.redis.core.RedisTemplate;
 
+/**
+ * redis template 生成工厂
+ * @author huifer
+ */
 public interface RvRedisConnectionFactory {
 
+	/**
+	 * 生成 redisTemplate
+	 * @param config redis 连接配置
+	 * @return redisTemplate
+	 */
 	RedisTemplate factory(RedisConnectionConfig config);
 }

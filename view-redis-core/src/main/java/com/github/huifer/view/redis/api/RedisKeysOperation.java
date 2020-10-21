@@ -23,7 +23,11 @@ import java.util.List;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.RedisKeyInfo;
 
-/** redis key 的操作接口 */
+/**
+ *  redis key 的操作接口
+ *
+ * @author huifer
+ * */
 public interface RedisKeysOperation {
 
 	/**
@@ -35,9 +39,28 @@ public interface RedisKeysOperation {
 	 */
 	List<RedisKeyInfo> keys(RedisConnectionConfig config, String keyRegion);
 
+	/**
+	 * 删除 key
+	 * @param config redis 连接配置
+	 * @param key key
+	 * @return true: 删除成功, false: 删除失败
+	 */
 	Boolean del(RedisConnectionConfig config, String key);
 
+	/**
+	 * 设置过期时间
+	 * @param config redis 连接配置
+	 * @param key key
+	 * @param expire 过期的秒数
+	 * @return true: 设置成功, false: 设置失败
+	 */
 	Boolean expire(RedisConnectionConfig config, String key, long expire);
 
+	/**
+	 * 重命名
+	 * @param config redis 连接配置
+	 * @param on 历史 key name
+	 * @param nn 新 key name
+	 */
 	void rename(RedisConnectionConfig config, String on, String nn);
 }

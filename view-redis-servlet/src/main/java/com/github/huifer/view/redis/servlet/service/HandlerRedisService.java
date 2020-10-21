@@ -35,6 +35,7 @@ import com.github.huifer.view.redis.model.info.RedisCliInfoStats;
 
 /**
  * 处理接口请求: /redis/service
+ * @author huifer
  */
 public interface HandlerRedisService {
 

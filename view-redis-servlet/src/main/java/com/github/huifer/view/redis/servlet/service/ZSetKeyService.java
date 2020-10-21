@@ -23,6 +23,10 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 处理 zset 的请求
+ * @author huifer
+ */
 public interface ZSetKeyService {
 	void handler(String url, HttpServletRequest request, HttpServletResponse response) throws IOException;
 

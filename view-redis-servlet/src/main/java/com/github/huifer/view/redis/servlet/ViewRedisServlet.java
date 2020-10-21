@@ -47,7 +47,9 @@ import org.springframework.util.StringUtils;
 
 
 /**
+ * redis 可视化的servlet
  * 参考: druid 的 servlet 方式
+ * @author huifer
  */
 public class ViewRedisServlet extends HttpServlet {
 	public final static int DEFAULT_BUFFER_SIZE = 1024 * 4;
