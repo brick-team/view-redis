@@ -27,29 +27,25 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>view-redis-servlet</artifactId>
+	<artifactId>view-redis-spring-boot-starter</artifactId>
 
+
+	<name>view-redis-spring-boot-starter</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-<!--			<scope>provided</scope>-->
-<!--			<optional>true</optional>-->
-		</dependency>
-		<dependency>
 			<groupId>com.github.huifer</groupId>
-			<artifactId>view-redis-core</artifactId>
+			<artifactId>view-redis-servlet</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+<!--			<scope>provided</scope>-->
+<!--			<optional>true</optional>-->
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
+
 	</dependencies>
+
 </project>

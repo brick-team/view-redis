@@ -29,6 +29,7 @@
 	<modules>
 		<module>boot-sample</module>
 		<module>servlet-sample</module>
+		<module>starter-sample</module>
 	</modules>
 
 	<properties>
