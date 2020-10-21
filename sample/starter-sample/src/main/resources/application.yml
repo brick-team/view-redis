@@ -15,3 +15,7 @@ logging:
     com.github.huifer.view.redis: debug
 
 
+#view:
+#  redis:
+#    login_name: root
+#    password: root

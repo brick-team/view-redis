@@ -18,18 +18,8 @@
 
 package com.github.huifer.view.redis.starter;
 
-import com.github.huifer.view.redis.servlet.Beans;
 import com.github.huifer.view.redis.servlet.enable.EnableViewRedisServlet;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-
 @EnableViewRedisServlet
-public class ViewRedisConfig implements InitializingBean {
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		System.out.println("11111111111");
-	}
+public class ViewRedisConfig {
 }
