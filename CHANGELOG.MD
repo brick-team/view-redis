@@ -14,6 +14,8 @@
 - 支持 spring boot starter 
   
   
+- 批量删除 key
+    
     
 ### Fixed
 - [issues:1](https://github.com/huifer/view-redis/issues/1) 修复请求参数传递方式

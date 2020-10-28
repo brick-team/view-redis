@@ -61,6 +61,16 @@
 ```
 
 
+### key 批量删除
+- 请求方式: post
+- 请求地址: `/key/delete/batch`
+- 请求参数
+```json
+{
+  "keys": []
+}
+```
+
 
 ## String 类型操作
 

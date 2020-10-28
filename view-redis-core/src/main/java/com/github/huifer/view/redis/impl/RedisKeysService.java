@@ -99,4 +99,10 @@ public class RedisKeysService implements RedisKeysOperation {
 		RedisTemplate redisTemplate = this.factory.factory(config);
 		redisTemplate.rename(on, nn);
 	}
+
+	@Override
+	public Long deleteKeyInBatch(RedisConnectionConfig config, List<String> keys) {
+		RedisTemplate redisTemplate = this.factory.factory(config);
+		return redisTemplate.delete(keys);
+	}
 }
