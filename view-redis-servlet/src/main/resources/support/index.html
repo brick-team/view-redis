@@ -244,15 +244,19 @@
                         <el-main>
                             <div>
                                 <el-row>
-                                    <el-col :span="8">
+                                    <el-col :span="4">
                                         <el-input v-model="input" placeholder="请输入内容"></el-input>
                                     </el-col>
-                                    <el-col :span="8">
+                                    <el-col :span="4">
                                         <el-button type="primary" @click.native="search_key(input)">搜索</el-button>
                                     </el-col>
 
-                                    <el-col :span="8">
+                                    <el-col :span="4">
                                         <el-button type="primary" @click.native="addRedis">添加redis键值</el-button>
+                                    </el-col>
+
+                                    <el-col :span="4">
+                                        <el-button type="danger" @click.native="deleteKeysApi">批量删除key</el-button>
                                     </el-col>
 
                                 </el-row>
@@ -260,8 +264,13 @@
                             <div>
                                 <el-table
                                         :data="tableData"
-                                        style="width: 100%">
-
+                                        style="width: 100%"
+                                        @selection-change="selectionLineChangeHandle"
+                                >
+                                    <el-table-column
+                                            type="selection"
+                                            width="55">
+                                    </el-table-column>
                                     <el-table-column
                                             prop="key"
                                             label="key"
@@ -632,6 +641,10 @@
         el: '#app',
         data: function () {
             return {
+
+                delete_keys: {
+                    keys: []
+                },
                 changeKeyNameDialogVisible: false,
                 changeKey: {
                     oldKey: "",
@@ -743,7 +756,7 @@
 
                 },
                 tableData: [
-                    //     {
+                    // {
                     //     key: "123",
                     //     dataType: "123"
                     // }
@@ -858,6 +871,46 @@
             }
         },
         methods: {
+            selectionLineChangeHandle(val) {
+                this.delete_keys.keys = [];
+
+                for (i in val) {
+                    this.delete_keys.keys.push(val[i]['key']);
+                }
+            },
+            deleteKeysApi() {
+                var dt = this.delete_keys.keys;
+                if (dt.length > 0) {
+                    axios.post("/redis/key/delete/batch", {
+                        keys: dt
+                    }).then(res => {
+
+                        if (res.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '批量删除 key 成功'
+
+                            });
+                            //    删除成功后刷新
+                            this.search_key(this.input);
+
+                        } else if (res.data.code == 400) {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.data
+                            });
+                        }
+                    })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: "请选择需要删除的key"
+                    });
+                }
+            },
             changeKeyName(row) {
                 this.changeKeyNameDialogVisible = true;
                 let k = row['key'];

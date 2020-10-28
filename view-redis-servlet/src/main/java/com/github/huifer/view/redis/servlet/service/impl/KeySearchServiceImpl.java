@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class KeySearchServiceImpl implements KeySearchService {
 			ResultVO ok = new ResultVO("ok", keysOperation.keys(config, map.get("key")), 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
-		else if (url.startsWith("/key/del")) {
+		else if (url.startsWith("/key/del") && !url.endsWith("batch")) {
 
 			String postBody = HttpServletUtils.getPostBody(request);
 			Map<String, String> map = gson.fromJson(postBody, Map.class);
@@ -82,6 +83,14 @@ public class KeySearchServiceImpl implements KeySearchService {
 
 			ResultVO ok = new ResultVO("ok", true, 200);
 			response.getWriter().write(gson.toJson(ok));
+		}
+		else if (url.startsWith("/key/delete/batch")) {
+			String postBody = HttpServletUtils.getPostBody(request);
+			Map<String, List<String>> map = gson.fromJson(postBody, Map.class);
+			Long keys = this.keysOperation.deleteKeyInBatch(config, map.get("keys"));
+			ResultVO ok = new ResultVO("ok", keys != null, 200);
+			response.getWriter().write(gson.toJson(ok));
+
 		}
 	}
 

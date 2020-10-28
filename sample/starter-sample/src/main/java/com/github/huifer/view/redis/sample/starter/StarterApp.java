@@ -18,6 +18,11 @@
 
 package com.github.huifer.view.redis.sample.starter;
 
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -11,6 +11,7 @@
     - member 设置 和 score 设置接口合并
 - redis hash 元素修改
     - 支持 field 修改
+- 批量删除 key
     
     
 ### Fixed

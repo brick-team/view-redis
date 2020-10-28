@@ -63,4 +63,12 @@ public interface RedisKeysOperation {
 	 * @param nn 新 key name
 	 */
 	void rename(RedisConnectionConfig config, String on, String nn);
+
+	/**
+	 * 批量删除key
+	 * @param config  redis 连接配置
+	 * @param keys keys
+	 * @return
+	 */
+	Long deleteKeyInBatch(RedisConnectionConfig config, List<String> keys);
 }
