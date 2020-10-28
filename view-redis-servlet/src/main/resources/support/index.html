@@ -25,9 +25,10 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>view-redis</title>
-    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
+
 <body>
 <div id="app">
     <el-tabs type="border-card">
@@ -628,12 +629,22 @@
     </el-dialog>
 
 
-    <el-tabs v-model="cluster_info_default_selector">
-        <el-tab-pane label="集群信息" name="first">
+    <el-tabs v-model="cluster_info_default_selector"
+
+
+    >
+        <el-tab-pane
+                label="集群信息"
+                name="first"
+
+        >
 
             <el-table
                     :data="cluster_infos"
-                    style="width: 100%">
+                    style="width: 100%"
+                    :row-class-name="redisClusterStyle"
+
+            >
 
                 <el-table-column
                         label="id"
@@ -689,6 +700,14 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+    .el-table .warning-row {
+        background: #933434;
+    }
+
+
+</style>
 <script>
     new Vue({
         el: '#app',
@@ -940,6 +959,13 @@
             }
         },
         methods: {
+            redisClusterStyle({row, rowIndex}) {
+                if (row.flags.toString().indexOf("fail")>=0) {
+
+                    return 'warning-row';
+                }
+
+            },
             selectionLineChangeHandle(val) {
                 this.delete_keys.keys = [];
 

@@ -43,10 +43,20 @@ public class ClusterListInfo {
 	 */
 	private String linkState;
 
+	private String ping;
+
 	/**
 	 * org.springframework.data.redis.connection.RedisClusterNode.Flag
 	 */
 	private String flags;
+
+	public String getPing() {
+		return ping;
+	}
+
+	public void setPing(String ping) {
+		this.ping = ping;
+	}
 
 	public String getId() {
 		return id;

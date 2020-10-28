@@ -72,10 +72,12 @@ public class IRedisClusterOperationImpl implements IRedisClusterOperation {
 
 	@Override
 	public List<ClusterListInfo> clusterInfos() {
+		RedisClusterConnection redisClusterConnection = this.factory.factory();
 		Iterable<RedisClusterNode> redisClusterNodes = clusterGetNodes();
 		List<ClusterListInfo> res = new ArrayList<>();
 		for (RedisClusterNode redisClusterNode : redisClusterNodes) {
 			ClusterListInfo clusterListInfo = new ClusterListInfo();
+
 			clusterListInfo.setId(redisClusterNode.getId());
 			clusterListInfo.setName(redisClusterNode.getName());
 			clusterListInfo.setHost(redisClusterNode.getHost());
@@ -95,6 +97,15 @@ public class IRedisClusterOperationImpl implements IRedisClusterOperation {
 			String flagstr = sb.deleteCharAt(sb.length() - 1).toString();
 			clusterListInfo.setFlags(flagstr);
 
+
+			try {
+				String ping = redisClusterConnection.ping(redisClusterNode);
+
+				clusterListInfo.setPing(ping);
+			}
+			catch (Exception e) {
+				clusterListInfo.setPing(e.getMessage());
+			}
 			res.add(clusterListInfo);
 		}
 		return res;
