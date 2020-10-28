@@ -18,6 +18,8 @@
 
 package com.github.huifer.view.redis.boot.runner;
 
+import java.util.List;
+
 import com.github.huifer.view.redis.cache.SpringRedisProperties;
 import com.github.huifer.view.redis.utils.SingletData;
 import org.slf4j.Logger;
@@ -28,6 +30,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.stereotype.Component;
 
@@ -54,12 +57,22 @@ public class ViewRedisRunner {
 
 			RedisConnectionFactory redisConnectionFactory = context.getBean(RedisConnectionFactory.class);
 
-
 			SpringRedisProperties springRedisProperties = new SpringRedisProperties();
 			springRedisProperties.setProperties(redisProperties);
 			springRedisProperties.setRedisConnectionFactory(redisConnectionFactory);
 
 			SingletData.setSpringRedisProperties(springRedisProperties);
+
+
+			// 设置cluster
+
+			RedisProperties.Cluster cluster = redisProperties.getCluster();
+			List<String> nodes = cluster.getNodes();
+			if (!nodes.isEmpty()) {
+				SingletData.setCluster(cluster);
+				RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
+				SingletData.setClusterConnection(clusterConnection);
+			}
 
 		};
 	}

@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * 处理 list 的请求
  * @author huifer
@@ -37,6 +38,5 @@ public interface ListKeyService {
 	void update(String k, String ov, String nv);
 
 	void removeRow(String k, int row);
-
 
 }

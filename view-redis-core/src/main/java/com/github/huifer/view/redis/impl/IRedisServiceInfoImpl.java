@@ -25,6 +25,7 @@ import java.util.Properties;
 
 import com.github.huifer.view.redis.api.IRedisServerInfo;
 import com.github.huifer.view.redis.api.RvRedisConnectionFactory;
+import com.github.huifer.view.redis.convert.RedisPropertiesConvertObj;
 import com.github.huifer.view.redis.model.RedisConnectionConfig;
 import com.github.huifer.view.redis.model.RedisInfo;
 import com.github.huifer.view.redis.model.info.RedisCliInfoClients;
@@ -76,7 +77,11 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 	@Override
 	public long useMemory(RedisConnectionConfig config) {
 		Properties info = redisInfo(config);
-		return Long.parseLong(String.valueOf(Objects.requireNonNull(info).get(USED_MEMORY)));
+		Object o = Objects.requireNonNull(info).get(USED_MEMORY);
+		if (o == null) {
+			return 0;
+		}
+		return Long.parseLong(String.valueOf(o));
 	}
 
 	/**
@@ -89,7 +94,11 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 	@Override
 	public int client(RedisConnectionConfig config) {
 		Properties info = redisInfo(config);
-		return Integer.parseInt(String.valueOf(Objects.requireNonNull(info).get(CONNECTED_CLIENTS)));
+		Object o = Objects.requireNonNull(info).get(CONNECTED_CLIENTS);
+		if (o == null) {
+			return 0;
+		}
+		return Integer.parseInt(String.valueOf(o));
 	}
 
 	/**
@@ -102,8 +111,12 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 	@Override
 	public long execSize(RedisConnectionConfig config) {
 		Properties info = redisInfo(config);
+		Object o = Objects.requireNonNull(info).get(TOTAL_COMMANDS_PROCESSED);
+		if (o == null) {
+			return 0;
+		}
 		return Long.parseLong(
-				String.valueOf(Objects.requireNonNull(info).get(TOTAL_COMMANDS_PROCESSED)));
+				String.valueOf(o));
 	}
 
 	private Properties redisInfo(RedisConnectionConfig config) {
@@ -121,7 +134,11 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 	@Override
 	public long runTime(RedisConnectionConfig config) {
 		Properties info = redisInfo(config);
-		return Long.parseLong(String.valueOf(Objects.requireNonNull(info).get(UPTIME_IN_SECONDS)));
+		Object o = Objects.requireNonNull(info).get(UPTIME_IN_SECONDS);
+		if (o == null) {
+			return 0;
+		}
+		return Long.parseLong(String.valueOf(o));
 	}
 
 	/**
@@ -142,27 +159,12 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		RedisTemplate factory = redisConnectionCacheFactory.factory(config);
 		RedisConnection connection = getConnection(factory);
 		Properties server = connection.info("server");
+
+
 		RedisCliInfoServer redisCliInfoServer = new RedisCliInfoServer();
 		assert server != null;
-		redisCliInfoServer.setRedisVersion(server.getProperty("redis_version"));
-		redisCliInfoServer.setRedisGitSha1(server.getProperty("redis_git_sha1"));
-		redisCliInfoServer.setRedisGitDirty(server.getProperty("redis_git_dirty"));
-		redisCliInfoServer.setRedisBuildId(server.getProperty("redis_build_id"));
-		redisCliInfoServer.setRedisMode(server.getProperty("redis_mode"));
-		redisCliInfoServer.setOs(server.getProperty("os"));
-		redisCliInfoServer.setArchBits(server.getProperty("arch_bits"));
-		redisCliInfoServer.setMultiplexingApi(server.getProperty("multiplexing_api"));
-		redisCliInfoServer.setProcessId(server.getProperty("process_id"));
-		redisCliInfoServer.setRunId(server.getProperty("run_id"));
-		redisCliInfoServer.setTcpPort(server.getProperty("tcp_port"));
-		redisCliInfoServer.setUptimeInSeconds(server.getProperty("uptime_in_seconds"));
-		redisCliInfoServer.setUptimeInDays(server.getProperty("uptime_in_days"));
-		redisCliInfoServer.setHz(server.getProperty("hz"));
-		redisCliInfoServer.setLruClock(server.getProperty("lru_clock"));
-		redisCliInfoServer.setExecutable(server.getProperty("executable"));
-		redisCliInfoServer.setConfigFile(server.getProperty("config_file"));
 		connection.close();
-		return redisCliInfoServer;
+		return RedisPropertiesConvertObj.server(server);
 	}
 
 	@Override
@@ -173,13 +175,9 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		Properties clients = connection.info("clients");
 		RedisCliInfoClients redisCliInfoClients = new RedisCliInfoClients();
 		assert clients != null;
-		redisCliInfoClients.setConnectedClients(clients.getProperty("connected_clients"));
-		redisCliInfoClients.setClientLongestOutputList(
-				clients.getProperty("client_longest_output_list"));
-		redisCliInfoClients.setClientBiggestInputBuf(clients.getProperty("client_biggest_input_buf"));
-		redisCliInfoClients.setBlockedClients(clients.getProperty("blocked_clients"));
 		connection.close();
-		return redisCliInfoClients;
+		return RedisPropertiesConvertObj.clients(clients);
+
 	}
 
 	@Override
@@ -190,23 +188,8 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		Properties memory = connection.info("memory");
 		RedisCliInfoMemory redisCliInfoMemory = new RedisCliInfoMemory();
 		assert memory != null;
-		redisCliInfoMemory.setUsedMemory(memory.getProperty("used_memory"));
-		redisCliInfoMemory.setUsedMemoryHuman(memory.getProperty("used_memory_human"));
-		redisCliInfoMemory.setUsedMemoryRss(memory.getProperty("used_memory_rss"));
-		redisCliInfoMemory.setUsedMemoryRssHuman(memory.getProperty("used_memory_rss_human"));
-		redisCliInfoMemory.setUsedMemoryPeak(memory.getProperty("used_memory_peak"));
-		redisCliInfoMemory.setUsedMemoryPeakHuman(memory.getProperty("used_memory_peak_human"));
-		redisCliInfoMemory.setTotalSystemMemory(memory.getProperty("total_system_memory"));
-		redisCliInfoMemory.setTotalSystemMemoryHuman(memory.getProperty("total_system_memory_human"));
-		redisCliInfoMemory.setUsedMemoryLua(memory.getProperty("used_memory_lua"));
-		redisCliInfoMemory.setUsedMemoryLuaHuman(memory.getProperty("used_memory_lua_human"));
-		redisCliInfoMemory.setMaxmemory(memory.getProperty("maxmemory"));
-		redisCliInfoMemory.setMaxmemoryHuman(memory.getProperty("maxmemory_human"));
-		redisCliInfoMemory.setMaxmemoryPolicy(memory.getProperty("maxmemory_policy"));
-		redisCliInfoMemory.setMemFragmentationRatio(memory.getProperty("mem_fragmentation_ratio"));
-		redisCliInfoMemory.setMemAllocator(memory.getProperty("mem_allocator"));
 		connection.close();
-		return redisCliInfoMemory;
+		return RedisPropertiesConvertObj.memory(memory);
 	}
 
 	@Override
@@ -217,32 +200,8 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		Properties persistence = connection.info("persistence");
 		RedisCliInfoPersistence redisCliInfoPersistence = new RedisCliInfoPersistence();
 		assert persistence != null;
-		redisCliInfoPersistence.setLoading(persistence.getProperty("loading"));
-		redisCliInfoPersistence.setRdbChangesSinceLastSave(
-				persistence.getProperty("rdb_changes_since_last_save"));
-		redisCliInfoPersistence.setRdbBgsaveInProgress(
-				persistence.getProperty("rdb_bgsave_in_progress"));
-		redisCliInfoPersistence.setRdbLastSaveTime(persistence.getProperty("rdb_last_save_time"));
-		redisCliInfoPersistence.setRdbLastBgsaveStatus(
-				persistence.getProperty("rdb_last_bgsave_status"));
-		redisCliInfoPersistence.setRdbLastBgsaveTimeSec(
-				persistence.getProperty("rdb_last_bgsave_time_sec"));
-		redisCliInfoPersistence.setRdbCurrentBgsaveTimeSec(
-				persistence.getProperty("rdb_current_bgsave_time_sec"));
-		redisCliInfoPersistence.setAofEnabled(persistence.getProperty("aof_enabled"));
-		redisCliInfoPersistence.setAofRewriteInProgress(
-				persistence.getProperty("aof_rewrite_in_progress"));
-		redisCliInfoPersistence.setAofRewriteScheduled(
-				persistence.getProperty("aof_rewrite_scheduled"));
-		redisCliInfoPersistence.setAofLastRewriteTimeSec(
-				persistence.getProperty("aof_last_rewrite_time_sec"));
-		redisCliInfoPersistence.setAofCurrentRewriteTimeSec(
-				persistence.getProperty("aof_current_rewrite_time_sec"));
-		redisCliInfoPersistence.setAofLastBgrewriteStatus(
-				persistence.getProperty("aof_last_bgrewrite_status"));
-		redisCliInfoPersistence.setAofLastWriteStatus(persistence.getProperty("aof_last_write_status"));
 		connection.close();
-		return redisCliInfoPersistence;
+		return RedisPropertiesConvertObj.persistence(persistence);
 	}
 
 	private RedisConnection getConnection(RedisTemplate factory) {
@@ -257,27 +216,8 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		Properties stats = connection.info("stats");
 		RedisCliInfoStats redisCliInfoStats = new RedisCliInfoStats();
 		assert stats != null;
-		redisCliInfoStats.setTotalConnectionsReceived(stats.getProperty("total_connections_received"));
-		redisCliInfoStats.setTotalCommandsProcessed(stats.getProperty("total_commands_processed"));
-		redisCliInfoStats.setInstantaneousOpsPerSec(stats.getProperty("instantaneous_ops_per_sec"));
-		redisCliInfoStats.setTotalNetInputBytes(stats.getProperty("total_net_input_bytes"));
-		redisCliInfoStats.setTotalNetOutputBytes(stats.getProperty("total_net_output_bytes"));
-		redisCliInfoStats.setInstantaneousInputKbps(stats.getProperty("instantaneous_input_kbps"));
-		redisCliInfoStats.setInstantaneousOutputKbps(stats.getProperty("instantaneous_output_kbps"));
-		redisCliInfoStats.setRejectedConnections(stats.getProperty("rejected_connections"));
-		redisCliInfoStats.setSyncFull(stats.getProperty("sync_full"));
-		redisCliInfoStats.setSyncPartialOk(stats.getProperty("sync_partial_ok"));
-		redisCliInfoStats.setSyncPartialErr(stats.getProperty("sync_partial_err"));
-		redisCliInfoStats.setExpiredKeys(stats.getProperty("expired_keys"));
-		redisCliInfoStats.setEvictedKeys(stats.getProperty("evicted_keys"));
-		redisCliInfoStats.setKeyspaceHits(stats.getProperty("keyspace_hits"));
-		redisCliInfoStats.setKeyspaceMisses(stats.getProperty("keyspace_misses"));
-		redisCliInfoStats.setPubsubChannels(stats.getProperty("pubsub_channels"));
-		redisCliInfoStats.setPubsubPatterns(stats.getProperty("pubsub_patterns"));
-		redisCliInfoStats.setLatestForkUsec(stats.getProperty("latest_fork_usec"));
-		redisCliInfoStats.setMigrateCachedSockets(stats.getProperty("migrate_cached_sockets"));
 		connection.close();
-		return redisCliInfoStats;
+		return RedisPropertiesConvertObj.stats(stats);
 	}
 
 	@Override
@@ -288,16 +228,8 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		Properties replication = connection.info("replication");
 		RedisCliInfoReplication redisCliInfoReplication = new RedisCliInfoReplication();
 		assert replication != null;
-		redisCliInfoReplication.setRole(replication.getProperty("role"));
-		redisCliInfoReplication.setConnectedSlaves(replication.getProperty("connected_slaves"));
-		redisCliInfoReplication.setMasterReplOffset(replication.getProperty("master_repl_offset"));
-		redisCliInfoReplication.setReplBacklogActive(replication.getProperty("repl_backlog_active"));
-		redisCliInfoReplication.setReplBacklogSize(replication.getProperty("repl_backlog_size"));
-		redisCliInfoReplication.setReplBacklogFirstByteOffset(
-				replication.getProperty("repl_backlog_first_byte_offset"));
-		redisCliInfoReplication.setReplBacklogHistlen(replication.getProperty("repl_backlog_histlen"));
 		connection.close();
-		return redisCliInfoReplication;
+		return RedisPropertiesConvertObj.replication(replication);
 	}
 
 	@Override
@@ -308,12 +240,8 @@ public class IRedisServiceInfoImpl implements IRedisServerInfo {
 		Properties cpu = connection.info("cpu");
 		RedisCliInfoCpu redisCliInfoCpu = new RedisCliInfoCpu();
 		assert cpu != null;
-		redisCliInfoCpu.setUsedCpuSys(cpu.getProperty("used_cpu_sys"));
-		redisCliInfoCpu.setUsedCpuUser(cpu.getProperty("used_cpu_user"));
-		redisCliInfoCpu.setUsedCpuSysChildren(cpu.getProperty("used_cpu_sys_children"));
-		redisCliInfoCpu.setUsedCpuUserChildren(cpu.getProperty("used_cpu_user_children"));
 		connection.close();
-		return redisCliInfoCpu;
+		return RedisPropertiesConvertObj.cpu(cpu);
 	}
 
 	@Override

@@ -16,17 +16,39 @@
  *
  */
 
-package com.github.huifer.view.redis.servlet.service;
-
-import java.awt.*;
-import java.util.List;
+package com.github.huifer.view.redis.model.cluster;
 
 /**
- * 处理 geo 的请求
+ * org.springframework.data.redis.connection.RedisClusterNode.SlotRange
+ *
  * @author huifer
  */
-public interface GeoKeyService {
-	void add(String key, String value, double x, double y);
+public class Range {
+	private Integer start;
 
-	List<Point> get(String key, String value);
+	private Integer end;
+
+	public Range() {
+	}
+
+	public Range(Integer start, Integer end) {
+		this.start = start;
+		this.end = end;
+	}
+
+	public Integer getStart() {
+		return start;
+	}
+
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+
+	public Integer getEnd() {
+		return end;
+	}
+
+	public void setEnd(Integer end) {
+		this.end = end;
+	}
 }

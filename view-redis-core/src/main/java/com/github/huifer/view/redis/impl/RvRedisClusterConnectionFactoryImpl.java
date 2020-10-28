@@ -16,17 +16,22 @@
  *
  */
 
-package com.github.huifer.view.redis.servlet.service;
+package com.github.huifer.view.redis.impl;
 
-import java.awt.*;
-import java.util.List;
+import com.github.huifer.view.redis.api.RvRedisClusterConnectionFactory;
+import com.github.huifer.view.redis.utils.SingletData;
+
+import org.springframework.data.redis.connection.RedisClusterConnection;
 
 /**
- * 处理 geo 的请求
+ *
+ *
  * @author huifer
  */
-public interface GeoKeyService {
-	void add(String key, String value, double x, double y);
+public class RvRedisClusterConnectionFactoryImpl implements RvRedisClusterConnectionFactory {
+	@Override
+	public RedisClusterConnection factory() {
+		return SingletData.getClusterConnection();
+	}
 
-	List<Point> get(String key, String value);
 }

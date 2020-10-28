@@ -1,0 +1,16 @@
+server:
+  port: 9123
+
+
+spring:
+  redis:
+    cluster:
+      nodes: localhost:6380,localhost:6381
+
+
+
+view:
+  redis:
+
+    password: root
+    login-name: root

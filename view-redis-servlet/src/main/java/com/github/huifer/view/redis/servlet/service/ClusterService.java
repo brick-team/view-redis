@@ -18,15 +18,16 @@
 
 package com.github.huifer.view.redis.servlet.service;
 
-import java.awt.*;
-import java.util.List;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * 处理 geo 的请求
+ *
+ *
  * @author huifer
  */
-public interface GeoKeyService {
-	void add(String key, String value, double x, double y);
-
-	List<Point> get(String key, String value);
+public interface ClusterService {
+	void handler(String path, HttpServletRequest req, HttpServletResponse resp) throws IOException;
 }

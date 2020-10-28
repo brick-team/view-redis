@@ -16,17 +16,24 @@
  *
  */
 
-package com.github.huifer.view.redis.servlet.service;
+package com.github.huifer.view.redis.sample.cluster;
 
-import java.awt.*;
-import java.util.List;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 处理 geo 的请求
+ *
+ *
  * @author huifer
  */
-public interface GeoKeyService {
-	void add(String key, String value, double x, double y);
+@SpringBootApplication
+@RestController
+public class ClusterApp {
 
-	List<Point> get(String key, String value);
+
+	public static void main(String[] args) {
+		SpringApplication.run(ClusterApp.class, args);
+	}
+
 }

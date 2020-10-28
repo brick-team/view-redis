@@ -83,9 +83,9 @@ public class RedisHashController {
 
 	@PutMapping("/update/{k}/{field}/{v}")
 	public ResultVO update(
-		@PathVariable("k")	String k,
-		@PathVariable("field")	String field,
-		@PathVariable("v")	String v) {
+			@PathVariable("k") String k,
+			@PathVariable("field") String field,
+			@PathVariable("v") String v) {
 		try {
 			hashOperation.update(config, k, field, v);
 			return new ResultVO("ok", true, 200);

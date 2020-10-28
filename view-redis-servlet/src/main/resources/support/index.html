@@ -25,7 +25,7 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>view-redis</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
@@ -36,7 +36,7 @@
             <el-row>
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>redis基本信息</span>
                         </div>
                         <div>
@@ -59,7 +59,7 @@
 
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>server_info_info</span>
                         </div>
                         <div>
@@ -87,7 +87,7 @@
 
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>clients</span>
                         </div>
                         <div>
@@ -102,7 +102,7 @@
 
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>memory</span>
                         </div>
                         <div>
@@ -129,7 +129,7 @@
 
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>persistence</span>
                         </div>
                         <div>
@@ -154,7 +154,7 @@
 
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>stats</span>
                         </div>
                         <div>
@@ -188,7 +188,7 @@
 
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>replication</span>
                         </div>
                         <div>
@@ -206,7 +206,7 @@
                 <el-col :span="4">
 
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>cpu</span>
                         </div>
                         <div>
@@ -220,7 +220,7 @@
                 </el-col>
                 <el-col :span="4">
                     <el-card :span="4" class="box-card">
-                        <div slot="header" class="clearfix">
+                        <div class="clearfix" slot="header">
                             <span>cluster</span>
                         </div>
                         <div>
@@ -245,18 +245,18 @@
                             <div>
                                 <el-row>
                                     <el-col :span="4">
-                                        <el-input v-model="input" placeholder="请输入内容"></el-input>
+                                        <el-input placeholder="请输入内容" v-model="input"></el-input>
                                     </el-col>
                                     <el-col :span="4">
-                                        <el-button type="primary" @click.native="search_key(input)">搜索</el-button>
-                                    </el-col>
-
-                                    <el-col :span="4">
-                                        <el-button type="primary" @click.native="addRedis">添加redis键值</el-button>
+                                        <el-button @click.native="search_key(input)" type="primary">搜索</el-button>
                                     </el-col>
 
                                     <el-col :span="4">
-                                        <el-button type="danger" @click.native="deleteKeysApi">批量删除key</el-button>
+                                        <el-button @click.native="addRedis" type="primary">添加redis键值</el-button>
+                                    </el-col>
+
+                                    <el-col :span="4">
+                                        <el-button @click.native="deleteKeysApi" type="danger">批量删除key</el-button>
                                     </el-col>
 
                                 </el-row>
@@ -264,25 +264,25 @@
                             <div>
                                 <el-table
                                         :data="tableData"
-                                        style="width: 100%"
                                         @selection-change="selectionLineChangeHandle"
+                                        style="width: 100%"
                                 >
                                     <el-table-column
                                             type="selection"
                                             width="55">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="key"
                                             label="key"
+                                            prop="key"
                                             width="180">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="dataType"
-                                            label="type">
+                                            label="type"
+                                            prop="dataType">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="expire"
-                                            label="expire(秒)">
+                                            label="expire(秒)"
+                                            prop="expire">
                                     </el-table-column>
 
                                     <el-table-column
@@ -290,14 +290,14 @@
                                             label="操作"
                                             width="100">
                                         <template slot-scope="scope">
-                                            <el-button @click="handleClick(scope.row)" type="primary" size="small">查看
+                                            <el-button @click="handleClick(scope.row)" size="small" type="primary">查看
                                             </el-button>
-                                            <el-button @click="delKey(scope.row)" type="danger" size="small">删除
+                                            <el-button @click="delKey(scope.row)" size="small" type="danger">删除
                                             </el-button>
 
-                                            <el-button @click="setExpire(scope.row)" type="primary" size="small">设置过期时间
+                                            <el-button @click="setExpire(scope.row)" size="small" type="primary">设置过期时间
                                             </el-button>
-                                            <el-button @click="changeKeyName(scope.row)" type="primary" size="small">
+                                            <el-button @click="changeKeyName(scope.row)" size="small" type="primary">
                                                 修改key名称
                                             </el-button>
 
@@ -315,23 +315,23 @@
     </el-tabs>
 
 
-    <el-dialog title="LIST" :visible.sync="list_dialog_show">
+    <el-dialog :visible.sync="list_dialog_show" title="LIST">
         <div>
             key: <span>{{list.key}}</span>
         </div>
         <div>
             <el-table
                     :data="list.value"
-                    style="width: 100%"
-                    max-height="250">
+                    max-height="250"
+                    style="width: 100%">
 
                 <el-table-column
-                        prop="indexId"
-                        label="indexId">
+                        label="indexId"
+                        prop="indexId">
                 </el-table-column>
                 <el-table-column
-                        prop="data"
-                        label="data">
+                        label="data"
+                        prop="data">
                 </el-table-column>
 
                 <el-table-column
@@ -339,9 +339,9 @@
                         label="操作"
                         width="100">
                     <template slot-scope="scope">
-                        <el-button @click="deleteRowForList(scope.row)" type="text" size="small">删除
+                        <el-button @click="deleteRowForList(scope.row)" size="small" type="text">删除
                         </el-button>
-                        <el-button @click="updateForList(scope.row)" type="text" size="small">编辑
+                        <el-button @click="updateForList(scope.row)" size="small" type="text">编辑
                         </el-button>
                     </template>
                 </el-table-column>
@@ -353,15 +353,15 @@
         </div>
     </el-dialog>
 
-    <el-dialog title="SET" :visible.sync="set_dialog_show">
+    <el-dialog :visible.sync="set_dialog_show" title="SET">
         <div>
             key: <span>{{set_s.key}}</span>
         </div>
         <div>
             <el-table
                     :data="set_s.value"
-                    style="width: 100%"
-                    max-height="250">
+                    max-height="250"
+                    style="width: 100%">
 
                 <el-table-column label="value">
                     <template slot-scope="scope">
@@ -373,9 +373,9 @@
                         label="操作"
                         width="100">
                     <template slot-scope="scope">
-                        <el-button @click="deleteForSet(scope.row)" type="text" size="small">删除
+                        <el-button @click="deleteForSet(scope.row)" size="small" type="text">删除
                         </el-button>
-                        <el-button @click="updateForSet(scope.row)" type="text" size="small">编辑
+                        <el-button @click="updateForSet(scope.row)" size="small" type="text">编辑
                         </el-button>
                     </template>
                 </el-table-column>
@@ -384,7 +384,7 @@
         </div>
     </el-dialog>
 
-    <el-dialog title="STRING" :visible.sync="string_dialog_show">
+    <el-dialog :visible.sync="string_dialog_show" title="STRING">
         <div>
             <div>
                 key: <span>{{string_s.key}}</span>
@@ -393,12 +393,12 @@
                 value: <span>{{string_s.value}}</span>
             </div>
 
-            <el-button @click="deleteForString" type="text" size="small">删除</el-button>
-            <el-button @click="updateForString" type="text" size="small">修改</el-button>
+            <el-button @click="deleteForString" size="small" type="text">删除</el-button>
+            <el-button @click="updateForString" size="small" type="text">修改</el-button>
         </div>
     </el-dialog>
 
-    <el-dialog title="ZSET" :visible.sync="zset_dialog_show">
+    <el-dialog :visible.sync="zset_dialog_show" title="ZSET">
 
         <div>
             key: <span>{{zset_s.key}}</span>
@@ -406,8 +406,8 @@
         <div>
             <el-table
                     :data="zset_s.value"
-                    style="width: 100%"
-                    max-height="250">
+                    max-height="250"
+                    style="width: 100%">
 
                 <el-table-column label="score" prop="score">
 
@@ -422,9 +422,9 @@
                         label="操作"
                         width="100">
                     <template slot-scope="scope">
-                        <el-button @click="deleteForZSet(scope.row)" type="text" size="small">删除
+                        <el-button @click="deleteForZSet(scope.row)" size="small" type="text">删除
                         </el-button>
-                        <el-button @click="updateForZSet(scope.row)" type="text" size="small">编辑
+                        <el-button @click="updateForZSet(scope.row)" size="small" type="text">编辑
                         </el-button>
                     </template>
                 </el-table-column>
@@ -436,15 +436,15 @@
 
     </el-dialog>
 
-    <el-dialog title="HASH" :visible.sync="hash_dialog_show">
+    <el-dialog :visible.sync="hash_dialog_show" title="HASH">
         <div>
             key: <span>{{hash_s.key}}</span>
         </div>
         <div>
             <el-table
                     :data="hash_s.value"
-                    style="width: 100%"
-                    max-height="250">
+                    max-height="250"
+                    style="width: 100%">
 
                 <el-table-column label="key" prop="key">
 
@@ -459,9 +459,9 @@
                         label="操作"
                         width="100">
                     <template slot-scope="scope">
-                        <el-button @click="deleteForHash(scope.row)" type="text" size="small">删除
+                        <el-button @click="deleteForHash(scope.row)" size="small" type="text">删除
                         </el-button>
-                        <el-button @click="updateForHash(scope.row)" type="text" size="small">编辑
+                        <el-button @click="updateForHash(scope.row)" size="small" type="text">编辑
                         </el-button>
                     </template>
                 </el-table-column>
@@ -472,133 +472,133 @@
     </el-dialog>
 
 
-    <el-dialog title="添加键值对" :visible.sync="ddd">
+    <el-dialog :visible.sync="ddd" title="添加键值对">
         <el-tabs v-model="add_default">
             <el-tab-pane label="string" name="string">
                 <div>
-                    key: <span><el-input v-model="add_str.key" placeholder="输入key"></el-input></span>
-                    value: <span><el-input v-model="add_str.value" placeholder="输入value"></el-input></span>
+                    key: <span><el-input placeholder="输入key" v-model="add_str.key"></el-input></span>
+                    value: <span><el-input placeholder="输入value" v-model="add_str.value"></el-input></span>
 
-                    <el-button type="primary" @click="add_str_api">保存</el-button>
+                    <el-button @click="add_str_api" type="primary">保存</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="list" name="list">
                 <div>
-                    key: <span><el-input v-model="add_list.key" placeholder="输入key"></el-input></span>
-                    value: <span><el-input v-model="add_list.value" placeholder="输入value"></el-input></span>
+                    key: <span><el-input placeholder="输入key" v-model="add_list.key"></el-input></span>
+                    value: <span><el-input placeholder="输入value" v-model="add_list.value"></el-input></span>
 
-                    <el-button type="primary" @click="add_list_api">保存</el-button>
+                    <el-button @click="add_list_api" type="primary">保存</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="set" name="set">
                 <div>
-                    key: <span><el-input v-model="add_set.key" placeholder="输入key"></el-input></span>
-                    value: <span><el-input v-model="add_set.value" placeholder="输入value"></el-input></span>
+                    key: <span><el-input placeholder="输入key" v-model="add_set.key"></el-input></span>
+                    value: <span><el-input placeholder="输入value" v-model="add_set.value"></el-input></span>
 
-                    <el-button type="primary" @click="add_set_api">保存</el-button>
+                    <el-button @click="add_set_api" type="primary">保存</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="zset" name="zset">
                 <div>
-                    key: <span><el-input v-model="add_zset.key" placeholder="输入key"></el-input></span>
-                    value: <span><el-input v-model="add_zset.value" placeholder="输入value"></el-input></span>
-                    score: <span><el-input v-model="add_zset.score" placeholder="输入score"></el-input></span>
+                    key: <span><el-input placeholder="输入key" v-model="add_zset.key"></el-input></span>
+                    value: <span><el-input placeholder="输入value" v-model="add_zset.value"></el-input></span>
+                    score: <span><el-input placeholder="输入score" v-model="add_zset.score"></el-input></span>
 
-                    <el-button type="primary" @click="add_z_set_api">保存</el-button>
+                    <el-button @click="add_z_set_api" type="primary">保存</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="hash" name="hash">
                 <div>
-                    key: <span><el-input v-model="add_hash.key" placeholder="输入key"></el-input></span>
-                    field: <span><el-input v-model="add_hash.field" placeholder="输入field"></el-input></span>
-                    value: <span><el-input v-model="add_hash.value" placeholder="输入value"></el-input></span>
+                    key: <span><el-input placeholder="输入key" v-model="add_hash.key"></el-input></span>
+                    field: <span><el-input placeholder="输入field" v-model="add_hash.field"></el-input></span>
+                    value: <span><el-input placeholder="输入value" v-model="add_hash.value"></el-input></span>
 
-                    <el-button type="primary" @click="add_hash_api">保存</el-button>
+                    <el-button @click="add_hash_api" type="primary">保存</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
     </el-dialog>
 
 
-    <el-dialog title="修改 string " :visible.sync="up_string_dialog_show">
+    <el-dialog :visible.sync="up_string_dialog_show" title="修改 string ">
         <div>
             key: <span>{{up_str.key}}</span>
         </div>
         <div>
-            value: <span><el-input v-model="up_str.value" placeholder="请输入内容"></el-input></span>
+            value: <span><el-input placeholder="请输入内容" v-model="up_str.value"></el-input></span>
         </div>
 
         <div>
-            <el-button @click="update_str" type="text" size="small">保存
+            <el-button @click="update_str" size="small" type="text">保存
             </el-button>
         </div>
 
     </el-dialog>
 
-    <el-dialog title="修改 set " :visible.sync="up_set_dialog_show">
+    <el-dialog :visible.sync="up_set_dialog_show" title="修改 set ">
         <div>
             key: <span>{{up_set.k}}</span>
         </div>
         <div>
-            value: <span><el-input v-model="up_set.nv" placeholder="请输入内容"></el-input></span>
+            value: <span><el-input placeholder="请输入内容" v-model="up_set.nv"></el-input></span>
         </div>
 
         <div>
-            <el-button @click="update_set" type="text" size="small">保存
+            <el-button @click="update_set" size="small" type="text">保存
             </el-button>
         </div>
 
     </el-dialog>
 
 
-    <el-dialog title="修改 list " :visible.sync="up_list_dialog_show">
+    <el-dialog :visible.sync="up_list_dialog_show" title="修改 list ">
         <div>
             key: <span>{{up_list.k}}</span>
         </div>
         <div>
-            value: <span><el-input v-model="up_list.nv" placeholder="请输入内容"></el-input></span>
+            value: <span><el-input placeholder="请输入内容" v-model="up_list.nv"></el-input></span>
         </div>
 
         <div>
-            <el-button @click="update_list" type="text" size="small">保存
+            <el-button @click="update_list" size="small" type="text">保存
             </el-button>
         </div>
 
     </el-dialog>
 
 
-    <el-dialog title="修改 hash " :visible.sync="up_hash_dialog_show">
+    <el-dialog :visible.sync="up_hash_dialog_show" title="修改 hash ">
         <div>
             key: <span>{{up_hash.k}}</span>
         </div>
         <div>
-            field: <span><el-input v-model="up_hash.newField" placeholder="请输入内容"></el-input></span>
+            field: <span><el-input placeholder="请输入内容" v-model="up_hash.newField"></el-input></span>
         </div>
         <div>
-            value: <span><el-input v-model="up_hash.v" placeholder="请输入内容"></el-input></span>
+            value: <span><el-input placeholder="请输入内容" v-model="up_hash.v"></el-input></span>
         </div>
 
         <div>
-            <el-button @click="update_hash" type="text" size="small">保存
+            <el-button @click="update_hash" size="small" type="text">保存
             </el-button>
         </div>
 
     </el-dialog>
 
 
-    <el-dialog title="修改 zset " :visible.sync="up_zset_dialog_show">
+    <el-dialog :visible.sync="up_zset_dialog_show" title="修改 zset ">
         <div>
             key: <span>{{up_zst.k}}</span>
         </div>
         <div>
-            member: <span><el-input v-model="up_zst.newMember" placeholder="请输入内容"></el-input></span>
+            member: <span><el-input placeholder="请输入内容" v-model="up_zst.newMember"></el-input></span>
         </div>
         <div>
-            score: <span><el-input v-model="up_zst.score" placeholder="请输入内容"></el-input></span>
+            score: <span><el-input placeholder="请输入内容" v-model="up_zst.score"></el-input></span>
         </div>
 
         <div>
-            <el-button @click="update_zset" type="text" size="small">保存
+            <el-button @click="update_zset" size="small" type="text">保存
             </el-button>
         </div>
 
@@ -606,27 +606,80 @@
 
 
     <el-dialog
-            title="设置过期时间"
             :visible.sync="expireDialogVisible"
+            title="设置过期时间"
             width="30%">
         key: <span>{{expire.key}}</span><br/>
 
         expire:
-        <el-input v-model="expire.expire" placeholder="请输入内容"></el-input>
+        <el-input placeholder="请输入内容" v-model="expire.expire"></el-input>
         <el-button @click="api_expire" type="warning">设置过期时间</el-button>
     </el-dialog>
 
     <el-dialog
-            title="修改key name"
             :visible.sync="changeKeyNameDialogVisible"
+            title="修改key name"
             width="30%">
         key: <span>{{changeKey.oldKey}}</span><br/>
 
         修改的Key:
-        <el-input v-model="changeKey.newKey" placeholder="请输入内容"></el-input>
+        <el-input placeholder="请输入内容" v-model="changeKey.newKey"></el-input>
         <el-button @click="api_rename" type="warning">设置key名称</el-button>
     </el-dialog>
 
+
+    <el-tabs v-model="cluster_info_default_selector">
+        <el-tab-pane label="集群信息" name="first">
+
+            <el-table
+                    :data="cluster_infos"
+                    style="width: 100%">
+
+                <el-table-column
+                        label="id"
+                        prop="id">
+                </el-table-column>
+                <el-table-column
+                        label="name"
+                        prop="name">
+                </el-table-column>
+                <el-table-column
+                        label="host"
+                        prop="host">
+                </el-table-column>
+                <el-table-column
+                        label="port"
+                        prop="port">
+                </el-table-column>
+                <el-table-column
+                        label="type"
+                        prop="type">
+                </el-table-column>
+                <el-table-column
+                        label="masterId"
+                        prop="masterId">
+                </el-table-column>
+                <el-table-column
+                        label="range#start"
+                        prop="range.start">
+                </el-table-column>
+                <el-table-column
+                        label="range#end"
+                        prop="range.end">
+                </el-table-column>
+                <el-table-column
+                        label="linkState"
+                        prop="linkState">
+                </el-table-column>
+
+                <el-table-column
+                        label="flags"
+                        prop="flags">
+                </el-table-column>
+            </el-table>
+
+        </el-tab-pane>
+    </el-tabs>
 
 </div>
 </body>
@@ -641,7 +694,23 @@
         el: '#app',
         data: function () {
             return {
-
+                cluster_info_default_selector: "first",
+                cluster_infos: [
+                    {
+                        "id": "90ffe2a988f1b4ca8f2bf083c96b4c8aa1c47fe8",
+                        "name": null,
+                        "host": "127.0.0.1",
+                        "port": 6381,
+                        "type": "MASTER",
+                        "masterId": null,
+                        "range": {
+                            "start": 5461,
+                            "end": 10922
+                        },
+                        "linkState": "CONNECTED",
+                        "flags": "master"
+                    },
+                ],
                 delete_keys: {
                     keys: []
                 },
@@ -1638,6 +1707,14 @@
                         console.log(error);
                     });
 
+            },
+            clusterInfosApi() {
+                axios.get("/redis/cluster/infos").then(resp => {
+                    this.cluster_infos = resp.data.data;
+                })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
             }
 
         },
@@ -1651,7 +1728,7 @@
             this.redisReplication();
             this.redisCpu();
             this.redisCluster();
-
+            this.clusterInfosApi();
         }
 
     })

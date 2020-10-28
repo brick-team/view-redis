@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.huifer.view.redis.servlet.service.ClusterService;
 import com.github.huifer.view.redis.servlet.service.HandlerRedisService;
 import com.github.huifer.view.redis.servlet.service.HashKeyService;
 import com.github.huifer.view.redis.servlet.service.KeySearchService;
@@ -32,6 +33,7 @@ import com.github.huifer.view.redis.servlet.service.ListKeyService;
 import com.github.huifer.view.redis.servlet.service.SetKeyService;
 import com.github.huifer.view.redis.servlet.service.StringKeyService;
 import com.github.huifer.view.redis.servlet.service.ZSetKeyService;
+import com.github.huifer.view.redis.servlet.service.impl.ClusterServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.HandlerRedisServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.HashKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.KeySearchServiceImpl;
@@ -75,6 +77,8 @@ public class ViewRedisServlet extends HttpServlet {
 	ListKeyService listKeyService = new ListKeyServiceImpl();
 
 	SetKeyService setKeyService = new SetKeyServiceImpl();
+
+	ClusterService clusterService = new ClusterServiceImpl();
 
 	private String loginName;
 
@@ -197,6 +201,9 @@ public class ViewRedisServlet extends HttpServlet {
 		}
 		if (path.startsWith("/set")) {
 			this.setKeyService.handler(path, req, resp);
+		}
+		if (path.startsWith("/cluster")) {
+			clusterService.handler(path, req, resp);
 		}
 	}
 
