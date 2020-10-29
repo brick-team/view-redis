@@ -186,54 +186,36 @@ public class ViewRedisServlet extends HttpServlet {
 		}
 
 		if (path.startsWith("/service")) {
-			if (checkSession(req, resp)) {
 
-				this.handlerRedisService.handler(path, req, resp);
-			}
+			this.handlerRedisService.handler(path, req, resp);
 		}
 		if (path.startsWith("/key")) {
-			if (checkSession(req, resp)) {
-				this.keySearchService.handler(path, req, resp);
-			}
+			this.keySearchService.handler(path, req, resp);
 		}
 		if (path.startsWith("/string")) {
-			if (checkSession(req, resp)) {
 
-				this.stringKeyService.handler(path, req, resp);
-			}
+			this.stringKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/hash")) {
-			if (checkSession(req, resp)) {
 
-				this.hashKeyService.handler(path, req, resp);
-			}
+			this.hashKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/zset")) {
-			if (checkSession(req, resp)) {
 
-				this.zSetKeyService.handler(path, req, resp);
-			}
+			this.zSetKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/list")) {
-			if (checkSession(req, resp)) {
 
-				this.listKeyService.handler(path, req, resp);
-			}
+			this.listKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/set")) {
-			if (checkSession(req, resp)) {
-				this.setKeyService.handler(path, req, resp);
-			}
+			this.setKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/cluster")) {
-			if (checkSession(req, resp)) {
-				clusterService.handler(path, req, resp);
-			}
+			clusterService.handler(path, req, resp);
 		}
 		if (path.startsWith("/cm")) {
-			if (checkSession(req, resp)) {
-				redisConnectionService.handler(path, req, resp);
-			}
+			redisConnectionService.handler(path, req, resp);
 		}
 	}
 

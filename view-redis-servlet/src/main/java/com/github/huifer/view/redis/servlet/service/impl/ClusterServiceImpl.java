@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -49,6 +50,7 @@ public class ClusterServiceImpl implements ClusterService {
 		if (path.startsWith("/cluster/infos")) {
 			List<ClusterListInfo> clusterListInfos = redisClusterOperation.clusterInfos();
 			ResultVO ok = new ResultVO("ok", clusterListInfos, 200);
+			resp.setContentType("application/json; charset=UTF-8");
 			resp.getWriter().write(gson.toJson(ok));
 		}
 		else if (path.startsWith("/cluster/cmd")) {
@@ -58,7 +60,13 @@ public class ClusterServiceImpl implements ClusterService {
 			String cmd = map.get("cmd");
 
 			Properties info = this.redisClusterOperation.info(nodeId, cmd);
-			ResultVO ok = new ResultVO("ok", info, 200);
+			Map<String, String> res = new HashMap<>();
+
+			info.forEach((k, v) -> {
+				res.put(k.toString(), gson.toJson(v));
+			});
+			ResultVO ok = new ResultVO("ok", res, 200);
+			resp.setContentType("application/json; charset=UTF-8");
 			resp.getWriter().write(gson.toJson(ok));
 		}
 	}

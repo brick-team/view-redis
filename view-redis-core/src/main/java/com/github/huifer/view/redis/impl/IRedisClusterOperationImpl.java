@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,10 @@ public class IRedisClusterOperationImpl implements IRedisClusterOperation {
 	@Override
 	public Iterable<RedisClusterNode> clusterGetNodes() {
 		RedisClusterConnection factory = this.factory.factory();
+		if (factory == null) {
+			return Collections.emptyList();
+		}
+
 		Iterable<RedisClusterNode> redisClusterNodes = factory.clusterGetNodes();
 		for (RedisClusterNode redisClusterNode : redisClusterNodes) {
 			nodeMap.put(redisClusterNode.getId(), redisClusterNode);
@@ -59,6 +64,9 @@ public class IRedisClusterOperationImpl implements IRedisClusterOperation {
 	@Override
 	public String ping(RedisClusterNode node) {
 		RedisClusterConnection factory = this.factory.factory();
+		if (factory == null) {
+			return "error";
+		}
 		return factory.ping(node);
 	}
 
