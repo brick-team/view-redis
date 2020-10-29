@@ -74,11 +74,18 @@ public class ViewRedisServletRunner {
 			// 设置cluster
 
 			RedisProperties.Cluster cluster = redisProperties.getCluster();
-			List<String> nodes = cluster.getNodes();
-			if (!nodes.isEmpty()) {
-				SingletData.setCluster(cluster);
-				RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
-				SingletData.setClusterConnection(clusterConnection);
+			if (cluster != null) {
+				List<String> nodes = cluster.getNodes();
+				if (!nodes.isEmpty()) {
+					SingletData.setCluster(cluster);
+					SingletData.HAS_REDIS_CLUSTER = true;
+
+					RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
+					SingletData.setClusterConnection(clusterConnection);
+				}
+			}
+			else {
+				SingletData.HAS_REDIS = true;
 			}
 		};
 	}

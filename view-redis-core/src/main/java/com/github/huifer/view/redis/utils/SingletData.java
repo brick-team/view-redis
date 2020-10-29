@@ -23,7 +23,6 @@ import com.github.huifer.view.redis.model.RedisConnectionConfig;
 
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisClusterConnection;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -119,12 +118,6 @@ public class SingletData {
 
 	private static RedisTemplate<Object, Object> initRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-		RedisConnection connection = redisConnectionFactory.getConnection();
-		String ping = connection.ping();
-		if (ping.equalsIgnoreCase("PONG")) {
-			HAS_REDIS = true;
-		}
-
 		RedisTemplate<Object, Object> template = new RedisTemplate();
 		template.setKeySerializer(new StringRedisSerializer());
 		template.setValueSerializer(new StringRedisSerializer());
@@ -135,6 +128,7 @@ public class SingletData {
 		template.afterPropertiesSet();
 		return template;
 	}
+
 
 	public static void setCluster(RedisProperties.Cluster cluster) {
 		SingletData.cluster = cluster;

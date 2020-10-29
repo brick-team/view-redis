@@ -30,6 +30,7 @@ import com.github.huifer.view.redis.servlet.service.HandlerRedisService;
 import com.github.huifer.view.redis.servlet.service.HashKeyService;
 import com.github.huifer.view.redis.servlet.service.KeySearchService;
 import com.github.huifer.view.redis.servlet.service.ListKeyService;
+import com.github.huifer.view.redis.servlet.service.RedisConnectionService;
 import com.github.huifer.view.redis.servlet.service.SetKeyService;
 import com.github.huifer.view.redis.servlet.service.StringKeyService;
 import com.github.huifer.view.redis.servlet.service.ZSetKeyService;
@@ -38,6 +39,7 @@ import com.github.huifer.view.redis.servlet.service.impl.HandlerRedisServiceImpl
 import com.github.huifer.view.redis.servlet.service.impl.HashKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.KeySearchServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.ListKeyServiceImpl;
+import com.github.huifer.view.redis.servlet.service.impl.RedisConnectionServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.SetKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.StringKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.ZSetKeyServiceImpl;
@@ -205,8 +207,12 @@ public class ViewRedisServlet extends HttpServlet {
 		if (path.startsWith("/cluster")) {
 			clusterService.handler(path, req, resp);
 		}
+		if (path.startsWith("/cm")) {
+			redisConnectionService.handler(path, req, resp);
+		}
 	}
 
+	RedisConnectionService redisConnectionService = new RedisConnectionServiceImpl();
 	/**
 	 * 判断是否存在 login_name , 不存在返回异常
 	 */

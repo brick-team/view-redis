@@ -1,5 +1,20 @@
 # API document
 - 本项目 context-path : redis . 
+
+
+
+## redis 
+### redis 是否启用
+- 请求方式: get
+- 请求地址: `/cm/redis`
+
+
+### redis 集群是否启用
+- 请求方式: get
+- 请求地址: `/cm/cluster`
+
+
+
 ## key 操作
 
 ### key 搜索
