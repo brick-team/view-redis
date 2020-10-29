@@ -19,7 +19,6 @@
 package com.github.huifer.view.redis.model.vo;
 
 import java.util.Collection;
-import java.util.List;
 
 public class PageData {
 	/**

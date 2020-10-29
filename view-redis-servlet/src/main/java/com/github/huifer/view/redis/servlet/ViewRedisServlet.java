@@ -25,17 +25,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.huifer.view.redis.servlet.service.ClusterService;
 import com.github.huifer.view.redis.servlet.service.HandlerRedisService;
 import com.github.huifer.view.redis.servlet.service.HashKeyService;
 import com.github.huifer.view.redis.servlet.service.KeySearchService;
 import com.github.huifer.view.redis.servlet.service.ListKeyService;
+import com.github.huifer.view.redis.servlet.service.RedisConnectionService;
 import com.github.huifer.view.redis.servlet.service.SetKeyService;
 import com.github.huifer.view.redis.servlet.service.StringKeyService;
 import com.github.huifer.view.redis.servlet.service.ZSetKeyService;
+import com.github.huifer.view.redis.servlet.service.impl.ClusterServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.HandlerRedisServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.HashKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.KeySearchServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.ListKeyServiceImpl;
+import com.github.huifer.view.redis.servlet.service.impl.RedisConnectionServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.SetKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.StringKeyServiceImpl;
 import com.github.huifer.view.redis.servlet.service.impl.ZSetKeyServiceImpl;
@@ -75,6 +79,10 @@ public class ViewRedisServlet extends HttpServlet {
 	ListKeyService listKeyService = new ListKeyServiceImpl();
 
 	SetKeyService setKeyService = new SetKeyServiceImpl();
+
+	ClusterService clusterService = new ClusterServiceImpl();
+
+	RedisConnectionService redisConnectionService = new RedisConnectionServiceImpl();
 
 	private String loginName;
 
@@ -178,25 +186,36 @@ public class ViewRedisServlet extends HttpServlet {
 		}
 
 		if (path.startsWith("/service")) {
+
 			this.handlerRedisService.handler(path, req, resp);
 		}
 		if (path.startsWith("/key")) {
 			this.keySearchService.handler(path, req, resp);
 		}
 		if (path.startsWith("/string")) {
+
 			this.stringKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/hash")) {
+
 			this.hashKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/zset")) {
+
 			this.zSetKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/list")) {
+
 			this.listKeyService.handler(path, req, resp);
 		}
 		if (path.startsWith("/set")) {
 			this.setKeyService.handler(path, req, resp);
+		}
+		if (path.startsWith("/cluster")) {
+			clusterService.handler(path, req, resp);
+		}
+		if (path.startsWith("/cm")) {
+			redisConnectionService.handler(path, req, resp);
 		}
 	}
 

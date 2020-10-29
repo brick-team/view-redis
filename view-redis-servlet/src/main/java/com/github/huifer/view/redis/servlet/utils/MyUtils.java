@@ -43,14 +43,14 @@ public class MyUtils {
 
 			return readByteArray(in);
 		}
-        finally {
-            try {
-                in.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+		finally {
+			try {
+				in.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static byte[] readByteArray(InputStream input) throws IOException {
@@ -89,19 +89,19 @@ public class MyUtils {
 			return text;
 		}
 		finally {
-            try {
-                in.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+			try {
+				in.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static String read(InputStream in) {
 		InputStreamReader reader;
-        reader = new InputStreamReader(in, StandardCharsets.UTF_8);
-        return read(reader);
+		reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+		return read(reader);
 	}
 
 	public static String read(Reader reader) {

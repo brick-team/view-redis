@@ -20,20 +20,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>login</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 <div id="app">
 
-    <el-input v-model="login.username" placeholder="请输入内容"></el-input>
-    <el-input v-model="login.password" placeholder="请输入内容"></el-input>
-    <el-button type="primary" @click="loginApi">login</el-button>
+    <el-input placeholder="请输入内容" v-model="login.username"></el-input>
+    <el-input placeholder="请输入内容" v-model="login.password"></el-input>
+    <el-button @click="loginApi" type="primary">login</el-button>
 </div>
 </body>
 
