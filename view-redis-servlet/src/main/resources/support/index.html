@@ -25,7 +25,7 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>view-redis</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 
@@ -38,8 +38,8 @@
             <div v-if="open_cluster">
                 <el-table
                         :data="cluster_infos"
-                        style="width: 100%"
                         :row-class-name="redisClusterStyle"
+                        style="width: 100%"
                 >
 
                     <el-table-column
@@ -696,18 +696,18 @@
 
 
     <el-dialog
-            title="redis集群节点信息"
             :visible.sync="redis_cluster_info"
+            title="redis集群节点信息"
             width="30%"
-            >
+    >
         <span>选择查看内容: </span>
 
-        <el-select v-model="select_redis_cmd" placeholder="请选择" @change="selectRedisCmdOperation">
+        <el-select @change="selectRedisCmdOperation" placeholder="请选择" v-model="select_redis_cmd">
             <el-option
-                    v-for="item in redis_cmd"
                     :key="item.value"
                     :label="item.label"
-                    :value="item.value">
+                    :value="item.value"
+                    v-for="item in redis_cmd">
             </el-option>
         </el-select>
 
@@ -724,7 +724,7 @@
             </div>
         </el-card>
 
-        <span slot="footer" class="dialog-footer">
+        <span class="dialog-footer" slot="footer">
   </span>
     </el-dialog>
 
@@ -1034,15 +1034,15 @@
             }
         },
         methods: {
-            selectRedisCmdOperation(){
+            selectRedisCmdOperation() {
                 console.log(this.select_redis_cmd);
                 console.log(this.select_redis_node_id);
                 this.redis_cluster_cmd(this.select_redis_node_id, this.select_redis_cmd);
             },
             redis_cluster_cmd(nodeId, cmd) {
-                axios.post("/redis/cluster/cmd",{
-                    "nodeId":nodeId,
-                    "cmd":cmd
+                axios.post("/redis/cluster/cmd", {
+                    "nodeId": nodeId,
+                    "cmd": cmd
                 }).then(resp => {
                     this.select_redis_cmd_result = resp.data.data;
                 }).catch(e => {
