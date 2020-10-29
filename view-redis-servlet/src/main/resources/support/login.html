@@ -17,7 +17,7 @@
   -->
 
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -30,7 +30,6 @@
 </head>
 <body>
 <div id="app">
-
     <el-input placeholder="请输入内容" v-model="login.username"></el-input>
     <el-input placeholder="请输入内容" v-model="login.password"></el-input>
     <el-button @click="loginApi" type="primary">login</el-button>
@@ -56,14 +55,14 @@
         },
         methods: {
             loginApi() {
-                axios.get("/redis/login", {
+                axios.get("redis/login", {
                     params: {
                         'login_name': this.login.username,
                         'password': this.login.password
                     }
                 }).then(resp => {
                     if (resp.data == "success") {
-                        location.href = "/redis/index.html";
+                        location.href = "redis/index.html";
                     } else if (resp.data == "error") {
                         this.$message({
                             type: 'error',
