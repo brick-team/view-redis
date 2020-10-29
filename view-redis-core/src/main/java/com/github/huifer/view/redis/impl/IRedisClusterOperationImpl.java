@@ -132,6 +132,11 @@ public class IRedisClusterOperationImpl implements IRedisClusterOperation {
 		return null;
 	}
 
+	public Properties info(String redisNodeId, String cmd) {
+		RedisClusterNode redisClusterNode = this.nodeMap.get(redisNodeId);
+		return this.info(redisClusterNode, cmd);
+	}
+
 	static {
 		INFO_KEYS.add("server");
 		INFO_KEYS.add("clients");

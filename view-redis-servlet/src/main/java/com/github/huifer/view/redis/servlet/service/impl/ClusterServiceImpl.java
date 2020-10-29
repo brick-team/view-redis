@@ -20,6 +20,8 @@ package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import com.github.huifer.view.redis.impl.IRedisClusterOperationImpl;
 import com.github.huifer.view.redis.model.cluster.ClusterListInfo;
 import com.github.huifer.view.redis.model.vo.ResultVO;
 import com.github.huifer.view.redis.servlet.service.ClusterService;
+import com.github.huifer.view.redis.servlet.utils.HttpServletUtils;
 import com.google.gson.Gson;
 
 /**
@@ -46,6 +49,16 @@ public class ClusterServiceImpl implements ClusterService {
 		if (path.startsWith("/cluster/infos")) {
 			List<ClusterListInfo> clusterListInfos = redisClusterOperation.clusterInfos();
 			ResultVO ok = new ResultVO("ok", clusterListInfos, 200);
+			resp.getWriter().write(gson.toJson(ok));
+		}
+		else if (path.startsWith("/cluster/cmd")) {
+			String postBody = HttpServletUtils.getPostBody(req);
+			Map<String, String> map = gson.fromJson(postBody, Map.class);
+			String nodeId = map.get("nodeId");
+			String cmd = map.get("cmd");
+
+			Properties info = this.redisClusterOperation.info(nodeId, cmd);
+			ResultVO ok = new ResultVO("ok", info, 200);
 			resp.getWriter().write(gson.toJson(ok));
 		}
 	}

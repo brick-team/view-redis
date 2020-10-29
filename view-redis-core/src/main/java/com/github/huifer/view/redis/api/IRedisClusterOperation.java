@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.api;
 
 import java.util.List;
+import java.util.Properties;
 
 import com.github.huifer.view.redis.model.cluster.ClusterListInfo;
 import com.github.huifer.view.redis.model.cluster.Range;
@@ -61,5 +62,7 @@ public interface IRedisClusterOperation {
 	 * @return 集群信息
 	 */
 	List<ClusterListInfo> clusterInfos();
+
+	Properties info(String redisNodeId, String cmd);
 
 }

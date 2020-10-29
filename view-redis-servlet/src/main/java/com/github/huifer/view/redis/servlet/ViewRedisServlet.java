@@ -82,6 +82,8 @@ public class ViewRedisServlet extends HttpServlet {
 
 	ClusterService clusterService = new ClusterServiceImpl();
 
+	RedisConnectionService redisConnectionService = new RedisConnectionServiceImpl();
+
 	private String loginName;
 
 	private String password;
@@ -184,35 +186,57 @@ public class ViewRedisServlet extends HttpServlet {
 		}
 
 		if (path.startsWith("/service")) {
-			this.handlerRedisService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+
+				this.handlerRedisService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/key")) {
-			this.keySearchService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+				this.keySearchService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/string")) {
-			this.stringKeyService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+
+				this.stringKeyService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/hash")) {
-			this.hashKeyService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+
+				this.hashKeyService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/zset")) {
-			this.zSetKeyService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+
+				this.zSetKeyService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/list")) {
-			this.listKeyService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+
+				this.listKeyService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/set")) {
-			this.setKeyService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+				this.setKeyService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/cluster")) {
-			clusterService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+				clusterService.handler(path, req, resp);
+			}
 		}
 		if (path.startsWith("/cm")) {
-			redisConnectionService.handler(path, req, resp);
+			if (checkSession(req, resp)) {
+				redisConnectionService.handler(path, req, resp);
+			}
 		}
 	}
 
-	RedisConnectionService redisConnectionService = new RedisConnectionServiceImpl();
 	/**
 	 * 判断是否存在 login_name , 不存在返回异常
 	 */
