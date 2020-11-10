@@ -62,6 +62,15 @@
                 }
             }
         },
+        created: function() {
+            var that = this;
+            document.onkeydown = (e)=> {   //按下回车提交
+                let key = window.event.keyCode;
+                if (key == 13) {
+                  that.loginApi();
+                }
+            };
+        },
         methods: {
             loginApi() {
                 axios.get("/redis/login", {
