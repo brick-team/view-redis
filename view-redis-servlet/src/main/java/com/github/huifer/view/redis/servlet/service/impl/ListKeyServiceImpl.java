@@ -20,6 +20,7 @@ package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,9 +62,14 @@ public class ListKeyServiceImpl implements ListKeyService {
 			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
 			String key = map.get("key");
-
-			Object o = this.get(key);
-			ResultVO ok = new ResultVO("ok", o, 200);
+			String start = String.format("%.0f", map.get("start"));
+			String stop = String.format("%.0f", map.get("stop"));
+			Object o = this.get(key, Long.valueOf(start), Long.valueOf(stop));
+			long size = this.size(key);
+			Map<String, Object> res = new HashMap<>();
+			res.put("size", size);
+			res.put("rows", o);
+			ResultVO ok = new ResultVO("ok", res, 200);
 			response.getWriter().write(gson.toJson(ok));
 
 		}
@@ -129,5 +135,17 @@ public class ListKeyServiceImpl implements ListKeyService {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
 		redisListOperation.removeByRow(config, k, row);
 
+	}
+
+	@Override
+	public Object get(String k, long start, long stop) {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
+		return redisListOperation.get(config, k, start, stop);
+	}
+
+	@Override
+	public long size(String key) {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
+		return redisListOperation.size(config, key);
 	}
 }

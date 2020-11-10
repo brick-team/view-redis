@@ -39,4 +39,7 @@ public interface ListKeyService {
 
 	void removeRow(String k, int row);
 
+	Object get(String k, long start, long stop);
+
+	long size(String key);
 }
