@@ -30,10 +30,18 @@
 </head>
 <body>
 <div id="app">
-
-    <el-input placeholder="请输入内容" v-model="login.username"></el-input>
-    <el-input placeholder="请输入内容" v-model="login.password"></el-input>
-    <el-button @click="loginApi" type="primary">login</el-button>
+    <div class="center">
+        <div class="logo">REDIS-VIEW👀</div>
+        <el-form class="login_form">
+            <el-form-item>
+                <el-input v-model="login.username" placeholder="请输入账号" prefix-icon="el-icon-user"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input v-model="login.password" placeholder="请输入密码" prefix-icon="el-icon-lock" show-password></el-input>
+            </el-form-item>
+        </el-form>
+        <el-button type="primary" @click="loginApi" style="width: 100%;">login</el-button>
+    </div>
 </div>
 </body>
 
@@ -80,4 +88,22 @@
     })
 
 </script>
+<style>
+    .logo {
+        font-size: xx-large;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .center {
+        background-color: #eee;;
+        width: 450px;
+        height: 300px;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%);
+        padding: 20px;
+        border-radius: 5px;
+    }
+</style>
 </html>
