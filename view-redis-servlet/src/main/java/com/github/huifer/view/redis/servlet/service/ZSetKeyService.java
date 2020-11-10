@@ -39,4 +39,8 @@ public interface ZSetKeyService {
 	Object get(String key);
 
 	void nup(String key, String oldMember, String newMember, double score);
+
+    long size(String keyParam);
+
+	Object get(String keyParam, Long start, Long stop);
 }

@@ -493,6 +493,14 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-pagination
+                    layout="prev, pager, next"
+                    :total="zset_page.total"
+                    @current-change="zsetPageChange"
+                    :current-page="zset_page.current"
+                    :page-size="zset_page.size"
+            >
+            </el-pagination>
         </div>
 
     </el-dialog>
@@ -745,6 +753,12 @@
         data: function () {
             return {
                 list_page: {
+                    current: 1,
+                    size: 3,
+                    total: 10,
+                    current_key: ''
+                },
+                zset_page: {
                     current: 1,
                     size: 3,
                     total: 10,
@@ -1040,6 +1054,12 @@
                 console.log(that.list_page.current_key);
                 that.show_list(that.list_page.current_key);
             },
+            zsetPageChange: function(val) {
+                let that = this;
+                that.zset_page.current = val;
+                console.log(that.list_page.current_key);
+                that.show_zset(that.zset_page.current_key);
+            },
             selectRedisCmdOperation(){
                 console.log(this.select_redis_cmd);
                 console.log(this.select_redis_node_id);
@@ -1307,6 +1327,7 @@
                     this.show_hash(row['key']);
                 } else if (row['dataType'] == 'ZSET') {
                     this.zset_dialog_show = true;
+                    this.zset_page.current_key = row['key']
                     this.show_zset(row['key']);
                 } else if (row['dataType'] == 'LIST') {
                     this.list_dialog_show = true;
@@ -1669,14 +1690,18 @@
                 });
             },
             show_zset(key) {
-                this.zset_s.key = key;
+                let that = this;
+                that.zset_s.key = key;
                 axios
                     .post("/redis/zset/get/", {
-                        key: key
+                        key: key,
+                        start: (that.zset_page.current - 1) * that.zset_page.size,
+                        stop: that.zset_page.current * that.zset_page.size - 1
                     })
                     .then(response => {
                         console.log(response.data.data);
-                        this.zset_s.value = response.data.data;
+                        that.zset_s.value = response.data.data.rows;
+                        that.zset_page.total = response.data.data.size;
                     }).catch(function (error) {
                     console.log(error);
                 });

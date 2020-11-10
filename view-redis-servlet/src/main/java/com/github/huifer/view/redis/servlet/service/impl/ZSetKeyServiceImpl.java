@@ -19,6 +19,7 @@
 package com.github.huifer.view.redis.servlet.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,10 +77,15 @@ public class ZSetKeyServiceImpl implements ZSetKeyService {
 			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
 			String keyParam = map.get("key");
+			String start = String.format("%.0f", map.get("start"));
+			String stop = String.format("%.0f", map.get("stop"));
 
-
-			Object o = this.get(keyParam);
-			ResultVO ok = new ResultVO("ok", o, 200);
+			Object o = this.get(keyParam, Long.valueOf(start), Long.valueOf(stop));
+			long size = this.size(keyParam);
+			Map<String, Object> res = new HashMap<>();
+			res.put("size", size);
+			res.put("rows", o);
+			ResultVO ok = new ResultVO("ok", res, 200);
 			response.getWriter().write(gson.toJson(ok));
 		}
 		else if (url.startsWith("/zset/update")) {
@@ -143,5 +149,17 @@ public class ZSetKeyServiceImpl implements ZSetKeyService {
 	public void nup(String key, String oldMember, String newMember, double score) {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
 		zSetOperation.removeOldSaveNew(config, key, oldMember, newMember, score);
+	}
+
+	@Override
+	public long size(String keyParam) {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
+		return zSetOperation.size(config, keyParam);
+	}
+
+	@Override
+	public Object get(String key, Long start, Long stop) {
+		RedisConnectionConfig config = SingletData.getCurrConfig();
+		return zSetOperation.get(config, key, start, stop);
 	}
 }
