@@ -140,7 +140,16 @@ public class ListKeyServiceImpl implements ListKeyService {
 	@Override
 	public Object get(String k, long start, long stop) {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
-		return redisListOperation.get(config, k, start, stop);
+
+		List list = redisListOperation.get(config, k, start, stop);
+		List<IndexAndData> res = new ArrayList<>(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			IndexAndData indexAndData = new IndexAndData();
+			indexAndData.setIndexId(i + start);
+			indexAndData.setData(list.get(i));
+			res.add(indexAndData);
+		}
+		return res;
 	}
 
 	@Override

@@ -407,11 +407,10 @@
             </el-table>
             <el-pagination
                     layout="prev, pager, next"
-                    :total="list_page.size"
+                    :total="list_page.total"
                     @current-change="listPageChange"
                     :current-page="list_page.current"
-                    :page-size.sync="list_page.size"
-                    :total="list_page.total"
+                    :page-size="list_page.size"
             >
             </el-pagination>
         </div>
@@ -747,8 +746,9 @@
             return {
                 list_page: {
                     current: 1,
-                    size: 10,
-                    total: 10
+                    size: 3,
+                    total: 10,
+                    current_key: ''
                 },
                 open_cluster: true,
                 cluster_info_default_selector: "first",
@@ -1037,7 +1037,8 @@
             listPageChange: function(val) {
                 let that = this;
                 that.list_page.current = val;
-                that.list_show();
+                console.log(that.list_page.current_key);
+                that.show_list(that.list_page.current_key);
             },
             selectRedisCmdOperation(){
                 console.log(this.select_redis_cmd);
@@ -1309,6 +1310,7 @@
                     this.show_zset(row['key']);
                 } else if (row['dataType'] == 'LIST') {
                     this.list_dialog_show = true;
+                    this.list_page.current_key = row['key'];
                     this.show_list(row['key']);
                 } else if (row['dataType'] == 'SET') {
                     this.set_dialog_show = true;
@@ -1632,13 +1634,13 @@
                 axios
                     .post("/redis/list/get/", {
                         key: key,
-                        start: that.list_page.current,
-                        stop: that.list_page.current * that.list_page.size
+                        start: (that.list_page.current - 1) * that.list_page.size,
+                        stop: that.list_page.current * that.list_page.size - 1
                     })
                     .then(response => {
                         console.log(response.data.data);
                         that.list.value = response.data.data.rows;
-                        that.list.total = response.data.data.size;
+                        that.list_page.total = response.data.data.size;
                     }).catch(function (error) {
                     console.log(error);
                 });
