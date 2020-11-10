@@ -25,7 +25,7 @@
 	<groupId>com.github.huifer</groupId>
 	<artifactId>view-redis</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1-Releases</version>
+	<version>1.1-Releases-hotfix</version>
 	<name>view-redis</name>
 	<description>SpringBoot嵌入式管理redis</description>
 	<modules>

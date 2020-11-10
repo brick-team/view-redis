@@ -23,7 +23,7 @@
 	<parent>
 		<artifactId>view-redis</artifactId>
 		<groupId>com.github.huifer</groupId>
-		<version>1.1-Releases</version>
+		<version>1.1-Releases-hotfix</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -40,7 +40,7 @@
 		<dependency>
 			<groupId>com.github.huifer</groupId>
 			<artifactId>view-redis-core</artifactId>
-			<version>1.1-Releases</version>
+			<version>1.1-Releases-hotfix</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

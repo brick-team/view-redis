@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ViewRedisRunner {
+
 	private static final Logger log = LoggerFactory.getLogger(ViewRedisRunner.class);
 
 	private final ApplicationContext context;
@@ -63,15 +64,15 @@ public class ViewRedisRunner {
 
 			SingletData.setSpringRedisProperties(springRedisProperties);
 
-
 			// 设置cluster
-
 			RedisProperties.Cluster cluster = redisProperties.getCluster();
-			List<String> nodes = cluster.getNodes();
-			if (!nodes.isEmpty()) {
-				SingletData.setCluster(cluster);
-				RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
-				SingletData.setClusterConnection(clusterConnection);
+			if (cluster != null) {
+				List<String> nodes = cluster.getNodes();
+				if (!nodes.isEmpty()) {
+					SingletData.setCluster(cluster);
+					RedisClusterConnection clusterConnection = redisConnectionFactory.getClusterConnection();
+					SingletData.setClusterConnection(clusterConnection);
+				}
 			}
 
 		};
