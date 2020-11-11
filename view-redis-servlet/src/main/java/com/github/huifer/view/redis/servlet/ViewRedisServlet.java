@@ -151,8 +151,11 @@ public class ViewRedisServlet extends HttpServlet {
 			contextPath = "";
 		}
 
-//		String uri = contextPath + servletPath;
+		String uri = contextPath + servletPath;
 		String path = requestURI.substring(contextPath.length() + servletPath.length());
+		if (path.startsWith("/redis") || path.startsWith("redis")) {
+			path = path.replace("/redis", "").replace("redis", "");
+		}
 		log.debug("当前访问地址 = {}", path);
 
 		if (path.equals("/login")) {
