@@ -23,7 +23,7 @@
 	<parent>
 		<artifactId>view-redis</artifactId>
 		<groupId>com.github.huifer</groupId>
-		<version>1.1.1-Releases-hotfix</version>
+		<version>1.2.SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>com.github.huifer</groupId>
 			<artifactId>view-redis-core</artifactId>
-			<version>1.1.1-Releases-hotfix</version>
+			<version>1.2.SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
