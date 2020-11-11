@@ -25,7 +25,7 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>view-redis</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 
@@ -38,8 +38,8 @@
             <div v-if="open_cluster">
                 <el-table
                         :data="cluster_infos"
-                        style="width: 100%"
                         :row-class-name="redisClusterStyle"
+                        style="width: 100%"
                 >
                     <el-table-column
                             label="id"
@@ -356,10 +356,16 @@
                                             label="操作"
                                     >
                                         <template slot-scope="scope">
-                                            <el-button @click="handleClick(scope.row)" size="small" type="primary">查看</el-button>
-                                            <el-button @click="delKey(scope.row)" size="small" type="danger">删除</el-button>
-                                            <el-button @click="setExpire(scope.row)" size="small" type="primary">设置过期时间</el-button>
-                                            <el-button @click="changeKeyName(scope.row)" size="small" type="primary">修改key名称</el-button>
+                                            <el-button @click="handleClick(scope.row)" size="small" type="primary">查看
+                                            </el-button>
+                                            <el-button @click="delKey(scope.row)" size="small" type="danger">删除
+                                            </el-button>
+                                            <el-button @click="setExpire(scope.row)" size="small" type="primary">
+                                                设置过期时间
+                                            </el-button>
+                                            <el-button @click="changeKeyName(scope.row)" size="small" type="primary">
+                                                修改key名称
+                                            </el-button>
                                         </template>
                                     </el-table-column>
 
@@ -406,11 +412,11 @@
                 </el-table-column>
             </el-table>
             <el-pagination
-                    layout="prev, pager, next"
-                    :total="list_page.total"
-                    @current-change="listPageChange"
                     :current-page="list_page.current"
                     :page-size="list_page.size"
+                    :total="list_page.total"
+                    @current-change="listPageChange"
+                    layout="prev, pager, next"
             >
             </el-pagination>
         </div>
@@ -453,7 +459,7 @@
                 <el-input v-model="string_s.key"></el-input>
             </el-form-item>
             <el-form-item label="value:">
-                <el-input v-model="string_s.value" type="textarea" autosize></el-input>
+                <el-input autosize type="textarea" v-model="string_s.value"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button @click="deleteForString" size="small" type="text">删除</el-button>
@@ -494,11 +500,11 @@
                 </el-table-column>
             </el-table>
             <el-pagination
-                    layout="prev, pager, next"
-                    :total="zset_page.total"
-                    @current-change="zsetPageChange"
                     :current-page="zset_page.current"
                     :page-size="zset_page.size"
+                    :total="zset_page.total"
+                    @current-change="zsetPageChange"
+                    layout="prev, pager, next"
             >
             </el-pagination>
         </div>
@@ -698,18 +704,18 @@
 
 
     <el-dialog
-            title="redis集群节点信息"
             :visible.sync="redis_cluster_info"
+            title="redis集群节点信息"
             width="30%"
-            >
+    >
         <span>选择查看内容: </span>
 
-        <el-select v-model="select_redis_cmd" placeholder="请选择" @change="selectRedisCmdOperation">
+        <el-select @change="selectRedisCmdOperation" placeholder="请选择" v-model="select_redis_cmd">
             <el-option
-                    v-for="item in redis_cmd"
                     :key="item.value"
                     :label="item.label"
-                    :value="item.value">
+                    :value="item.value"
+                    v-for="item in redis_cmd">
             </el-option>
         </el-select>
 
@@ -726,7 +732,7 @@
             </div>
         </el-card>
 
-        <span slot="footer" class="dialog-footer">
+        <span class="dialog-footer" slot="footer">
   </span>
     </el-dialog>
 
@@ -1048,27 +1054,27 @@
             }
         },
         methods: {
-            listPageChange: function(val) {
+            listPageChange: function (val) {
                 let that = this;
                 that.list_page.current = val;
                 console.log(that.list_page.current_key);
                 that.show_list(that.list_page.current_key);
             },
-            zsetPageChange: function(val) {
+            zsetPageChange: function (val) {
                 let that = this;
                 that.zset_page.current = val;
                 console.log(that.list_page.current_key);
                 that.show_zset(that.zset_page.current_key);
             },
-            selectRedisCmdOperation(){
+            selectRedisCmdOperation() {
                 console.log(this.select_redis_cmd);
                 console.log(this.select_redis_node_id);
                 this.redis_cluster_cmd(this.select_redis_node_id, this.select_redis_cmd);
             },
             redis_cluster_cmd(nodeId, cmd) {
-                axios.post("/redis/cluster/cmd",{
-                    "nodeId":nodeId,
-                    "cmd":cmd
+                axios.post("/redis/cluster/cmd", {
+                    "nodeId": nodeId,
+                    "cmd": cmd
                 }).then(resp => {
                     this.select_redis_cmd_result = resp.data.data;
                 }).catch(e => {
@@ -1904,15 +1910,15 @@
             console.log(this.open_cluster);
         },
         filters: {
-            toMd: function(value) {
+            toMd: function (value) {
                 if (!value) return ''; //如果为空，则返回空字符串
-    		    num = Number(value);
-    		    if (isNaN(num)) {
-    		        return value;
+                num = Number(value);
+                if (isNaN(num)) {
+                    return value;
                 }
-    		    num = num/1024/1024;
-    		    num = num.toFixed(2);
-    		    return num;
+                num = num / 1024 / 1024;
+                num = num.toFixed(2);
+                return num;
             }
         }
 
