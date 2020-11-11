@@ -1655,8 +1655,8 @@
                 axios
                     .post("/redis/list/get/", {
                         key: key,
-                        start: (that.list_page.current - 1) * that.list_page.size,
-                        stop: that.list_page.current * that.list_page.size - 1
+                        start: ((that.list_page.current - 1) * that.list_page.size).toString(),
+                        stop: (that.list_page.current * that.list_page.size - 1).toString()
                     })
                     .then(response => {
                         console.log(response.data.data);
@@ -1695,8 +1695,8 @@
                 axios
                     .post("/redis/zset/get/", {
                         key: key,
-                        start: (that.zset_page.current - 1) * that.zset_page.size,
-                        stop: that.zset_page.current * that.zset_page.size - 1
+                        start: ((that.zset_page.current - 1) * that.zset_page.size).toString(),
+                        stop: (that.zset_page.current * that.zset_page.size - 1).toString()
                     })
                     .then(response => {
                         console.log(response.data.data);
