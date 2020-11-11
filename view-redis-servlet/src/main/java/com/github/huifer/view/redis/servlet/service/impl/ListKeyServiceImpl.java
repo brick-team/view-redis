@@ -62,9 +62,9 @@ public class ListKeyServiceImpl implements ListKeyService {
 			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
 			String key = map.get("key");
-			String start = String.format("%.0f", map.get("start"));
-			String stop = String.format("%.0f", map.get("stop"));
-			Object o = this.get(key, Long.valueOf(start), Long.valueOf(stop));
+			String start = map.get("start");
+			String stop = map.get("stop");
+			Object o = this.get(key, Long.parseLong(start), Long.parseLong(stop));
 			long size = this.size(key);
 			Map<String, Object> res = new HashMap<>();
 			res.put("size", size);
@@ -110,7 +110,7 @@ public class ListKeyServiceImpl implements ListKeyService {
 	public Object get(String k) {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
 
-		List list = redisListOperation.get(config, k);
+		List<?> list = redisListOperation.get(config, k);
 		List<IndexAndData> res = new ArrayList<>(list.size());
 
 		for (int i = 0; i < list.size(); i++) {
@@ -141,7 +141,7 @@ public class ListKeyServiceImpl implements ListKeyService {
 	public Object get(String k, long start, long stop) {
 		RedisConnectionConfig config = SingletData.getCurrConfig();
 
-		List list = redisListOperation.get(config, k, start, stop);
+		List<?> list = redisListOperation.get(config, k, start, stop);
 		List<IndexAndData> res = new ArrayList<>(list.size());
 		for (int i = 0; i < list.size(); i++) {
 			IndexAndData indexAndData = new IndexAndData();

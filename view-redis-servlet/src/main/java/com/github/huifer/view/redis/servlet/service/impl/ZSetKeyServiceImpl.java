@@ -77,10 +77,10 @@ public class ZSetKeyServiceImpl implements ZSetKeyService {
 			Map<String, String> map = gson.fromJson(postBody, Map.class);
 
 			String keyParam = map.get("key");
-			String start = String.format("%.0f", map.get("start"));
-			String stop = String.format("%.0f", map.get("stop"));
+			String start = map.get("start");
+			String stop = map.get("stop");
 
-			Object o = this.get(keyParam, Long.valueOf(start), Long.valueOf(stop));
+			Object o = this.get(keyParam, Long.parseLong(start), Long.parseLong(stop));
 			long size = this.size(keyParam);
 			Map<String, Object> res = new HashMap<>();
 			res.put("size", size);
