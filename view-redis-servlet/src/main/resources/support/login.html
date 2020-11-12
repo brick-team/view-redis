@@ -74,14 +74,14 @@
         },
         methods: {
             loginApi() {
-                axios.get("/redis/login", {
+                axios.get("redis/login", {
                     params: {
                         'login_name': this.login.username,
                         'password': this.login.password
                     }
                 }).then(resp => {
                     if (resp.data == "success") {
-                        location.href = "/redis/index.html";
+                        location.href = "redis/index.html";
                     } else if (resp.data == "error") {
                         this.$message({
                             type: 'error',

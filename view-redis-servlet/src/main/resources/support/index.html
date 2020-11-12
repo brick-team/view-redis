@@ -105,17 +105,17 @@
                             </div>
                             <div>
                                 <!--                    redis 版本-->
-                                version:<span>{{easy_info.version}}</span><br/>
+                                redis 版本:<span>{{easy_info.version}}</span><br/>
                                 <!--                    已使用内存-->
-                                useMemory:<span>{{easy_info.useMemory|toMd}}</span>(MB)<br/>
+                                已使用内存:<span>{{easy_info.useMemory|toMd}}</span>(MB)<br/>
                                 <!--                    客户端数量-->
-                                client:<span>{{easy_info.client}}</span><br/>
+                                客户端数量:<span>{{easy_info.client}}</span><br/>
                                 <!--                    已执行数量-->
-                                execSize:<span>{{easy_info.execSize}}</span><br/>
+                                已执行数量:<span>{{easy_info.execSize}}</span><br/>
                                 <!--                    执行时间,单位秒-->
-                                runTime:<span>{{easy_info.runTime}}</span>(秒)<br/>
+                                执行时间,单位秒:<span>{{easy_info.runTime}}</span>(秒)<br/>
                                 <!--                    运行描述-->
-                                runDesc:<span>{{easy_info.runDesc}}</span><br/>
+                                运行描述:<span>{{easy_info.runDesc}}</span><br/>
                             </div>
                         </el-card>
 
@@ -1072,7 +1072,7 @@
                 this.redis_cluster_cmd(this.select_redis_node_id, this.select_redis_cmd);
             },
             redis_cluster_cmd(nodeId, cmd) {
-                axios.post("/redis/cluster/cmd", {
+                axios.post("redis/cluster/cmd", {
                     "nodeId": nodeId,
                     "cmd": cmd
                 }).then(resp => {
@@ -1102,7 +1102,7 @@
             deleteKeysApi() {
                 var dt = this.delete_keys.keys;
                 if (dt.length > 0) {
-                    axios.post("/redis/key/delete/batch", {
+                    axios.post("redis/key/delete/batch", {
                         keys: dt
                     }).then(res => {
 
@@ -1145,7 +1145,7 @@
                 this.expire.expire = exp;
             },
             api_rename() {
-                axios.post("/redis/key/rename", {
+                axios.post("redis/key/rename", {
                     oldKey: this.changeKey.oldKey,
                     newKey: this.changeKey.newKey
                 }).then(res => {
@@ -1168,7 +1168,7 @@
                     });
             },
             api_expire() {
-                axios.post("/redis/key/expire", {
+                axios.post("redis/key/expire", {
                     key: this.expire.key,
                     expire: this.expire.expire
                 }).then(res => {
@@ -1195,7 +1195,7 @@
             },
             add_str_api() {
                 console.log(this.add_str);
-                axios.post("/redis/string/add/", {
+                axios.post("redis/string/add/", {
                     key: this.add_str.key,
                     value: this.add_str.value
                 })
@@ -1219,7 +1219,7 @@
 
             },
             add_list_api() {
-                axios.post("/redis/list/add/", {
+                axios.post("redis/list/add/", {
                     key: this.add_list.key,
                     value: this.add_list.value
                 })
@@ -1244,7 +1244,7 @@
 
             },
             add_set_api() {
-                axios.post("/redis/set/add/", {
+                axios.post("redis/set/add/", {
                         key: this.add_set.key,
                         value: this.add_set.value
                     }
@@ -1270,7 +1270,7 @@
 
             },
             add_z_set_api() {
-                axios.post("/redis/zset/add/", {
+                axios.post("redis/zset/add/", {
 
                     value: this.add_zset.value,
                     score: this.add_zset.score,
@@ -1298,7 +1298,7 @@
 
             },
             add_hash_api() {
-                axios.post("/redis/hash/add/", {
+                axios.post("redis/hash/add/", {
                     key: this.add_hash.key,
                     field: this.add_hash.field,
                     value: this.add_hash.value
@@ -1347,7 +1347,7 @@
             deleteRowForList(row) {
                 let indexId = row.indexId;
 
-                axios.post("/redis/list/removeByRow/", {
+                axios.post("redis/list/removeByRow/", {
                     k: this.list.key,
                     row: indexId
                 })
@@ -1372,7 +1372,7 @@
                 this.up_str.value = this.string_s.value;
             },
             update_str() {
-                axios.post("/redis/string/add/", {
+                axios.post("redis/string/add/", {
                     key: this.up_str.key,
                     value: this.up_str.value
                 })
@@ -1406,7 +1406,7 @@
             },
 
             update_set() {
-                axios.post("/redis/set/update/"
+                axios.post("redis/set/update/"
                     , {
                         key: this.up_set.k,
                         nv: this.up_set.nv,
@@ -1443,7 +1443,7 @@
             },
 
             update_list() {
-                axios.post("/redis/list/update/", {
+                axios.post("redis/list/update/", {
                     k: this.up_list.k,
                     ov: this.up_list.ov,
                     nv: this.up_list.nv
@@ -1477,7 +1477,7 @@
                 this.up_hash.v = row.value;
             },
             update_hash() {
-                axios.post("/redis/hash/nup", {
+                axios.post("redis/hash/nup", {
                     key: this.up_hash.k,
                     oldField: this.up_hash.field,
                     value: this.up_hash.v,
@@ -1514,7 +1514,7 @@
                 this.up_zst.newMember = row.value;
             },
             update_zset() {
-                axios.post("/redis/zset/nup", {
+                axios.post("redis/zset/nup", {
                     oldMember: this.up_zst.member,
                     score: this.up_zst.score.toString(),
                     key: this.up_zst.k,
@@ -1542,7 +1542,7 @@
             },
 
             deleteForString() {
-                axios.post("/redis/string/delete", {
+                axios.post("redis/string/delete", {
                     key: this.string_s.key
                 }).then(res => {
 
@@ -1563,7 +1563,7 @@
             },
             deleteForSet(row) {
                 console.log(row);
-                axios.post("/redis/set/delete", {
+                axios.post("redis/set/delete", {
                     key: this.set_s.key,
                     value: row
                 })
@@ -1586,7 +1586,7 @@
             deleteForHash(row) {
                 let field = row.key;
 
-                axios.post("/redis/hash/delete/", {
+                axios.post("redis/hash/delete/", {
                     key: this.hash_s.key,
                     field: field
                 })
@@ -1607,7 +1607,7 @@
                     });
             },
             deleteForZSet(row) {
-                axios.post("/redis/zset/delete/", {
+                axios.post("redis/zset/delete/", {
                     value: row.value,
                     key: this.zset_s.key
                 })
@@ -1630,7 +1630,7 @@
 
             show_hash(key) {
                 this.hash_s.key = key;
-                axios.post("/redis/hash/get/", {
+                axios.post("redis/hash/get/", {
                     key: key
                 })
                     .then(response => {
@@ -1659,7 +1659,7 @@
                 let that = this;
                 this.list.key = key;
                 axios
-                    .post("/redis/list/get/", {
+                    .post("redis/list/get/", {
                         key: key,
                         start: ((that.list_page.current - 1) * that.list_page.size).toString(),
                         stop: (that.list_page.current * that.list_page.size - 1).toString()
@@ -1675,7 +1675,7 @@
             },
             show_string(key) {
                 this.string_s.key = key;
-                axios.post("/redis/string/get/", {
+                axios.post("redis/string/get/", {
                     key: key
                 })
                     .then(response => {
@@ -1686,7 +1686,7 @@
             },
             show_set(key) {
                 this.set_s.key = key;
-                axios.post("/redis/set/get/", {
+                axios.post("redis/set/get/", {
                     key: key
                 })
                     .then(response => {
@@ -1699,7 +1699,7 @@
                 let that = this;
                 that.zset_s.key = key;
                 axios
-                    .post("/redis/zset/get/", {
+                    .post("redis/zset/get/", {
                         key: key,
                         start: ((that.zset_page.current - 1) * that.zset_page.size).toString(),
                         stop: (that.zset_page.current * that.zset_page.size - 1).toString()
@@ -1715,7 +1715,7 @@
             },
             delKey(row) {
                 axios
-                    .post("/redis/key/del/", {
+                    .post("redis/key/del/", {
                         key: row['key']
                     })
                     .then(
@@ -1733,7 +1733,7 @@
                 this.input = key_region;
                 ///redis/key/info/{{key_region}}
                 axios
-                    .post('/redis/key/info/', {
+                    .post('redis/key/info/', {
                         key: key_region,
                     })
                     .then(response => {
@@ -1748,7 +1748,7 @@
             },
             redisEasyInfo() {
                 axios
-                    .get('/redis/service/easy_info')
+                    .get('redis/service/easy_info')
                     .then(response => {
 
                         // response.data.data;
@@ -1762,7 +1762,7 @@
             },
             redisServer() {
                 axios
-                    .get('/redis/service/server')
+                    .get('redis/service/server')
                     .then(response => {
 
                         // response.data.data;
@@ -1776,7 +1776,7 @@
             },
             redisClients() {
                 axios
-                    .get('/redis/service/clients')
+                    .get('redis/service/clients')
                     .then(response => {
 
                         // response.data.data;
@@ -1790,7 +1790,7 @@
             },
             redisMemory() {
                 axios
-                    .get('/redis/service/memory')
+                    .get('redis/service/memory')
                     .then(response => {
 
                         // response.data.data;
@@ -1804,7 +1804,7 @@
             },
             redisPersistence() {
                 axios
-                    .get('/redis/service/persistence')
+                    .get('redis/service/persistence')
                     .then(response => {
 
                         // response.data.data;
@@ -1818,7 +1818,7 @@
             },
             redisStats() {
                 axios
-                    .get('/redis/service/stats')
+                    .get('redis/service/stats')
                     .then(response => {
 
                         this.stats = response.data.data;
@@ -1831,7 +1831,7 @@
             },
             redisReplication() {
                 axios
-                    .get('/redis/service/replication')
+                    .get('redis/service/replication')
                     .then(response => {
 
                         // response.data.data;
@@ -1845,7 +1845,7 @@
             },
             redisCpu() {
                 axios
-                    .get('/redis/service/cpu')
+                    .get('redis/service/cpu')
                     .then(response => {
 
                         // response.data.data;
@@ -1858,7 +1858,7 @@
             },
             redisCluster() {
                 axios
-                    .get('/redis/service/cluster')
+                    .get('redis/service/cluster')
                     .then(response => {
 
                         // response.data.data;
@@ -1871,7 +1871,7 @@
 
             },
             clusterInfosApi() {
-                axios.get("/redis/cluster/infos").then(resp => {
+                axios.get("redis/cluster/infos").then(resp => {
                     this.cluster_infos = resp.data.data;
                 })
                     .catch(function (e) {
@@ -1879,14 +1879,14 @@
                     });
             },
             enableRedis() {
-                axios.get("/redis/cm/redis").then(resp => {
+                axios.get("redis/cm/redis").then(resp => {
                     console.log(resp);
                 }).catch(e => {
                     console.log(e);
                 })
             },
             enableRedisCluster() {
-                axios.get("/redis/cm/cluster").then(resp => {
+                axios.get("redis/cm/cluster").then(resp => {
                     this.open_cluster = resp.data.data;
                 }).catch(e => {
                     console.log(e);
