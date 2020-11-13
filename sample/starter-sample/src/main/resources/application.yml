@@ -4,6 +4,8 @@ server:
     context-path: /aaa
 
 spring:
+  application:
+    name:
   redis:
     database: 9
     host: 127.0.0.1

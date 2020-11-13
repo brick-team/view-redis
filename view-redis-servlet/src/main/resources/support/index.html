@@ -27,14 +27,26 @@
     <title>view-redis</title>
     <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+
+        .app {
+            height: 100%;
+            word-break: break-all;
+        }
+        .text p{
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .el-table .warning-row {
+            background: red;
+        }
+    </style>
 </head>
 
 <body>
-<div id="app">
+<div id="app" class="app">
     <el-tabs type="border-card">
         <el-tab-pane label="redis 基础信息">
-
-
             <div v-if="open_cluster">
                 <el-table
                         :data="cluster_infos"
@@ -97,94 +109,178 @@
 
             </div>
             <div v-else>
-                <el-row>
+                <el-row :gutter="20" style="margin-bottom: 20px;">
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
                                 <span>redis基本信息</span>
                             </div>
-                            <div>
-                                <!--                    redis 版本-->
-                                redis 版本:<span>{{easy_info.version}}</span><br/>
-                                <!--                    已使用内存-->
-                                已使用内存:<span>{{easy_info.useMemory|toMd}}</span>(MB)<br/>
-                                <!--                    客户端数量-->
-                                客户端数量:<span>{{easy_info.client}}</span><br/>
-                                <!--                    已执行数量-->
-                                已执行数量:<span>{{easy_info.execSize}}</span><br/>
-                                <!--                    执行时间,单位秒-->
-                                执行时间,单位秒:<span>{{easy_info.runTime}}</span>(秒)<br/>
-                                <!--                    运行描述-->
-                                运行描述:<span>{{easy_info.runDesc}}</span><br/>
+                            <div class="text">
+                                <!--redis 版本-->
+                                <p>
+                                    version:<span>{{easy_info.version}}</span>
+                                </p>
+                                <!--已使用内存-->
+                                <p>
+                                    useMemory:<span>{{easy_info.useMemory}}</span>(byte)
+                                </p>
+                                <!--客户端数量-->
+                                <p>
+                                    client:<span>{{easy_info.client}}</span>
+                                </p>
+                                <!--已执行数量-->
+                                <p>
+                                    execSize:<span>{{easy_info.execSize}}</span>
+                                </p>
+                                <!--执行时间,单位秒-->
+                                <p>
+                                    runTime:<span>{{easy_info.runTime}}</span>(秒)
+                                </p>
+                                <!--运行描述-->
+                                <p>
+                                    runDesc:<span>{{easy_info.runDesc}}</span>
+                                </p>
                             </div>
                         </el-card>
 
                     </el-col>
 
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
-                                <span>详细信息</span>
+                                <span>server_info_info</span>
                             </div>
-                            <div>
-                                redisVersion: <span>{{server_info.redisVersion}}</span><br/>
-                                redisGitSha1: <span>{{server_info.redisGitSha1}}</span><br/>
-                                redisGitDirty: <span>{{server_info.redisGitDirty}}</span><br/>
-                                redisBuildId: <span>{{server_info.redisBuildId}}</span><br/>
-                                redisMode: <span>{{server_info.redisMode}}</span><br/>
-                                os: <span>{{server_info.os}}</span><br/>
-                                archBits: <span>{{server_info.archBits}}</span><br/>
-                                multiplexingApi: <span>{{server_info.multiplexingApi}}</span><br/>
-                                processId: <span>{{server_info.processId}}</span><br/>
-                                runId: <span>{{server_info.runId}}</span><br/>
-                                tcpPort: <span>{{server_info.tcpPort}}</span><br/>
-                                uptimeInSeconds: <span>{{server_info.uptimeInSeconds}}</span><br/>
-                                uptimeInDays: <span>{{server_info.uptimeInDays}}</span><br/>
-                                hz: <span>{{server_info.hz}}</span><br/>
-                                lruClock: <span>{{server_info.lruClock}}</span><br/>
-                                executable: <span>{{server_info.executable}}</span><br/>
-                                configFile: <span>{{server_info.configFile}}</span><br/>
+                            <div class="text">
+                                <p>
+                                    redisVersion: <span>{{server_info.redisVersion}}</span>
+                                </p>
+                                <p>
+                                    redisGitSha1: <span>{{server_info.redisGitSha1}}</span>
+                                </p>
+                                <p>
+                                    redisGitDirty: <span>{{server_info.redisGitDirty}}</span>
+                                </p>
+                                <p>
+                                    redisBuildId: <span>{{server_info.redisBuildId}}</span>
+                                </p>
+                                <p>
+                                    redisMode: <span>{{server_info.redisMode}}</span>
+                                </p>
+                                <p>
+                                    os: <span>{{server_info.os}}</span>
+                                </p>
+                                <p>
+                                    archBits: <span>{{server_info.archBits}}</span>
+                                </p>
+                                <p>
+                                    multiplexingApi: <span>{{server_info.multiplexingApi}}</span>
+                                </p>
+                                <p>
+                                    processId: <span>{{server_info.processId}}</span>
+                                </p>
+                                <p>
+                                    runId: <span>{{server_info.runId}}</span>
+                                </p>
+                                <p>
+                                    tcpPort: <span>{{server_info.tcpPort}}</span>
+                                </p>
+                                <p>
+                                    uptimeInSeconds: <span>{{server_info.uptimeInSeconds}}</span>
+                                </p>
+                                <p>
+                                    uptimeInDays: <span>{{server_info.uptimeInDays}}</span>
+                                </p>
+                                <p>
+                                    hz: <span>{{server_info.hz}}</span>
+                                </p>
+                                <p>
+                                    lruClock: <span>{{server_info.lruClock}}</span>
+                                </p>
+                                <p>
+                                    executable: <span>{{server_info.executable}}</span>
+                                </p>
+                                <p>
+                                    configFile: <span>{{server_info.configFile}}</span>
+                                </p>
                             </div>
                         </el-card>
                     </el-col>
 
 
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
-                                <span>客户端</span>
+                                <span>clients</span>
                             </div>
-                            <div>
-                                connectedClients: <span>{{clients.connectedClients}}</span><br/>
-                                clientLongestOutputList: <span>{{clients.clientLongestOutputList}}</span><br/>
-                                clientBiggestInputBuf: <span>{{clients.clientBiggestInputBuf}}</span><br/>
-                                blockedClients: <span>{{clients.blockedClients}}</span><br/>
+                            <div class="text">
+                                <p>
+                                    connectedClients: <span>{{clients.connectedClients}}</span>
+                                </p>
+                                <p>
+                                    clientLongestOutputList: <span>{{clients.clientLongestOutputList}}</span>
+                                </p>
+                                <p>
+                                    clientBiggestInputBuf: <span>{{clients.clientBiggestInputBuf}}</span>
+                                </p>
+                                <p>
+                                    blockedClients: <span>{{clients.blockedClients}}</span>
+                                </p>
 
                             </div>
                         </el-card>
                     </el-col>
 
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
-                                <span>内存使用情况</span>
+                                <span>memory</span>
                             </div>
-                            <div>
-                                usedMemory: <span>{{memory.usedMemory}}</span><br/>
-                                usedMemoryHuman: <span>{{memory.usedMemoryHuman}}</span><br/>
-                                usedMemoryRss: <span>{{memory.usedMemoryRss}}</span><br/>
-                                usedMemoryRssHuman: <span>{{memory.usedMemoryRssHuman}}</span><br/>
-                                usedMemoryPeak: <span>{{memory.usedMemoryPeak}}</span><br/>
-                                usedMemoryPeakHuman: <span>{{memory.usedMemoryPeakHuman}}</span><br/>
-                                totalSystemMemory: <span>{{memory.totalSystemMemory}}</span><br/>
-                                totalSystemMemoryHuman: <span>{{memory.totalSystemMemoryHuman}}</span><br/>
-                                usedMemoryLua: <span>{{memory.usedMemoryLua}}</span><br/>
-                                usedMemoryLuaHuman: <span>{{memory.usedMemoryLuaHuman}}</span><br/>
-                                maxmemory: <span>{{memory.maxmemory}}</span><br/>
-                                maxmemoryHuman: <span>{{memory.maxmemoryHuman}}</span><br/>
-                                maxmemoryPolicy: <span>{{memory.maxmemoryPolicy}}</span><br/>
-                                memFragmentationRatio: <span>{{memory.memFragmentationRatio}}</span><br/>
-                                memAllocator: <span>{{memory.memAllocator}}</span><br/>
+                            <div class="text">
+                                <p>
+                                    usedMemory: <span>{{memory.usedMemory}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryHuman: <span>{{memory.usedMemoryHuman}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryRss: <span>{{memory.usedMemoryRss}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryRssHuman: <span>{{memory.usedMemoryRssHuman}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryPeak: <span>{{memory.usedMemoryPeak}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryPeakHuman: <span>{{memory.usedMemoryPeakHuman}}</span>
+                                </p>
+                                <p>
+                                    totalSystemMemory: <span>{{memory.totalSystemMemory}}</span>
+                                </p>
+                                <p>
+                                    totalSystemMemoryHuman: <span>{{memory.totalSystemMemoryHuman}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryLua: <span>{{memory.usedMemoryLua}}</span>
+                                </p>
+                                <p>
+                                    usedMemoryLuaHuman: <span>{{memory.usedMemoryLuaHuman}}</span>
+                                </p>
+                                <p>
+                                    maxmemory: <span>{{memory.maxmemory}}</span>
+                                </p>
+                                <p>
+                                    maxmemoryHuman: <span>{{memory.maxmemoryHuman}}</span>
+                                </p>
+                                <p>
+                                    maxmemoryPolicy: <span>{{memory.maxmemoryPolicy}}</span>
+                                </p>
+                                <p>
+                                    memFragmentationRatio: <span>{{memory.memFragmentationRatio}}</span>
+                                </p>
+                                <p>
+                                    memAllocator: <span>{{memory.memAllocator}}</span>
+                                </p>
 
                             </div>
                         </el-card>
@@ -192,117 +288,196 @@
 
 
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
                                 <span>persistence</span>
                             </div>
-                            <div>
-                                loading: <span>{{persistence.loading}}</span><br/>
-                                rdbChangesSinceLastSave: <span>{{persistence.rdbChangesSinceLastSave}}</span><br/>
-                                rdbBgsaveInProgress: <span>{{persistence.rdbBgsaveInProgress}}</span><br/>
-                                rdbLastSaveTime: <span>{{persistence.rdbLastSaveTime}}</span><br/>
-                                rdbLastBgsaveStatus: <span>{{persistence.rdbLastBgsaveStatus}}</span><br/>
-                                rdbLastBgsaveTimeSec: <span>{{persistence.rdbLastBgsaveTimeSec}}</span><br/>
-                                rdbCurrentBgsaveTimeSec: <span>{{persistence.rdbCurrentBgsaveTimeSec}}</span><br/>
-                                aofEnabled: <span>{{persistence.aofEnabled}}</span><br/>
-                                aofRewriteInProgress: <span>{{persistence.aofRewriteInProgress}}</span><br/>
-                                aofRewriteScheduled: <span>{{persistence.aofRewriteScheduled}}</span><br/>
-                                aofLastRewriteTimeSec: <span>{{persistence.aofLastRewriteTimeSec}}</span><br/>
-                                aofCurrentRewriteTimeSec: <span>{{persistence.aofCurrentRewriteTimeSec}}</span><br/>
-                                aofLastBgrewriteStatus: <span>{{persistence.aofLastBgrewriteStatus}}</span><br/>
-                                aofLastWriteStatus: <span>{{persistence.aofLastWriteStatus}}</span><br/>
+                            <div class="text">
+                                <p>
+                                    loading: <span>{{persistence.loading}}</span>
+                                </p>
+                                <p>
+                                    rdbChangesSinceLastSave: <span>{{persistence.rdbChangesSinceLastSave}}</span>
+                                </p>
+                                <p>
+                                    rdbBgsaveInProgress: <span>{{persistence.rdbBgsaveInProgress}}</span>
+                                </p>
+                                <p>
+                                    rdbLastSaveTime: <span>{{persistence.rdbLastSaveTime}}</span>
+                                </p>
+                                <p>
+                                    rdbLastBgsaveStatus: <span>{{persistence.rdbLastBgsaveStatus}}</span>
+                                </p>
+                                <p>
+                                    rdbLastBgsaveTimeSec: <span>{{persistence.rdbLastBgsaveTimeSec}}</span>
+                                </p>
+                                <p>
+                                    rdbCurrentBgsaveTimeSec: <span>{{persistence.rdbCurrentBgsaveTimeSec}}</span>
+                                </p>
+                                <p>
+                                    aofEnabled: <span>{{persistence.aofEnabled}}</span>
+                                </p>
+                                <p>
+                                    aofRewriteInProgress: <span>{{persistence.aofRewriteInProgress}}</span>
+                                </p>
+                                <p>
+                                    aofRewriteScheduled: <span>{{persistence.aofRewriteScheduled}}</span>
+                                </p>
+                                <p>
+                                    aofLastRewriteTimeSec: <span>{{persistence.aofLastRewriteTimeSec}}</span>
+                                </p>
+                                <p>
+                                    aofCurrentRewriteTimeSec: <span>{{persistence.aofCurrentRewriteTimeSec}}</span>
+                                </p>
+                                <p>
+                                    aofLastBgrewriteStatus: <span>{{persistence.aofLastBgrewriteStatus}}</span>
+                                </p>
+                                <p>
+                                    aofLastWriteStatus: <span>{{persistence.aofLastWriteStatus}}</span>
+                                </p>
 
                             </div>
                         </el-card>
                     </el-col>
 
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
                                 <span>stats</span>
                             </div>
-                            <div>
-                                totalConnectionsReceived: <span>{{stats.totalConnectionsReceived}}</span><br/>
-                                totalCommandsProcessed: <span>{{stats.totalCommandsProcessed}}</span><br/>
-                                instantaneousOpsPerSec: <span>{{stats.instantaneousOpsPerSec}}</span><br/>
-                                totalNetInputBytes: <span>{{stats.totalNetInputBytes}}</span><br/>
-                                totalNetOutputBytes: <span>{{stats.totalNetOutputBytes}}</span><br/>
-                                instantaneousInputKbps: <span>{{stats.instantaneousInputKbps}}</span><br/>
-                                instantaneousOutputKbps: <span>{{stats.instantaneousOutputKbps}}</span><br/>
-                                rejectedConnections: <span>{{stats.rejectedConnections}}</span><br/>
-                                syncFull: <span>{{stats.syncFull}}</span><br/>
-                                syncPartialOk: <span>{{stats.syncPartialOk}}</span><br/>
-                                syncPartialErr: <span>{{stats.syncPartialErr}}</span><br/>
-                                expiredKeys: <span>{{stats.expiredKeys}}</span><br/>
-                                evictedKeys: <span>{{stats.evictedKeys}}</span><br/>
-                                keyspaceHits: <span>{{stats.keyspaceHits}}</span><br/>
-                                keyspaceMisses: <span>{{stats.keyspaceMisses}}</span><br/>
-                                pubsubChannels: <span>{{stats.pubsubChannels}}</span><br/>
-                                pubsubPatterns: <span>{{stats.pubsubPatterns}}</span><br/>
-                                latestForkUsec: <span>{{stats.latestForkUsec}}</span><br/>
-                                migrateCachedSockets: <span>{{stats.migrateCachedSockets}}</span><br/>
+                            <div class="text">
+                                <p>
+                                    totalConnectionsReceived: <span>{{stats.totalConnectionsReceived}}</span>
+                                </p>
+                                <p>
+                                    totalCommandsProcessed: <span>{{stats.totalCommandsProcessed}}</span>
+                                </p>
+                                <p>
+                                    instantaneousOpsPerSec: <span>{{stats.instantaneousOpsPerSec}}</span>
+                                </p>
+                                <p>
+                                    totalNetInputBytes: <span>{{stats.totalNetInputBytes}}</span>
+                                </p>
+                                <p>
+                                    totalNetOutputBytes: <span>{{stats.totalNetOutputBytes}}</span>
+                                </p>
+                                <p>
+                                    instantaneousInputKbps: <span>{{stats.instantaneousInputKbps}}</span>
+                                </p>
+                                <p>
+                                    instantaneousOutputKbps: <span>{{stats.instantaneousOutputKbps}}</span>
+                                </p>
+                                <p>
+                                    rejectedConnections: <span>{{stats.rejectedConnections}}</span>
+                                </p>
+                                <p>
+                                    syncFull: <span>{{stats.syncFull}}</span>
+                                </p>
+                                <p>
+                                    syncPartialOk: <span>{{stats.syncPartialOk}}</span>
+                                </p>
+                                <p>
+                                    syncPartialErr: <span>{{stats.syncPartialErr}}</span>
+                                </p>
+                                <p>
+                                    expiredKeys: <span>{{stats.expiredKeys}}</span>
+                                </p>
+                                <p>
+                                    evictedKeys: <span>{{stats.evictedKeys}}</span>
+                                </p>
+                                <p>
+                                    keyspaceHits: <span>{{stats.keyspaceHits}}</span>
+                                </p>
+                                <p>
+                                    keyspaceMisses: <span>{{stats.keyspaceMisses}}</span>
+                                </p>
+                                <p>
+                                    pubsubChannels: <span>{{stats.pubsubChannels}}</span>
+                                </p>
+                                <p>
+                                    pubsubPatterns: <span>{{stats.pubsubPatterns}}</span>
+                                </p>
+                                <p>
+                                    latestForkUsec: <span>{{stats.latestForkUsec}}</span>
+                                </p>
+                                <p>
+                                    migrateCachedSockets: <span>{{stats.migrateCachedSockets}}</span>
+                                </p>
 
                             </div>
                         </el-card>
                     </el-col>
                 </el-row>
-
-
-                <el-row>
-
+                <el-row :gutter="20">
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
                                 <span>replication</span>
                             </div>
-                            <div>
-                                role: <span>{{replication.role}}</span><br/>
-                                connectedSlaves: <span>{{replication.connectedSlaves}}</span><br/>
-                                masterReplOffset: <span>{{replication.masterReplOffset}}</span><br/>
-                                replBacklogActive: <span>{{replication.replBacklogActive}}</span><br/>
-                                replBacklogSize: <span>{{replication.replBacklogSize}}</span><br/>
-                                replBacklogFirstByteOffset: <span>{{replication.replBacklogFirstByteOffset}}</span><br/>
-                                replBacklogHistlen: <span>{{replication.replBacklogHistlen}}</span><br/>
+                            <div class="text">
+                                <p>
+                                    role: <span>{{replication.role}}</span>
+                                </p>
+                                <p>
+                                    connectedSlaves: <span>{{replication.connectedSlaves}}</span>
+                                </p>
+                                <p>
+                                    masterReplOffset: <span>{{replication.masterReplOffset}}</span>
+                                </p>
+                                <p>
+                                    replBacklogActive: <span>{{replication.replBacklogActive}}</span>
+                                </p>
+                                <p>
+                                    replBacklogSize: <span>{{replication.replBacklogSize}}</span>
+                                </p>
+                                <p>
+                                    replBacklogFirstByteOffset: <span>{{replication.replBacklogFirstByteOffset}}</span>
+                                </p>
+                                <p>
+                                    replBacklogHistlen: <span>{{replication.replBacklogHistlen}}</span>
+                                </p>
 
                             </div>
                         </el-card>
                     </el-col>
                     <el-col :span="4">
 
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
                                 <span>cpu</span>
                             </div>
-                            <div>
-                                usedCpuSys: <span>{{cpu.usedCpuSys}}</span><br/>
-                                usedCpuUser: <span>{{cpu.usedCpuUser}}</span><br/>
-                                usedCpuSysChildren: <span>{{cpu.usedCpuSysChildren}}</span><br/>
-                                usedCpuUserChildren: <span>{{cpu.usedCpuUserChildren}}</span><br/>
-
+                            <div class="text">
+                                <p>
+                                    usedCpuSys: <span>{{cpu.usedCpuSys}}</span>
+                                </p>
+                                <p>
+                                    usedCpuUser: <span>{{cpu.usedCpuUser}}</span>
+                                </p>
+                                <p>
+                                    usedCpuSysChildren: <span>{{cpu.usedCpuSysChildren}}</span>
+                                </p>
+                                <p>
+                                    usedCpuUserChildren: <span>{{cpu.usedCpuUserChildren}}</span>
+                                </p>
                             </div>
                         </el-card>
                     </el-col>
                     <el-col :span="4">
-                        <el-card :span="4" class="box-card">
+                        <el-card :span="4" class="box-card" :body-style="{height:'300px',overflow:'auto'}">
                             <div class="clearfix" slot="header">
                                 <span>cluster</span>
                             </div>
-                            <div>
-                                clusterEnabled: <span>{{cluster.clusterEnabled}}</span><br/>
-
+                            <div class="text">
+                                <p>
+                                    clusterEnabled: <span>{{cluster.clusterEnabled}}</span>
+                                </p>
                             </div>
                         </el-card>
                     </el-col>
                 </el-row>
             </div>
-
-
         </el-tab-pane>
-
-
         <el-tab-pane label="key 操作">
-
-
             <el-container>
                 <el-container>
                     <el-container>
@@ -310,21 +485,12 @@
                         <el-main>
                             <div>
                                 <el-row>
-                                    <el-col :span="4">
-                                        <el-input placeholder="请输入内容" v-model="input"></el-input>
-                                    </el-col>
-                                    <el-col :span="4">
+                                    <el-col :span="24">
+                                        <el-input placeholder="请输入查询内容" v-model="input" style="width: 200px;margin-right: 10px;"></el-input>
                                         <el-button @click.native="search_key(input)" type="primary">搜索</el-button>
-                                    </el-col>
-
-                                    <el-col :span="4">
                                         <el-button @click.native="addRedis" type="primary">添加redis键值</el-button>
-                                    </el-col>
-
-                                    <el-col :span="4">
                                         <el-button @click.native="deleteKeysApi" type="danger">批量删除key</el-button>
                                     </el-col>
-
                                 </el-row>
                             </div>
                             <div>
@@ -335,12 +501,12 @@
                                 >
                                     <el-table-column
                                             type="selection"
-                                    >
+                                            width="55">
                                     </el-table-column>
                                     <el-table-column
                                             label="key"
                                             prop="key"
-                                    >
+                                            width="180">
                                     </el-table-column>
                                     <el-table-column
                                             label="type"
@@ -354,18 +520,19 @@
                                     <el-table-column
                                             fixed="right"
                                             label="操作"
-                                    >
+                                            width="100">
                                         <template slot-scope="scope">
                                             <el-button @click="handleClick(scope.row)" size="small" type="primary">查看
                                             </el-button>
                                             <el-button @click="delKey(scope.row)" size="small" type="danger">删除
                                             </el-button>
-                                            <el-button @click="setExpire(scope.row)" size="small" type="primary">
-                                                设置过期时间
+
+                                            <el-button @click="setExpire(scope.row)" size="small" type="primary">设置过期时间
                                             </el-button>
                                             <el-button @click="changeKeyName(scope.row)" size="small" type="primary">
                                                 修改key名称
                                             </el-button>
+
                                         </template>
                                     </el-table-column>
 
@@ -410,15 +577,11 @@
                         </el-button>
                     </template>
                 </el-table-column>
+
+                <!--                分页-->
+
+
             </el-table>
-            <el-pagination
-                    :current-page="list_page.current"
-                    :page-size="list_page.size"
-                    :total="list_page.total"
-                    @current-change="listPageChange"
-                    layout="prev, pager, next"
-            >
-            </el-pagination>
         </div>
     </el-dialog>
 
@@ -454,18 +617,17 @@
     </el-dialog>
 
     <el-dialog :visible.sync="string_dialog_show" title="STRING">
-        <el-form :label-position="right" label-width="80px">
-            <el-form-item label="key：">
-                <el-input v-model="string_s.key"></el-input>
-            </el-form-item>
-            <el-form-item label="value:">
-                <el-input autosize type="textarea" v-model="string_s.value"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button @click="deleteForString" size="small" type="text">删除</el-button>
-                <el-button @click="updateForString" size="small" type="text">修改</el-button>
-            </el-form-item>
-        </el-form>
+        <div>
+            <div>
+                key: <span>{{string_s.key}}</span>
+            </div>
+            <div>
+                value: <span>{{string_s.value}}</span>
+            </div>
+
+            <el-button @click="deleteForString" size="small" type="text">删除</el-button>
+            <el-button @click="updateForString" size="small" type="text">修改</el-button>
+        </div>
     </el-dialog>
 
     <el-dialog :visible.sync="zset_dialog_show" title="ZSET">
@@ -498,15 +660,10 @@
                         </el-button>
                     </template>
                 </el-table-column>
+                <!--                分页-->
+
+
             </el-table>
-            <el-pagination
-                    :current-page="zset_page.current"
-                    :page-size="zset_page.size"
-                    :total="zset_page.total"
-                    @current-change="zsetPageChange"
-                    layout="prev, pager, next"
-            >
-            </el-pagination>
         </div>
 
     </el-dialog>
@@ -746,30 +903,11 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<style>
-    .el-table .warning-row {
-        background: red;
-    }
-
-
-</style>
 <script>
     new Vue({
         el: '#app',
         data: function () {
             return {
-                list_page: {
-                    current: 1,
-                    size: 3,
-                    total: 10,
-                    current_key: ''
-                },
-                zset_page: {
-                    current: 1,
-                    size: 3,
-                    total: 10,
-                    current_key: ''
-                },
                 open_cluster: true,
                 cluster_info_default_selector: "first",
                 cluster_infos: [
@@ -1054,18 +1192,6 @@
             }
         },
         methods: {
-            listPageChange: function (val) {
-                let that = this;
-                that.list_page.current = val;
-                console.log(that.list_page.current_key);
-                that.show_list(that.list_page.current_key);
-            },
-            zsetPageChange: function (val) {
-                let that = this;
-                that.zset_page.current = val;
-                console.log(that.list_page.current_key);
-                that.show_zset(that.zset_page.current_key);
-            },
             selectRedisCmdOperation() {
                 console.log(this.select_redis_cmd);
                 console.log(this.select_redis_node_id);
@@ -1333,11 +1459,9 @@
                     this.show_hash(row['key']);
                 } else if (row['dataType'] == 'ZSET') {
                     this.zset_dialog_show = true;
-                    this.zset_page.current_key = row['key']
                     this.show_zset(row['key']);
                 } else if (row['dataType'] == 'LIST') {
                     this.list_dialog_show = true;
-                    this.list_page.current_key = row['key'];
                     this.show_list(row['key']);
                 } else if (row['dataType'] == 'SET') {
                     this.set_dialog_show = true;
@@ -1656,18 +1780,14 @@
 
             },
             show_list(key) {
-                let that = this;
                 this.list.key = key;
                 axios
                     .post("redis/list/get/", {
-                        key: key,
-                        start: ((that.list_page.current - 1) * that.list_page.size).toString(),
-                        stop: (that.list_page.current * that.list_page.size - 1).toString()
+                        key: key
                     })
                     .then(response => {
                         console.log(response.data.data);
-                        that.list.value = response.data.data.rows;
-                        that.list_page.total = response.data.data.size;
+                        this.list.value = response.data.data;
                     }).catch(function (error) {
                     console.log(error);
                 });
@@ -1696,18 +1816,14 @@
                 });
             },
             show_zset(key) {
-                let that = this;
-                that.zset_s.key = key;
+                this.zset_s.key = key;
                 axios
                     .post("redis/zset/get/", {
-                        key: key,
-                        start: ((that.zset_page.current - 1) * that.zset_page.size).toString(),
-                        stop: (that.zset_page.current * that.zset_page.size - 1).toString()
+                        key: key
                     })
                     .then(response => {
                         console.log(response.data.data);
-                        that.zset_s.value = response.data.data.rows;
-                        that.zset_page.total = response.data.data.size;
+                        this.zset_s.value = response.data.data;
                     }).catch(function (error) {
                     console.log(error);
                 });
@@ -1908,25 +2024,8 @@
             this.enableRedis();
             this.enableRedisCluster();
             console.log(this.open_cluster);
-        },
-        filters: {
-            toMd: function (value) {
-                if (!value) return ''; //如果为空，则返回空字符串
-                num = Number(value);
-                if (isNaN(num)) {
-                    return value;
-                }
-                num = num / 1024 / 1024;
-                num = num.toFixed(2);
-                return num;
-            }
         }
 
     })
 </script>
-<style>
-    .el-col .el-card {
-        margin: 10px;
-    }
-</style>
 </html>

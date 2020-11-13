@@ -17,7 +17,7 @@
   -->
 
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -26,22 +26,56 @@
     <title>login</title>
 
     <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        html,body{
+            height: 100%;
+            margin: 0;
+        }
+        body{
+            background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1605245778391&di=c99c10c1ca77c548325bbe6baeda9fda&imgtype=0&src=http%3A%2F%2F0.rc.xiniu.com%2Fg1%2FM00%2F1C%2FF7%2FCgAGS1c10NCAJY5ZAAQ0hC8FQEQ180.jpg") no-repeat;
+            background-size: 100% 100%;
+        }
+        .app, #particles-js{
+            height: 100%;
+        }
+        .login-box{
+            width: 400px;
+            padding: 40px;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            background: rgba(0,0,0,.3);
+            box-shadow: 0 0 5px #fff;
+            border-radius: 5px;
+        }
+        .login-box .input{
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .login-box .input .el-input{
+            width: calc(100% - 51px);
+            margin-left: 10px;
+        }
+        .login-box .input .el-input__inner{
+            font-size: 16px;
+            color: #fff;
+            background: rgba(255,255,255,.1);
+        }
+    </style>
 </head>
 <body>
-<div id="app">
-    <div class="center">
-        <div class="logo">REDIS-VIEW👀</div>
-        <el-form class="login_form">
-            <el-form-item>
-                <el-input placeholder="请输入账号" prefix-icon="el-icon-user" v-model="login.username"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-input placeholder="请输入密码" prefix-icon="el-icon-lock" show-password
-                          v-model="login.password"></el-input>
-            </el-form-item>
-        </el-form>
-        <el-button @click="loginApi" style="width: 100%;" type="primary">login</el-button>
+<div id="app" class="app">
+    <div id="particles-js"></div> <!--粒子特效-->
+    <div class="login-box">
+        <div class="input">
+            账号: <el-input placeholder="请输入账号" v-model="login.username"></el-input>
+        </div>
+        <div class="input">
+            密码: <el-input placeholder="请输入密码" v-model="login.password" show-password></el-input>
+        </div>
+        <el-button @click="loginApi" type="primary">登录</el-button>
     </div>
 </div>
 </body>
@@ -50,8 +84,8 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/particles.js@2.0.0/particles.js"></script>
 <script>
     new Vue({
         el: '#app',
@@ -62,15 +96,6 @@
                     password: ""
                 }
             }
-        },
-        created: function () {
-            var that = this;
-            document.onkeydown = (e) => {   //按下回车提交
-                let key = window.event.keyCode;
-                if (key == 13) {
-                    that.loginApi();
-                }
-            };
         },
         methods: {
             loginApi() {
@@ -96,25 +121,118 @@
         },
 
     })
-
+    particlesJS('particles-js',
+        {
+            "particles": {
+                "number": {
+                    "value": 120,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true,
+            "config_demo": {
+                "hide_card": false,
+                "background_color": "#b61924",
+                "background_image": "",
+                "background_position": "50% 50%",
+                "background_repeat": "no-repeat",
+                "background_size": "cover"
+            }
+        }
+    );
 </script>
-<style>
-    .logo {
-        font-size: xx-large;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .center {
-        background-color: #eee;;
-        width: 450px;
-        height: 300px;
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        transform: translate(-50%);
-        padding: 20px;
-        border-radius: 5px;
-    }
-</style>
 </html>
