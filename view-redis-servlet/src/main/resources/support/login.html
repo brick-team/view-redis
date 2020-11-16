@@ -32,7 +32,7 @@
             margin: 0;
         }
         body{
-            background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1605245778391&di=c99c10c1ca77c548325bbe6baeda9fda&imgtype=0&src=http%3A%2F%2F0.rc.xiniu.com%2Fg1%2FM00%2F1C%2FF7%2FCgAGS1c10NCAJY5ZAAQ0hC8FQEQ180.jpg") no-repeat;
+            background-color: #d7cabb;
             background-size: 100% 100%;
         }
         .app, #particles-js{
@@ -46,7 +46,7 @@
             left: 50%;
             transform: translate(-50%,-50%);
             text-align: center;
-            background: rgba(0,0,0,.3);
+            background: rgb(167, 113, 113);
             box-shadow: 0 0 5px #fff;
             border-radius: 5px;
         }
@@ -67,7 +67,6 @@
 </head>
 <body>
 <div id="app" class="app">
-    <div id="particles-js"></div> <!--粒子特效-->
     <div class="login-box">
         <div class="input">
             账号: <el-input placeholder="请输入账号" v-model="login.username"></el-input>
@@ -85,7 +84,6 @@
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/particles.js@2.0.0/particles.js"></script>
 <script>
     new Vue({
         el: '#app',

@@ -132,6 +132,13 @@ public class ViewRedisServlet extends HttpServlet {
 			resp.setContentType("text/html; charset=utf-8");
 
 		}
+		if (filePath.endsWith(".jpg")) {
+			byte[] bytes = MyUtils.readByteArrayFromResource(filePath);
+			if (bytes != null) {
+				resp.getOutputStream().write(bytes);
+			}
+
+		}
 
 		String text = MyUtils.readFromResource(filePath);
 		assert text != null;
@@ -175,12 +182,14 @@ public class ViewRedisServlet extends HttpServlet {
 
 		// 进入登录页面
 		if ("".equals(path) || "login".equals(path) || "/".equals(path)) {
-			returnResourceFile("login.html", "", resp);
+//			returnResourceFile("login.html", "", resp);
+			resp.sendRedirect(contextPath + servletPath + "/login.html");
 		}
 		// 进入 view redis 管理页面
 		if ("/index.html".equals(path)) {
 			if (checkSession(req, resp)) {
-				returnResourceFile("index.html", "", resp);
+				resp.sendRedirect(contextPath + servletPath + "/login.html");
+//				returnResourceFile("index.html", "", resp);
 			}
 			else {
 				return;
@@ -219,6 +228,16 @@ public class ViewRedisServlet extends HttpServlet {
 		}
 		if (path.startsWith("/cm")) {
 			redisConnectionService.handler(path, req, resp);
+		}
+
+		if (
+				path.endsWith("html") ||
+						path.endsWith("css") ||
+						path.endsWith("js")
+				|| path.endsWith(".jpg")
+		) {
+
+			returnResourceFile(path, uri, resp);
 		}
 	}
 
